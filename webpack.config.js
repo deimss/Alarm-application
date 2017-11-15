@@ -3,10 +3,10 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/App.js',
   output : {
     path: path.resolve(__dirname + '/dist'),
-    filename: 'app.bundle.js'
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -15,7 +15,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: ["css-loader","sass-loader"],
-          publicPath: '/dist'
+          publicPath: './dist/'
 
         })
       },
@@ -23,7 +23,13 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      }
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=200000' },
+			{
+				test   : /vendor\/.+\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+			    loader : 'file-loader',
+			    exclude: /node_modules/
+			}
     ]
   },
   devServer: {
@@ -33,14 +39,6 @@ module.exports = {
     open: true
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'React-Webpack App',
-      minify: {
-        collapseWhitespace: true
-      },
-      hash: true,
-      template: './src/index.html', 
-    }),
     new ExtractTextPlugin({
        filename: 'style.css'
     })   

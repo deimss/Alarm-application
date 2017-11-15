@@ -1,6 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+body,html {
+  height: 100%;
+  width: 100%;
+}
+
+@font-face {
+font-family: DINPro;
+src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
+}
+
+@font-face {
+font-family: DINProReg;
+src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
+}
+
+a {
+  text-decoration-line: none;
+}
+
 body {
-  background-color: rgb(32, 97, 158);
-  p {
-    color: white;
+    font-family: DINPro;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+    background-color: #f5f5f5;
+}
+.container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+ .logo-container {
+   margin-top: 32px; 
+   display: flex;
+   justify-content: center;
+   padding-bottom: 153px;
+ }
+ .logo-container span {
+  display: block;
+  color: #b52f54;
+  font-family: DINPro;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 9.5px;
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+  align-self: center;
+}
+
+.singup-logo-container {
+  margin-top: 32px; 
+  display: flex;
+  justify-content: center;
+  padding-bottom: 85px;
+}
+.singup-logo-container span {
+  display: block;
+ color: #b52f54;
+ font-family: DINPro;
+ font-size: 18px;
+ font-weight: bold;
+ padding-left: 9.5px;
+ text-transform: uppercase; 
+ letter-spacing: 1px;
+ align-self: center;
+}
+
+ .Log-in {
+    font-family: DINPro;
+    font-size: 72px;
+    font-weight: 500;
+    line-height: 1.33;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+    padding-bottom: 24px;
   }
+
+  .container [type="submit"] {
+    width: 400px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #b52f54;
+    color: #ffffff;
+    font-family: DINPro;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+  }
+  .container input[type="text"],input[type="password"],input[type="email"] {
+    width: 400px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #ececec;
+    padding:12px 16px;
+    box-sizing: border-box;
+  }
+
+  .Email {
+    text-align: left;
+    color: #000000;
+    padding-bottom: 8px;
+  }
+
+  .Password {
+    text-align: left;
+    color: #000000;
+    padding-bottom: 8px;
+    padding-top: 16px;
+  }
+
+  .Dont-have-an-accoun {
+    font-family: DINProReg;
+    text-align: center;
+    color: #000000;
+    padding-top: 24px;
+  }
+
+  .Forgot-pas {
+    font-family: DINProReg;
+    text-align: right;
+    padding-bottom: 24px;
+    padding-top: 8px;
+  }
+
+ .pink {
+   color: #b52f54;
+ }
+
+ .Sign-up {
+  width: 240px;
+  height: 96px;
+  font-family: DINPro;
+  font-size: 72px;
+  font-weight: 500;
+  line-height: 1.33;
+  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.5);
+  padding-bottom: 21px;
+}
+
+.logo2 {
+    width: 125px;
+    padding-bottom: 85px;
+    margin: 32px auto 0 auto; 
+}
+.p-pad {
+  padding-bottom: 8px;
+}
+
+.ipField {
+  padding-bottom: 16px;
+  position: relative;
+}
+
+[value="Create account"] {
+  margin-top:8px;
+}
+
+.ipField [type="button"] {
+  font-family: DINPro;
+  width: 35px;
+  height: 16px;
+  border: none;
+  position: absolute;
+  bottom: 28px;
+  right: 16px;
+  z-index: 4;
+  background-color: white;
+
+}
+
+.pos {
+  display: block;
+  position: relative;
+}
+
+.error-password {
+  color: #b52f54;
+  margin-bottom: 15px;
+
+  
+}
+
+.error-password *{
+  vertical-align: middle;
+  
+}
+
+.error-password span{
+  padding-left: 7px; 
+}
+
+.error-email, .error-email-password {
+  color: #b52f54;
+  margin-bottom: 15px; 
+}
+
+.error-email-password {
+  padding-top: 7px;
+}
+
+.error-email *, .error-email-password *{
+  vertical-align: middle;
+  
+}
+
+.error-email span, .error-email-password span{
+  padding-left: 7px; 
 }
