@@ -2,9 +2,9 @@ import css from './app.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LogIn from './Log_in';
+import LogIn from './Sign_up';
 
 ReactDOM.render(
-  <LogIn />,
+  <App />,
   document.getElementById('root')
 );
