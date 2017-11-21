@@ -184,7 +184,7 @@ class SignUp extends React.Component {
             <form>
               <div className="ipField">
                 <label><p className="p-pad">First name<span className="pink">&nbsp;*</span></p>
-                <input type="text"  ref={(input) => { this.firstNameInput = input; }} value={this.state.valueFirstName} onChange={this.handleChangeFirstName} onBlur={this.validateFirstNameField} placeholder="Nancy" className="firstinp" required /></label>
+                <input type="text"  ref={(input) => { this.firstNameInput = input; }} value={this.state.valueFirstName} onChange={this.handleChangeFirstName} onBlur={this.validateFirstNameField} placeholder="Nancy" maxLength='30' className="firstinp" required /></label>
               </div>
               {this.state.showErrorFirstName && <div className="error-email"><svg fill="#b52f54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -192,7 +192,7 @@ class SignUp extends React.Component {
               </svg><span>This field should contain from 2 to 30 letters</span></div>}
               <div className="ipField">
                   <label><p className="p-pad">Last name<span className="pink">&nbsp;*</span></p>
-                  <input type="text"  ref={(input) => { this.lastNameInput = input; }} value={this.state.valueLastName} onBlur={this.validateLastNameField} onChange={this.handleChangeLastName} placeholder="McQueen" className="secondinp" required /></label>
+                  <input type="text"  ref={(input) => { this.lastNameInput = input; }} value={this.state.valueLastName} onBlur={this.validateLastNameField} onChange={this.handleChangeLastName} placeholder="McQueen" maxLength='30' className="secondinp" required /></label>
               </div>
               {this.state.showErrorLastName && <div className="error-email"><svg fill="#b52f54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -212,10 +212,10 @@ class SignUp extends React.Component {
               </svg><span>User already exists</span></div>}
               <div className="ipField pos" >
                   <label><p className="p-pad">Password<span className="pink">&nbsp;*</span></p>
-                  <input type={this.state.statePasswordInp}  ref={(input) => { this.passwordInput = input; }} value={this.state.valuePassword} onBlur={this.validatePasswordField} onChange={this.handleChangePassword} placeholder="Enter your password"  className="fourthinp" required />
+                  <input type={this.state.statePasswordInp}  ref={(input) => { this.passwordInput = input; }} value={this.state.valuePassword} onBlur={this.validatePasswordField} onChange={this.handleChangePassword} placeholder="Enter your password" maxLength='16' className="fourthinp" required />
                   <input type="button" value={this.state.stateButton} className="pink buttonShowHide" onClick={this.showHideButton}/></label>
               </div>
-              {this.state.showErrorPassword && <div className="error-password" ><svg fill="#b52f54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              {this.state.showErrorPassword && <div className="error-password" ><svg fill="#b52f54" height="24" viewBox="0 0 24 24" width="24"  xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 0h24v24H0V0z" fill="none"/>
                   <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
               </svg><span>The password must be between 8 and 16 characters</span></div>}
