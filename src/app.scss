@@ -18,6 +18,11 @@ font-family: DINProReg;
 src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
 }
 
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(./assets/fonts/HelveticaNeue.ttf); 
+  }
+
 a {
   text-decoration-line: none;
 }
@@ -212,4 +217,8 @@ body {
 
 .error-email span, .error-email-password span{
   padding-left: 7px; 
+}
+
+#root {
+  height:100%
 }
