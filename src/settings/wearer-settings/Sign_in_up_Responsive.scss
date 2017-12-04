@@ -1,0 +1,246 @@
+*{
+    /* border: 1px solid black; */
+    margin:0;
+    box-sizing: border-box;
+    
+}
+
+
+/*@font-face{
+   font-family: DINPro-Regular;
+   src: url(../assets/fonts/DINPro-Regular_13937.ttf);
+}
+@font-face{   
+    font-family: DINPro-Medium;
+    src: url(../assets/fonts/DINPro-Medium_13936.ttf);
+}*/
+
+html, body {
+  height: 100%;
+}
+
+body{
+    background-color: #f5f5f5;
+}
+.sign_Page{
+    width:100%;
+    /*background-color: #f5f5f5;*/
+/*    background-color: aquamarine;*/
+    min-height: 100%;
+}
+
+header{
+    width: 100%;
+    
+}
+
+.header__logo{
+/*
+    width: 122px;
+    display: block;
+    padding-top:32px;
+*/
+    padding-top: 32px;
+    margin: auto;
+    width: 191px;
+    height: 63px;
+/*    margin-left: 25px;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header__logo img{
+    width: 46.7px;
+    height: 22.3px;
+    margin-bottom: 5px;
+    margin-left: 12px;
+}
+
+.header__logo span{
+    padding-left: 10px;
+    font-family: DINPro-Medium;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #b52f54;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.wrap{
+    width: 100%;
+    max-width: 400px;
+    margin:auto;
+    margin-top: 153px;
+/*    margin-bottom: 328px;*/
+/*    height: 100%;*/
+}
+
+.wrapUp{
+    width: 100%;
+    max-width: 400px;
+    margin:auto;
+    margin-top: 30px;
+/*    margin-bottom: 260px;*/
+/*    height: 100%;*/
+}
+.signUpForm p, .signInForm p{
+    font-family: DINPro-Medium;
+    font-size: 14px;
+    text-align: left;
+    color: #000000; 
+}
+
+#heading{
+  font-size: 72px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.inputField {
+    border: 1px solid #b52f54;
+    color: black;
+}
+
+.submit, .showPass {
+    outline: none;
+}
+
+form{
+    margin-top: 20px;
+    position: relative;
+}
+
+input{
+    width: 100%;
+    height: 40px;
+    border-style: none;
+    border-radius: 4px;
+    border: solid 1px #ececec;
+    font-family: DINPro-Regular;
+    font-size: 14px;
+    text-align: left;
+    color: #000000;
+    padding-left: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+
+form p {
+    margin-bottom: 8px;
+    margin-top: 16px;
+    font-weight: 500;
+}
+
+p a{
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+    color: #b52f54;
+    font-family: DINPro-Regular;
+}
+
+
+.inputField::-moz-placeholder { /* Firefox 19+ */
+  color: black;
+}
+.inputField:-ms-input-placeholder { /* IE 10+ */
+  color: black;
+}
+.inputField:-moz-placeholder { /* Firefox 18- */
+  color: black;
+}
+
+input::placeholder {
+    color: black;
+}
+
+
+#forgotPass{
+    text-align: right;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.showPass {
+    border: none;
+    background: none;
+    text-decoration: none;
+    position: absolute;
+    bottom: 75px;
+    left: 349px;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+    color: #b52f54;
+    font-family: DINPro-Medium;
+
+}
+
+
+.submit {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: #b52f54;  
+    margin-top: 24px;
+}
+
+ .submit [value]{
+    display: inline-block;
+    text-align: center;
+    padding: 11px 0;
+    color:white;
+    font-family: DINPro-Medium;    
+}
+ .signUpForm [value]{
+    display: inline-block;
+    text-align: center;
+    padding: 11px 0;
+    color:white;
+    font-family: DINPro-Medium;    
+}
+
+.signInForm [value]{
+    display: inline-block;
+    text-align: center;
+    padding: 11px 0;
+    color: white;
+    font-family: DINPro-Medium;    
+}
+
+.sign{
+/*    padding-bottom: 328px;*/
+    margin-top: 24px;
+}
+
+.sign p {
+    text-align: center;
+    font-weight: 300;
+    font-family: DINPro-Regular;
+}
+
+span{
+    color: #b52f54;
+}
+.error {
+    right: 0px;
+    padding-top: 2px;
+    font-family: DINPro-Medium;
+    font-size: 14px;
+    position: absolute;
+}
+
+.login-error {
+    padding-top: 2px;
+    font-family: DINPro-Medium;
+    font-size: 14px;
+    position: absolute;
+}
+
+.signUpForm{
+    position: relative;   
+}
+

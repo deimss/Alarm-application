@@ -1,4 +1,16 @@
-* {
+
+@import './settings/wearer-settings/wearers-configuration-page/wearer-configuration-page/wearerConfiguration.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-profile/wearerProfile.scss';
+@import './settings/wearer-settings/header/header.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-navbar/navbar.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.scss';
+@import './settings/wearer-settings/Sign_in_up_Responsive.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wristo-group-configuration/wristoGroupConfiguration.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wristo-group-configuration/addWristo.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-profile/addWearer.scss';
+@import './settings/wearer-settings/wearers-configuration-page/carers-data/carersData.scss';
+
+/** {
   margin: 0;
   padding: 0;
   outline: none;
@@ -221,4 +233,4 @@ body {
 
 #root {
   height:100%
-}
+}*/
