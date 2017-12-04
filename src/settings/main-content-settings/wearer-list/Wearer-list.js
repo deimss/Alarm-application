@@ -10,15 +10,18 @@ class WearerList extends React.Component {
   };
   this.filterList = this.filterList.bind(this);
   this.focusOnSearch = this.focusOnSearch.bind(this);
+  this.focusOnWearer = this.focusOnWearer.bind(this);
   }
 
   componentWillMount(){
     this.setState({wearers: this.props.data})
   }
 
-  /*componentDidUpdate(){
-    this.setState({wearers: this.props.data})
-  }*/
+  focusOnWearer(e){
+    let id = e.target.id;
+    this.props.focusOnWearer(id);
+  }
+
 
   focusOnSearch() {
     this.searchInput.focus();
@@ -35,6 +38,8 @@ class WearerList extends React.Component {
 
   render() {
     const data = this.props.data;
+   // let li = this.state.wearers.map((number) => number);
+   // console.log(li);
       return (
         <div className="wearer-list-wrapper">
           <p>Configuration page</p>
@@ -52,7 +57,7 @@ class WearerList extends React.Component {
             </div>
             <div className="wearer-list-set">
               {this.state.wearers.map((number) =>
-              <li key={number.id}><div className='image-list-container'><div className="image-for-list"></div></div><div>{number.full_name}</div></li> )}
+              <li onClick={this.focusOnWearer} id={number.id} key={number.id}><div className='image-list-container'><div className="image-for-list"></div></div>{number.full_name}</li> )}
             </div>    
             <div className="weares-list-members-new">
               <div><svg fill="#B52F54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

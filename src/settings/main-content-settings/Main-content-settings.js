@@ -8,17 +8,24 @@ import ButtonsDevSev from './buttons/Buttons-save-del';
 import axios from 'axios';
 import Errore from './wearer-list/Error';
 import Loading from './wearer-list/Loading';
+//import { response } from '../../../../.cache/typescript/2.6/node_modules/@types/spdy';
 
 class MainContentSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      erorr: null
+      erorr: null,
+      activeWearer: null
     };
-    //this.getData = this.getData.bind(this);
+    this.focusOnWearer = this.focusOnWearer.bind(this);
   }
 
+  focusOnWearer(e){
+    this.setState({
+      activeWearer: Number(e)
+    })
+  }
 
  
 // Optionally the request above could also be done as
@@ -28,7 +35,13 @@ class MainContentSettings extends React.Component {
       headers: {'client': 'JwFppy1u4PsgG9P5-cLFTw','access-token': 'WgU6VG07HgGL8K690XnS4w','uid': 'boretskairuna23@gmail.com'}
     })
     .then(function (response) {
-      self.setState({data: response.data})
+      let firstWearer = response.data.filter(i => i)[0];
+      self.setState({
+        data: response.data,
+        activeWearer: firstWearer.id,
+        newData: response.data[0]
+      })
+
     })
     .catch(function (error) {
       self.setState({error: error})
@@ -36,11 +49,12 @@ class MainContentSettings extends React.Component {
   }
 
   render() {
+    const activeWearer = this.state.data.find(i => i.id === this.state.activeWearer)
     return (
         <div className='main-content-wrapper'>
-           {this.state.data.length === 0 ? <Loading /> : <WearerList data={this.state.data}/>}
+           {this.state.data.length === 0 ? <Loading /> : <WearerList focusOnWearer={e => this.focusOnWearer(e)} data={this.state.data}/>}
             <div className="wearers-configuration-wrapper">
-              {this.state.data.length === 0 ? <Loading /> : <WearerProfile data={this.state.data}/>}
+              {this.state.data.length === 0 ? <Loading /> : <WearerProfile data={activeWearer} />}
               <WearerConfiguration />
               <WatchersData />
               <ButtonsDevSev />

@@ -6,7 +6,6 @@ class WearerProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
       value: null,
       valueFullName: '',
       valueGender: '',
@@ -18,51 +17,70 @@ class WearerProfile extends React.Component {
 
   this.handleChangeField = this.handleChangeField.bind(this);
   this.handleChangeRadioButton = this.handleChangeRadioButton.bind(this);
+  this.setData = this.setData.bind(this);
   }
 
-  componentWillMount(){
-
-    let id1 = this.props.data.filter((item) => item.id == 15 );
-    let objArray = id1.map(item => item)[0];
-    if(objArray.gender =='male'){
-      id1.map(id1 =>{
+  componentWillReceiveProps(nextProps) {   
+    if(nextProps.data.gender =='male'){
         this.setState({
-          value: id1.heart_rate,
-          valueFullName: id1.full_name,
-          valueGender: id1.gender,
-          valueWeight: id1.weight,
-          valueAge: id1.age,
+          value: nextProps.data.heart_rate,
+          valueFullName: nextProps.data.full_name,
+          valueGender: nextProps.data.gender,
+          valueWeight: nextProps.data.weight,
+          valueAge: nextProps.data.age,
+          malechecked:'checked',
+          famelechecked: ''
+       })
+    }else {
+        this.setState({
+          value: nextProps.data.heart_rate,
+          valueFullName: nextProps.data.full_name,
+          valueGender: nextProps.data.gender,
+          valueWeight: nextProps.data.weight,
+          valueAge: nextProps.data.age,
+          famelechecked:'checked',
+          malechecked: ''
+       })
+    }
+
+  }
+
+
+  componentWillMount(){
+    let objArray = this.props.data;
+    console.log('Obj newdata',objArray)
+    if(objArray.gender =='male'){
+        this.setState({
+          value: objArray.heart_rate,
+          valueFullName: objArray.full_name,
+          valueGender: objArray.gender,
+          valueWeight: objArray.weight,
+          valueAge: objArray.age,
           malechecked:'checked'
        })
-      } )
     }else {
-      id1.map(id1 =>{
         this.setState({
-          value: id1.heart_rate,
-          valueFullName: id1.full_name,
-          valueGender: id1.gender,
-          valueWeight: id1.weight,
-          valueAge: id1.age,
+          value: objArray.heart_rate,
+          valueFullName: objArray.full_name,
+          valueGender: objArray.gender,
+          valueWeight: objArray.weight,
+          valueAge: objArray.age,
           famelechecked:'checked'
        })
-      } )
     }
   }
 
-  handleChangeRadioButton(e){
-    if(e.target.value === 'male'){
-      this.setState({
-        malechecked: 'checked',
-        famelechecked: '',
-      })
-    }else {
-      this.setState({
-        famelechecked: 'checked',
-        malechecked: '',
-    })
+  setData(){
+    let newData = {
+      heart_rate: this.state.value,
+      full_name: this.state.valueFullName,
+      gender: this.state.valueGender,
+      weight: this.state.valueWeight,
+      age: this.state.valueAge
+    }
+    this.props.setData(newData);
+    debugger
   }
-  }
-
 
   handleChangeField(inputName) {
     if(inputName === 'valueFullName'){
@@ -78,14 +96,25 @@ class WearerProfile extends React.Component {
         [inputName]: e.target.value
         })
     }
-
   }
-  
 
-  render() { 
-    const data = this.props.data;
-    return (
 
+  handleChangeRadioButton(e){
+    if(e.target.value === 'male'){
+      this.setState({
+        malechecked: 'checked',
+        famelechecked: '',
+      })
+    }else {
+      this.setState({
+        famelechecked: 'checked',
+        malechecked: '',
+    })
+  }
+  }
+
+  render() {  
+    return (   
       <div className="wearer-profile-wrapper">
         <div className="wrapper-image-field">
               <p>Wearer profile</p>
