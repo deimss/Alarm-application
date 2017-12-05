@@ -60,6 +60,7 @@ constructor(props) {
            //let divStyle={backgroundColor: 'grey'};
            // style={divStyle}
 
+        if(Object.keys(wearer).length != 0){
           return (
             <li className={wearerElementStyle} key={wearer.id.toString()} onClick={(event) => 
 
@@ -67,12 +68,15 @@ constructor(props) {
               this.setState({wearerId:wearer.id}); 
               this.props.getWearerDevice(wearer.id); 
               this.setState({isClicked : true}); 
+              this.props.resetWearerEdit();
               console.log('wearerId in navbar ==> ' + wearer.id)  }} >
 
                 <div className="wearers__user__logo"> <img src={`${wearer.image}`} alt='' /> </div> 
                 <div className="wearers__user__name"> {wearer.full_name} </div>
             </li>
           )
+        } else return null;
+          
         });
 
         

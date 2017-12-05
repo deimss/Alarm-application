@@ -1,4 +1,4 @@
-/*@import './main-content-settings/wearer-profile/input-range/input-range';
+@import './wearer-settings/wearers-configuration-page/wearer-profile/edit-wearer-profile/input-range/input-range';
 
 @mixin reset($marg,$pad,$border,$boxsize){
   margin: $marg;
@@ -22,7 +22,8 @@ a {
 }
 
 
-/* Start: Style navbar section */
+ /*Start: Style navbar section */
+
 .navbar-wrapper {
   display: flex;
   justify-content:space-between;
@@ -32,7 +33,7 @@ a {
   background-color: #D2D2D2;
   padding: 0 21px 0 30px;
   .navbar-logo-main {
-   background-image: url(./navbar/images/logo-main.png);
+   /*background-image: url(./navbar/images/logo-main.png);*/
    height: 40px;
    width: 80px;
   }
@@ -76,17 +77,17 @@ a {
 }
 
 .logo-navbar2 {
-    background-image: url(./navbar/images/Old1.png);
+    /*background-image: url(./navbar/images/Old1.png);*/
     width: 35px;
     height: 35px;
     padding: 15px 0 15px 0;
     border-radius: 50%;
 }
 
-li:hover {
+/*li:hover {
   background-color: #C2C2C0;
-}
-/* End: Style navbar section */
+}*/
+ /*End: Style navbar section */
 
 .main-content-wrapper {
   display: flex;
@@ -193,15 +194,17 @@ li:hover {
     }
   }
 }
-/*End: Style wearer list settings */
+/*End: Style wearer list settings 
 
 /*Start: Style wearer profile */
+
+/*wearer-profile-wrapper*/
 
 .wearer-profile-wrapper {
   display: flex;
   margin:35px 20px 0 0;
   box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
-  min-width: 959px;
+  /*min-width: 959px;*/
   width: 100%;
   height: 372px;
   background-color: white;
@@ -222,7 +225,7 @@ li:hover {
   .image-wearer {
     height: 216px;
     width: 196px;
-    background-image: url(./main-content-settings/wearer-profile/images/default_avatar.png);
+    /*background-image: url(./main-content-settings/wearer-profile/images/default_avatar.png);*/
   }
   p {
     font-size: 20px;
@@ -298,9 +301,9 @@ li:hover {
       }
       input[type=radio]:checked + label:before {
         content: "\2022";
-        line-height: 45%;
+        line-height: 47%;
         color: #B52F54;
-        font-size: 148%;
+        font-size: 191%;
     }
     }
     
@@ -449,7 +452,7 @@ li:hover {
 .wearerProfileWrap {
   margin-top:22px;
   margin-right: 20px;
-  min-width: 959px;
+  /*min-width: 959px;*/
   width: 100%;
 	background-color: white;
 	box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
@@ -601,7 +604,7 @@ li:hover {
 .wearerWatcherDataWrap {
   margin-top:22px;
   margin-right: 20px;
-  min-width: 959px;
+  /*min-width: 959px;*/
   width: 100%;
 	background-color: white;
 	box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
@@ -665,4 +668,4 @@ li:hover {
 
 .input-range__label-container {
   color :white;
-}*/
+}
