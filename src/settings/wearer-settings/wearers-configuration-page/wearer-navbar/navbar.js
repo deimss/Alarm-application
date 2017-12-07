@@ -13,11 +13,13 @@ class SettingsNavbar extends React.Component{
 constructor(props) {
     super(props);
     this.HandleSearch = this.HandleSearch.bind(this);
+    this.handleAddWearerButtonClicked = this.handleAddWearerButtonClicked.bind(this);
     // this.handleAddWearer = this.handleAddWearer.bind(this);
     this.state = {
       wearerId: 1,
-      isClicked : false,
+      liIsClicked : false,
       wearersBuffer: [],
+      addWearerButtonClicked: false,
 
       // wearersData : [
       // {'id': '1','full_name': 'Joan', 'gender': 'Female', 'age': '78', 'weight': '72', 'heart_rate': '120-150', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
@@ -32,6 +34,15 @@ constructor(props) {
 // woman --> https://image.flaticon.com/icons/svg/145/145847.svg
 // man ----> https://image.flaticon.com/icons/svg/145/145842.svg
 
+  handleAddWearerButtonClicked(){
+    this.setState({liIsClicked : false}); 
+    this.setState({addWearerButtonClicked: true});
+    
+
+    console.log('this.setState({addWearerButtonClicked: ', this.state.addWearerButtonClicked);
+    console.log('this.setState({liIsClicked :', this.state.liIsClicked);
+  };
+
   HandleSearch(event) {
       this.setState({search: event.target.value.substr(0,20)})
   };
@@ -39,7 +50,8 @@ constructor(props) {
  
 
  render(){
-
+console.log('liIsClicked :', this.state.liIsClicked);
+console.log('addWearerButtonClicked :', this.state.addWearerButtonClicked);
         //this.state.wearersBuffer = this.props.wearersData;
        // console.log(wearersBuffer);
 
@@ -49,14 +61,19 @@ constructor(props) {
               }
           );
 
+
+        console.log('navbar this.props.activeWearer id', this.props.activeWearer);
+
         let namesList = filteredWearers.map((wearer) => {
+
+          console.log('navbar filteredWearers.map((wearer)', wearer.id);
 
            let wearerElementStyle = classNames({
               'wearers__user': true,
-              'selWearer': this.state.wearerId === wearer.id ,
-              'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.isClicked) 
-            }); 
-
+              'selWearer': ((this.state.wearerId === wearer.id && this.state.liIsClicked && !this.state.addWearerButtonClicked) || (this.props.activeWearer === wearer.id && this.state.addWearerButtonClicked)),
+              'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
+            });
+// || (this.props.wearersData[0].id === wearer.id && !this.state.liIsClicked))
            //let divStyle={backgroundColor: 'grey'};
            // style={divStyle}
 
@@ -67,7 +84,8 @@ constructor(props) {
               {this.props.handleWearerData(wearer.id); 
               this.setState({wearerId:wearer.id}); 
               this.props.getWearerDevice(wearer.id); 
-              this.setState({isClicked : true}); 
+              this.setState({liIsClicked : true}); 
+              this.setState({addWearerButtonClicked : false}); 
               this.props.resetWearerEdit();
               console.log('wearerId in navbar ==> ' + wearer.id)  }} >
 
@@ -95,7 +113,7 @@ constructor(props) {
                     <ul>{namesList}</ul>
                 </div>
             </div>
-                <NavbarButton addWearer={this.props.addWearer} getWearers = {this.props.getWearers}/>
+                <NavbarButton handleAddWearerButton={this.props.handleAddWearerButton} getWearers = {this.props.getWearers} handleAddWearerButtonClicked = {this.handleAddWearerButtonClicked} />
             </div>
         );
     }

@@ -34,16 +34,27 @@ class WearerProfile extends React.Component{
 
         console.log('props.wearers', this.props.wearersData);
 
-        let wearersBuffer = this.props.wearersData;
-        // console.log(wearersBuffer);
-        let wearerID = this.props.wearerId;
-        console.log('wearerID', wearerID)
-        let wearerArray = wearersBuffer.filter(function (element){ 
-        // console.log('element',element);
-        if(element.id===wearerID) {return true}});//element
+        // let wearersBuffer = this.props.wearersData;
+ 
+        // // console.log(wearersBuffer);
+        // let wearerID = this.props.wearerId;
+        // console.log('wearerID', wearerID)
+        // let wearerArray = wearersBuffer.filter(function (element){ 
+        // // console.log('element',element);
+        // if(element.id===wearerID) {return true}});//element
 
-        console.log('wearerArray', wearerArray);
-        let wearer = wearerArray[0];
+        // console.log('wearerArray', wearerArray);
+        // let wearer = wearerArray[0];
+
+
+
+
+        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+// img src={`${wearer.image}`} 
+
+
+        let wearer = this.props.wearersData;
+
 
 
         return (
@@ -64,30 +75,30 @@ class WearerProfile extends React.Component{
                 <tbody>
                   <tr>
                     <td>Full name</td>
-                    <td>{wearer.full_name}</td>
+                    <td>{wearer.full_name || '-'}</td>
                   </tr>
                   <tr>
                     <td>Gender</td>
-                    <td>{wearer.gender}</td>
+                    <td>{wearer.gender || '-'}</td>
                   </tr>
                   <tr>
                     <td>Age</td>
-                    <td>{wearer.age}</td>
+                    <td>{wearer.age || '-'}</td>
                   </tr>
                   <tr>
                     <td>Weight</td>
-                    <td>{wearer.weight}</td>
+                    <td>{wearer.weight || '-'}</td>
                   </tr>
                   <tr>
                     <td>
                       <p>Resting Max</p>
                       <p>heart rate</p>
                     </td>
-                    <td>{wearer.heart_rate}</td>
+                    <td>{wearer.heart_rate || '-'}</td>
                   </tr>
                   <tr>
                     <td>Group</td>
-                    <td>{wearer.master_id}</td>
+                    <td>{wearer.master_id || '-'}</td>
                   </tr>
                 </tbody>
               </table>

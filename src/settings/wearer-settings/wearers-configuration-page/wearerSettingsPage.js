@@ -33,22 +33,23 @@ class SettingsPage extends React.Component{
     this.handleWearerEdit = this.handleWearerEdit.bind(this);
     this.resetWearerEdit = this.resetWearerEdit.bind(this);
     this.updateWearer = this.updateWearer.bind(this);
+    this.handleAddWearerButton = this.handleAddWearerButton.bind(this);
 
     this.state = {
       wearerId: null,
-      activeWearer: null,
-      wearerData: [],
+      activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
+      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}],
       error: false, 
       wearerDevice: [],
       carers: [],
-      addedNewWearer: false,
+      addNewWearerClicked: false,
       wearersLoaded: false,
       carersLoaded: false, 
       wearerDeviceLoaded: false,
       wearersEditing: false,
       carersEditing: false,
-      wearerDeviceEditing: false
-      // newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+      wearerDeviceEditing: false,
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
     }
   };
 
@@ -60,26 +61,39 @@ componentWillMount() {
 
 
 
+handleAddWearerButton(){
 
-// addWearer(){
-//   axios({
-//       method: 'post',
-//       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
-//       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-//       'uid': 'boretskairuna23@gmail.com', 'client': 'JwFppy1u4PsgG9P5-cLFTw', 'access-token': 'WgU6VG07HgGL8K690XnS4w'},
-//       data: {
-//         "wearer": {
-//           "full_name": "Test",
-//           "gender": "male",
-//           "age": 20,
-//           "weight": 20,
-//           "heart_rate": 220,
-//           "image": "string"
+  this.setState({addNewWearerClicked: true});
+}
 
-//         }
-//       }
-//     })
-// };
+addWearer(event){
+  axios({
+      method: 'post',
+      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      data: {
+        "wearer": {
+          "full_name": event.full_name,
+          "gender": event.gender,
+          "age": event.age,
+          "weight": event.weight,
+          "heart_rate": event.heart_rate,
+          "image": event.image
+
+        }
+      }
+    }).then((response) => {
+              this.setState({addNewWearerClicked: false});
+              this.getWearers(response.data);
+              //this.setState({wearerId: event.id});
+             }
+             
+).catch((error) => { 
+        console.log(error);
+        this.setState({error: true})
+        })
+};
 
 updateWearer(event){
   console.log('updateWearer');
@@ -88,7 +102,7 @@ updateWearer(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'JwFppy1u4PsgG9P5-cLFTw', 'access-token': 'WgU6VG07HgGL8K690XnS4w'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       data: {
         "wearer": {
           "full_name": event.full_name,
@@ -101,6 +115,7 @@ updateWearer(event){
         }
       }
     }).then(() => {
+      this.setState({addNewWearerClicked: false});
               this.getWearers(event);
               //this.setState({wearerId: event.id});
              }
@@ -113,10 +128,6 @@ updateWearer(event){
 };
 
 
-addWearer(){
-  this.setState({addedNewWearer: true})
-
-};
 
 getWearers(event){
   console.log('getWearers');
@@ -124,7 +135,7 @@ getWearers(event){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'JwFppy1u4PsgG9P5-cLFTw', 'access-token': 'WgU6VG07HgGL8K690XnS4w'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
              console.log('wearerId in axios = ' , response.data[0].id);
@@ -140,8 +151,9 @@ getWearers(event){
             console.log('toogledWearerId', toogledWearerId);
             if(response.data.length != 0) {
               this.setState({
-                wearerId: toogledWearerId,
-                activeWearer: response.data[0].id,
+
+                wearerId: response.data[0].id,
+                activeWearer: toogledWearerId,
                 wearerData: response.data,
                 wearersLoaded: true
             });
@@ -173,7 +185,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'JwFppy1u4PsgG9P5-cLFTw', 'access-token': 'WgU6VG07HgGL8K690XnS4w'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
 
@@ -198,7 +210,7 @@ getCarers(){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'JwFppy1u4PsgG9P5-cLFTw', 'access-token': 'WgU6VG07HgGL8K690XnS4w'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
           
@@ -224,6 +236,7 @@ getCarers(){
 
   handleWearerData(event) {
     console.log('event', event);
+    this.setState({addNewWearerClicked: false});
     this.setState({wearerId: event});
     this.setState({activeWearer: event});
     this.getWearerDevice(event);
@@ -272,7 +285,7 @@ getCarers(){
               <div className="contentWrap">
               {
                  this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
-                <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} addWearer={this.addWearer} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} resetWearerEdit = {this.resetWearerEdit}/>
+                <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} />
                 :
 
                 <WearersLoading/>
@@ -283,25 +296,37 @@ getCarers(){
                 <p className="wearerConfigWrap__name">Configuration Page</p>
                 <p className="wearerConfigWrap__description">Manage information about wristo</p>
                 {
-                  this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
+                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
+                  (
+                    this.state.wearersEditing ? 
+                    <AddWearer data = {this.state.newWearer} handleWearerEdit = {this.handleWearerEdit} addWearer = {this.addWearer} />
+                    : 
+                    <WearerProfile wearersData = {this.state.newWearer} handleWearerEdit = {this.handleWearerEdit}/> 
+                  )
+                 :
+
+                  this.state.wearersLoaded ? 
                   (
                     this.state.wearersEditing ? 
                     <EditWearerProfile data = {activeWearer} handleWearerEdit = {this.handleWearerEdit} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/>
                     :
-                    <WearerProfile wearersData = {this.state.wearerData} wearerId = {this.state.wearerId} handleWearerEdit = {this.handleWearerEdit}/>
+                    <WearerProfile wearersData = {activeWearer} wearerId = {this.state.wearerId} handleWearerEdit = {this.handleWearerEdit}/>
                   )
-                  
                   :
                   <WearersLoading/>
                 }
                 {
-                  this.state.error ? <WearerError /> : this.state.wearerDeviceLoaded ? 
+                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
+                  <AddWristo/> :
+                  this.state.wearerDeviceLoaded ? 
                   <WristoConfiguration getWearerDevice = {this.getWearerDevice} wearerDevice = {this.state.wearerDevice} error = {this.state.error} />
                   :
                   <WearersLoading/>
                 }
                 {
-                  this.state.error ? <WearerError /> : this.state.carersLoaded ? 
+                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
+                  <AddCarer/> :
+                  this.state.carersLoaded ? 
                   <CarersData carers = {this.state.carers} error = {this.state.error}/>
                   :
                   <WearersLoading/>
@@ -328,99 +353,3 @@ getCarers(){
 
 export default SettingsPage;
 
-
-
-// return (
-//           <div>
-//           <Header/>
-//           <div >
-//           {
-//             (this.state.wearersloaded && this.state.carersloaded && this.state.wearerDeviceloaded) ? 
-//             <div className="contentWrap">
-//             <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} addWearer={this.addWearer} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId}/>
-//             <div className="wearerConfigWrap">
-//                 <p className="wearerConfigWrap__name">Configuration Page</p>
-//                 <p className="wearerConfigWrap__description">Manage information about wristo</p>
-//             <AddWearer />
-//             <AddCarer/>
-//             <AddWristo/>
-//             </div>
-//             </div>
-//             :
-//             <div>
-//             {
-//            this.state.error ? <WearerError /> : (this.state.wearerData.length && this.state.carers.length)!= 0 ? 
-//             <div className="contentWrap">
-//               <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} addWearer={this.addWearer} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId}/>
-//               <div className="wearerConfigWrap">
-//                 <p className="wearerConfigWrap__name">Configuration Page</p>
-//                 <p className="wearerConfigWrap__description">Manage information about wristo</p>
-//                 <WearerProfile wearersData = {this.state.wearerData} wearerId = {this.state.wearerId}/>
-//                 <WristoConfiguration getWearerDevice = {this.getWearerDevice} wearerDevice = {this.state.wearerDevice} error = {this.state.error} />
-//                 <CarersData carers = {this.state.carers} error = {this.state.error}/>
-//               </div>
-//             </div>
-//             :
-//             <WearersLoading/>
-//           }
-//           </div>
-//         }
-          
-
-           
-
-//           </div> 
-//         </div>
-        
-//         );
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // <WearerConfiguration wearersData = {this.state.wearerData}  wearerId = {this.state.wearerId} />
-
- // <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} />
-
-            // { 
-            //   wearerError ?
-            //     <WearerError errorData={wearerError} >
-            //     :
-            //     wearerArray ?
-            //       <WearerData data={wearerArray}
-            //       :
-            //       <WearerLoading />
-            // }
