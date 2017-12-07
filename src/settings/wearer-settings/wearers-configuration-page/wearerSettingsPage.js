@@ -49,7 +49,7 @@ class SettingsPage extends React.Component{
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
-      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'}
     }
   };
 
