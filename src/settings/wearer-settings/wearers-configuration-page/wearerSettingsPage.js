@@ -65,6 +65,7 @@ componentWillMount() {
 handleAddWearerButton(){
 
   this.setState({addNewWearerClicked: true});
+  this.setState({wearerAdded: false});
 }
 
 addWearer(event){
@@ -260,7 +261,7 @@ getCarers(){
   };
 
     render(){
-
+console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded);
 
  console.log('wearerId  inside settingpage render -->' + this.state.wearerId);
 
