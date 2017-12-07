@@ -202,7 +202,7 @@ a {
 
 .wearer-profile-wrapper {
   display: flex;
-  margin:35px 20px 0 0;
+  margin: 22px 20px 0 0;
   box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
   /*min-width: 959px;*/
   width: 100%;
@@ -225,7 +225,7 @@ a {
   .image-wearer {
     height: 216px;
     width: 196px;
-    /*background-image: url(./main-content-settings/wearer-profile/images/default_avatar.png);*/
+    background-image: url(./settings/wearer-settings/wearers-configuration-page/wearer-profile/edit-wearer-profile/images/default_avatar.png);
   }
   p {
     font-size: 20px;
@@ -257,7 +257,7 @@ a {
         color: #5A5A5A;
         font-family: DINPro;
         font-size: 15px;
-        padding: 0 100px 0 0;
+        padding: 0 107px 0 0;
       }
     }
     .profile-gender {
@@ -387,7 +387,7 @@ a {
       display: flex;
       height: 20px;
       .input-range-slider {
-        padding-left: 18px;
+        padding-left: 26px;
       }
       .input-range__track {
         height: 0.2rem;
