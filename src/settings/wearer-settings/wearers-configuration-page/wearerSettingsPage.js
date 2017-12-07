@@ -49,7 +49,8 @@ class SettingsPage extends React.Component{
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
-      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
+      wearerAdded: false
     }
   };
 
@@ -86,6 +87,10 @@ addWearer(event){
     }).then((response) => {
               this.setState({addNewWearerClicked: false});
               this.getWearers(response.data);
+              console.log('addWearer response status', response.status);
+              if(response.status==201){
+                  this.setState({wearerAdded: true})
+              }
               //this.setState({wearerId: event.id});
              }
              
@@ -285,7 +290,7 @@ getCarers(){
               <div className="contentWrap">
               {
                  this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
-                <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} />
+                <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
                 :
 
                 <WearersLoading/>

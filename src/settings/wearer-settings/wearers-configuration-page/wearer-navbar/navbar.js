@@ -39,8 +39,8 @@ constructor(props) {
     this.setState({addWearerButtonClicked: true});
     
 
-    console.log('this.setState({addWearerButtonClicked: ', this.state.addWearerButtonClicked);
-    console.log('this.setState({liIsClicked :', this.state.liIsClicked);
+    // console.log('this.setState({addWearerButtonClicked: ', this.state.addWearerButtonClicked);
+    // console.log('this.setState({liIsClicked :', this.state.liIsClicked);
   };
 
   HandleSearch(event) {
@@ -70,10 +70,10 @@ console.log('addWearerButtonClicked :', this.state.addWearerButtonClicked);
 
            let wearerElementStyle = classNames({
               'wearers__user': true,
-              'selWearer': ((this.state.wearerId === wearer.id && this.state.liIsClicked && !this.state.addWearerButtonClicked) || (this.props.activeWearer === wearer.id && this.state.addWearerButtonClicked)),
+              'selWearer':  this.props.wearerAdded && this.props.activeWearer === wearer.id ||  !this.state.addWearerButtonClicked && this.props.activeWearer === wearer.id || this.state.liIsClicked && this.props.activeWearer === wearer.id,
               'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
             });
-// || (this.props.wearersData[0].id === wearer.id && !this.state.liIsClicked))
+
            //let divStyle={backgroundColor: 'grey'};
            // style={divStyle}
 
