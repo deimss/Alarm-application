@@ -69,7 +69,7 @@ class WearerProfile extends React.Component{
           </button>
           </div>
           <div className="wearerProfile__info">
-            <img src={`${wearer.image}`} alt='' />
+            <img src={`${wearer.image}`} alt=''/>
             <div className="wearerProfile__info__table">
               <table>
                 <tbody>
