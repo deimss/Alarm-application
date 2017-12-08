@@ -9,9 +9,9 @@ import WearerError from './wearer-error.js';
 import WearersLoading from './wearer-loading.js';
 import WearerProfile from './wearer-profile/wearerProfile.js';
 import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profile.js';
-import CarersData from './carers-data/carersData.js';
+import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
-import AddCarer from './carers-data/addCarer.js';
+import EmptyCarer from './carers-data/emptyCarer.js';
 import AddWristo from './wristo-group-configuration/addWristo.js';
  
 
@@ -34,6 +34,8 @@ class SettingsPage extends React.Component{
     this.resetWearerEdit = this.resetWearerEdit.bind(this);
     this.updateWearer = this.updateWearer.bind(this);
     this.handleAddWearerButton = this.handleAddWearerButton.bind(this);
+    this.deleteCarer = this.deleteCarer.bind(this);
+    this.addCarer = this.addCarer.bind(this);
 
     this.state = {
       wearerId: null,
@@ -184,7 +186,6 @@ getWearers(event){
 
 
 
-
 getWearerDevice(wearerId){
   console.log('wearerId state in main ==>' + wearerId);
   axios({
@@ -236,6 +237,57 @@ getCarers(){
     };
 
 
+
+addCarer(event){
+  axios({
+      method: 'post',
+      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      data: {
+        "carer": {
+          "first_name": event.full_name,
+          "last_name": event.last_name,
+          "email": event.email,
+          "age": event.age,
+          "password": event.password,
+          "password_confirmation": event.password
+
+        }
+      }
+    }).then((response) => {
+              
+              this.getCarers();
+             }
+             
+).catch((error) => { 
+        console.log(error);
+        this.setState({error: true})
+        })
+};
+
+
+deleteCarer(event){
+  console.log('getWearers');
+  axios({
+      method: 'delete',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event}`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      responseType: 'json'
+    }).then(response => {
+
+            console.log('wearers response = ' , response);
+
+            console.log('wearers response data length = ' , response.data.length);
+
+            this.getCarers();
+      
+            }).catch((error) => { 
+          console.log(error);
+          this.setState({error: true})
+          });
+      };
 
 
 
@@ -331,9 +383,9 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                 }
                 {
                   this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
-                  <AddCarer/> :
+                  <EmptyCarer/> :
                   this.state.carersLoaded ? 
-                  <CarersData carers = {this.state.carers} error = {this.state.error}/>
+                  <Carers carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer}/>
                   :
                   <WearersLoading/>
                 }

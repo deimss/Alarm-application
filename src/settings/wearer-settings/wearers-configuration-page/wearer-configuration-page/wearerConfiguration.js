@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import WearerProfile from '../wearer-profile/wearerProfile.js';
 import WristoConfiguration from '../wristo-group-configuration/wristoGroupConfiguration.js';
-import CarersData from '../carers-data/carersData.js'
 import {
   BrowserRouter as Router,
   Route,
