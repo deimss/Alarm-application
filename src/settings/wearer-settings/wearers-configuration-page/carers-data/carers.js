@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import WearerError from '../wearer-error.js';
 import WearersLoading from '../wearer-loading.js';
 import EmptyCarer from './emptyCarer.js';
+import AddCarer from './addCarer.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,12 +21,14 @@ class Carers extends React.Component{
     this.setCarersData = this.setCarersData.bind(this);
     // this.handleSaveChange = this.handleSaveChange.bind(this);
     this.handleDeleteCarer = this.handleDeleteCarer.bind(this);
-    // this.handleAddCarer = this.handleAddCarer.bind(this);
+    this.handleAddCarer = this.handleAddCarer.bind(this);
+    this.handleDiscardNewCarer = this.handleDiscardNewCarer.bind(this);
     
     this.state = {
       disabled: false,
       currentCarerId: null,
       rowEdited: false,
+      addCarerClicked: false,
       // shouldRowUpdate: false,
       //discardChange: false,
       // valueId: '',
@@ -46,6 +49,9 @@ class Carers extends React.Component{
   };
 
     setCarersData(){
+
+      console.log('setCarersData');
+
      let arr = [];
 
       this.props.carers.forEach(function(element){
@@ -61,7 +67,11 @@ class Carers extends React.Component{
       // this.setState({carersData: this.props.carers.slice(0,)});
       this.setCarersData();
       
+      
     };
+    componentWillReceiveProps(){
+      this.setState({addCarerClicked: false});
+    }
 
     // componentWillUpdate(){
     //   console.log("componentWillUpdate this.state.carersData", this.state.carersData);
@@ -106,10 +116,14 @@ class Carers extends React.Component{
   
     };
 
+    handleAddCarer(){
+      this.setState({addCarerClicked: true});
+    };
+
 
     handleDeleteCarer(event){
       this.props.deleteCarer(event);
-    }
+    };
 
 
     handleEditCarer(event){
@@ -139,6 +153,11 @@ class Carers extends React.Component{
 
     };
 
+    handleDiscardNewCarer(){
+       console.log('handleDiscardNewCarer');
+       this.setState({addCarerClicked: false});
+
+    };
 
 
     render(){
@@ -149,6 +168,7 @@ class Carers extends React.Component{
 
       let carersBuffer = this.state.rowEdited ? this.state.carersData : this.props.carers;
 
+      let rowKey = 0;
 
       let CarersDataTable = carersBuffer.map((dataElement) => {
       
@@ -166,7 +186,12 @@ class Carers extends React.Component{
 
        console.log('disableCarer', disableCarer);
 
-        return <tr key={dataElement.id.toString()}>
+
+       // carersBuffer.indexOf(dataElement).toString()
+
+       rowKey++;
+
+        return <tr key={rowKey}>
               <td><input type='text' value={dataElement.id}        disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.id,        event)}/></td>
               <td><input type='text' value={dataElement.master_id} disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.master_id, event)}/></td>
               <td><input type='text' value={dataElement.email}     disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.email,     event)}/></td>
@@ -219,14 +244,19 @@ class Carers extends React.Component{
 //               </td>
 //             </tr>;
 
+        console.log('CarersDataTable', CarersDataTable);
+
         return (
           <div>
           {
-            this.props.error ? <WearerError /> : this.props.carers.length !== 0 ? 
+            this.props.error ? <WearerError /> : 
+            this.state.addCarerClicked ? <AddCarer addCarer = {this.props.addCarer} handleDiscardNewCarer = {this.handleDiscardNewCarer}/>
+            :
+            this.props.carers.length !== 0 ? 
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">
             <p>Carers data</p>
-              <button className="add-new-carer">
+              <button className="add-new-carer" onClick={this.handleAddCarer}>
                     <svg className="add-new-carer__icon" fill="#B52F54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                       <path d="M0 0h24v24H0z" fill="none"/>

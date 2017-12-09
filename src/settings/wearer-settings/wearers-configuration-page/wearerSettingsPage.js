@@ -146,11 +146,16 @@ getWearers(event){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
-             console.log('wearerId in axios = ' , response.data[0].id);
+             // console.log('wearerId in axios = ' , response.data[0].id);
 
-             console.log('wearers response data = ' , response.data);
+             // console.log('wearers response data = ' , response.data);
 
-             console.log('wearers response data length = ' , response.data.length);
+             // console.log('wearers response data length = ' , response.data.length);
+             console.log('wearers response status = ' , response.status);
+
+             // if (response.status == 200){
+             //  this.setState({wearersLoaded: true});
+             // }
 
             this.getWearerDevice(response.data[0].id);
 
@@ -176,7 +181,8 @@ getWearers(event){
  //     console.dir('wearerData inside promise -->' + this.state.wearerData);
 
       }).catch((error) => { 
-        console.log(error);
+        console.log('wearer-error', error);
+
         this.setState({error: true})
         });
     };
@@ -239,6 +245,7 @@ getCarers(){
 
 
 addCarer(event){
+  console.log('addCarer event', event);
   axios({
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
@@ -246,7 +253,7 @@ addCarer(event){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       data: {
         "carer": {
-          "first_name": event.full_name,
+          "first_name": event.first_name,
           "last_name": event.last_name,
           "email": event.email,
           "age": event.age,
@@ -342,7 +349,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
             
               <div className="contentWrap">
               {
-                 this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
+                this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
                 <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
                 :
 
