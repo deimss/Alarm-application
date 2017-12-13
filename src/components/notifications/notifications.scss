@@ -16,7 +16,7 @@
 	font-family: 'DINPro-Regular';
 }
 .events{
-	max-height: 220px;
+	max-height: 216px;
 	overflow: scroll;
 }
 .events::-webkit-scrollbar { 
@@ -51,6 +51,8 @@
 }
 .addEvent h3{text-transform: capitalize;}
 .showAll{
+	font-size: 16px;
+	font-family: 'DINPro-Medium';
 	color: #b3b3b3;
 	padding: 10px;
 	border-top: 1px solid #E6E6E6;
