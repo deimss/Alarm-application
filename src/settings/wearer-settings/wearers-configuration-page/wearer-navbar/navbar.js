@@ -14,7 +14,7 @@ constructor(props) {
     super(props);
     this.HandleSearch = this.HandleSearch.bind(this);
     this.handleAddWearerButtonClicked = this.handleAddWearerButtonClicked.bind(this);
-    // this.handleAddWearer = this.handleAddWearer.bind(this);
+
     this.state = {
       wearerId: 1,
       liIsClicked : false,
@@ -37,10 +37,6 @@ constructor(props) {
   handleAddWearerButtonClicked(){
     this.setState({liIsClicked : false}); 
     this.setState({addWearerButtonClicked: true});
-    
-
-    // console.log('this.setState({addWearerButtonClicked: ', this.state.addWearerButtonClicked);
-    // console.log('this.setState({liIsClicked :', this.state.liIsClicked);
   };
 
   HandleSearch(event) {
@@ -50,23 +46,23 @@ constructor(props) {
  
 
  render(){
-console.log('liIsClicked :', this.state.liIsClicked);
-console.log('addWearerButtonClicked :', this.state.addWearerButtonClicked);
-        //this.state.wearersBuffer = this.props.wearersData;
-       // console.log(wearersBuffer);
 
-        let filteredWearers = this.props.wearersData.filter(
+        let filteredWearers;
+        let namesList = null;
+
+
+        if (this.props.wearersData[0].id !== null){
+
+          filteredWearers = this.props.wearersData.filter(
               (wearer) => {
                 return wearer.full_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
               }
-          );
+        );
 
+            
+            namesList = filteredWearers.map((wearer) => {
 
-        console.log('navbar this.props.activeWearer id', this.props.activeWearer);
-
-        let namesList = filteredWearers.map((wearer) => {
-
-          console.log('navbar filteredWearers.map((wearer)', wearer.id);
+ 
 
            let wearerElementStyle = classNames({
               'wearers__user': true,
@@ -74,30 +70,44 @@ console.log('addWearerButtonClicked :', this.state.addWearerButtonClicked);
               'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
             });
 
-           //let divStyle={backgroundColor: 'grey'};
-           // style={divStyle}
 
-        if(Object.keys(wearer).length != 0){
+
+
           return (
             <li className={wearerElementStyle} key={wearer.id.toString()} onClick={(event) => 
-
               {this.props.handleWearerData(wearer.id); 
               this.setState({wearerId:wearer.id}); 
               this.props.getWearerDevice(wearer.id); 
               this.setState({liIsClicked : true}); 
               this.setState({addWearerButtonClicked : false}); 
               this.props.resetWearerEdit();
-              console.log('wearerId in navbar ==> ' + wearer.id)  }} >
+            }}>
 
                 <div className="wearers__user__logo"> <img src={`${wearer.image}`} alt='' /> </div> 
                 <div className="wearers__user__name"> {wearer.full_name} </div>
             </li>
           )
-        } else return null;
+
           
         });
 
+        }
+
         
+
+
+
+
+
+
+
+
+
+
+
+        
+        console.log('navbar namesList', namesList);
+
  return (
             <div>
             <div className="wearers">

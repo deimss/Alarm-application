@@ -94,7 +94,7 @@ class AddCarer extends React.Component{
                 </button>
           </div>
           
-            <table className="carers-data-table">
+            <table className="new-carer-data-table">
               <thead>
                 <tr>
                   <th>FIRST NAME</th>
