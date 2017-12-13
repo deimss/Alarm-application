@@ -38,4 +38,4 @@ class AddWristo extends React.Component{
 
 
 
-export default EmptyWristo;
+export default AddWristo;
