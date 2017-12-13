@@ -11,8 +11,10 @@ import WearerProfile from './wearer-profile/wearerProfile.js';
 import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profile.js';
 import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
+
 import EmptyCarer from './carers-data/emptyCarer.js';
 import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -39,8 +41,10 @@ class SettingsPage extends React.Component{
     this.state = {
       wearerId: null,
       activeWearer: null,
+
       // activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
       wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'}],
+
       error: false, 
       wearerDevice: [],
       carers: [],
@@ -60,6 +64,7 @@ class SettingsPage extends React.Component{
 componentWillMount() {          
   this.getWearers();
   this.getCarers();
+ // this.getWearerDevice();
     };
 
 
@@ -141,10 +146,80 @@ updateWearer(event){
   
 };
 
+updateWearerDevices(event){
+  console.log('updateWearerDevices event',event);
+  axios({
+      method: 'put',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      data: {
+        name: event.name,
+        phone_number: event.phone_number,
+        status: event.status
+      }
+    }).then(() => {
+      console.log('event.idEEEEEEEEEEEEEEEEEEE',event)
+      //this.setState({addNewWearerClicked: false});
+      this.getWearerDevice(event.id)
+              //this.setState({wearerId: event.id});
+             }
+             
+).catch((error) => { 
+        console.log(error);
+      this.setState({error: true})
+        })
+  
+};
 
+deleteWearerDevices(event){
+  console.log('updateWearerDevices event',event);
+  axios({
+      method: 'delete',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+    }).then(() => {
+      console.log('event.idEEEEEEEEEEEEEEEEEEE',event)
+      //this.setState({addNewWearerClicked: false});
+      this.getWearerDevice(event.id)
+              //this.setState({wearerId: event.id});
+             }
+             
+).catch((error) => { 
+        console.log(error);
+      //  this.setState({error: true})
+        })
+  
+};
+
+addWearerDevices(event){
+  console.log('NEW DATA FOR DEVICES',event)
+  axios({
+      method: 'post',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      data: {
+          name: event.name,
+          phone_number: event.phone_number,
+          status: event.status
+      }
+    }).then((response) => {
+            //  this.setState({addNewWearerClicked: false});
+              this.getWearerDevice(event.id);
+             }
+             
+).catch((error) => { 
+        console.log(error);
+        this.setState({error: true})
+        })
+};
 
 getWearers(event){
+
   console.log('getWearers');
+
 
   axios({
       method: 'get',
@@ -158,10 +233,12 @@ getWearers(event){
              console.log('wearers response data length= ' , response.data.length);
 
 
-            if (response.data.length !== 0){
+
+
               this.getWearerDevice(response.data[0].id);
-            };
+
             
+
 
             if (response.status === 200 && response.data.length !== 0){
               this.setState({
@@ -217,8 +294,10 @@ getWearers(event){
 
 
 
+
 getWearerDevice(wearerId){
   console.log('getWearerDevice');
+
   console.log('wearerId state in main ==>' + wearerId);
   axios({
       method: 'get',
@@ -231,19 +310,20 @@ getWearerDevice(wearerId){
              console.log('wearerDevice response.data', response.data);
              console.log('wearerDevice response.status', response.status);
 
+
               this.setState({
                 wearerDevice: response.data,
                 // wearerDeviceLoaded: true
               })
-             // };
+
 
               if(response.status === 200 && response.data.length !== 0){
               this.setState({
                 wearerDeviceLoaded: true })
-             };
+
              }
              
-).catch((error) => { 
+}).catch((error) => { 
         console.log(error);
         if (error.response.status == 404){
             this.setState({error: true})
@@ -251,8 +331,8 @@ getWearerDevice(wearerId){
         })
 };
 
-getCarers(){
- console.log('getCarers');
+  getCarers(){
+  console.log('getCarers');
   axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
@@ -440,6 +520,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     {
                     this.state.error ? <WearerError />
                     :
+
                     this.state.wearersLoaded ?
                     
                     this.state.addNewWearerClicked ?
@@ -459,7 +540,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     this.state.error ? <WearerError />
                     :
                     this.state.wearerDeviceLoaded ?
-                    <WristoConfiguration getWearerDevice = {this.getWearerDevice} wearerDevice = {this.state.wearerDevice} error = {this.state.error} />
+                    <WristoConfiguration getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
                     :
                     <WearersLoading/>
                   }
@@ -472,6 +553,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     :
                     <WearersLoading/>                 
                   }
+
 
 
               </div>
