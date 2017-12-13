@@ -64,7 +64,6 @@ class Carers extends React.Component{
     componentWillMount(){
       
       console.log("componentWillMount this.props.carers", this.props.carers);
-      // this.setState({carersData: this.props.carers.slice(0,)});
       this.setCarersData();
       
       
@@ -73,14 +72,7 @@ class Carers extends React.Component{
       this.setState({addCarerClicked: false});
     }
 
-    // componentWillUpdate(){
-    //   console.log("componentWillUpdate this.state.carersData", this.state.carersData);
-    //   console.log("componentWillUpdate this.props.carers", this.props.carers);
-    // };
-
-
-
-
+   
     handleInputChange(element, event){
 
       console.log('handleInputChange element ', element);
@@ -108,7 +100,6 @@ class Carers extends React.Component{
 
       console.log('newCarersData', newCarersData);
 
-      //return newCarersData;
       this.setState({carersData: newCarersData});
 
       console.log("handleInputChange this.state.carersData", this.state.carersData);
@@ -187,8 +178,6 @@ class Carers extends React.Component{
        console.log('disableCarer', disableCarer);
 
 
-       // carersBuffer.indexOf(dataElement).toString()
-
        rowKey++;
 
         return <tr key={rowKey}>
@@ -246,6 +235,9 @@ class Carers extends React.Component{
 
         console.log('CarersDataTable', CarersDataTable);
 
+        console.log('Carers this.state.addCarerClicked', this.state.addCarerClicked);
+        
+
         return (
           <div>
           {
@@ -281,7 +273,7 @@ class Carers extends React.Component{
           </table>
           </div>
           :
-            <EmptyCarer/>
+            <EmptyCarer handleAddCarer = {this.handleAddCarer}/>
           }
           </div>
 
@@ -294,71 +286,3 @@ class Carers extends React.Component{
 
 export default Carers;
 
-        // <div className='profile-button'>
-        //     <button className="delete-setting-button"><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
-        //       <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-        //       <path d="M0 0h24v24H0z" fill="none"/>
-        //   </svg></button>
-        //     <button className="save-setting-button"><svg fill="white" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
-        //       <path d="M0 0h24v24H0z" fill="none"/>
-        //       <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
-        //   </svg></button>
-        //   </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          // <table className="carers-data-table">
-          //     <thead>
-          //       <tr>
-          //         <th>FULL NAME</th>
-          //         <th>SIM NUMBER</th>
-          //         <th>EMAIL</th>
-          //         <th>PERMITION</th>
-          //         <th>ACTIONS</th>
-          //       </tr>
-          //     </thead>
-          //     <tbody>
-          //         {carersDataNotFound} 
-          //     </tbody>
-          // </table>
-
-
-          // this.state.rowEdited ? <tr key={Math.random().toString()}>
-          //     <td><input type='text' value={this.state.valueId} onChange={this.handleInputChange} /></td>
-          //     <td><input type='text' value={this.state.valueMaster_id} onChange={this.handleInputChange} /></td>
-          //     <td><input type='text' value={this.state.valueEmail} onChange={this.handleInputChange}     /></td>
-          //     <td><input type='text' value={this.state.valuePermition} onChange={this.handleInputChange} /></td>
-          //     <td>
-          //       <button className="edit-group" onClick={()=>this.handleEditCarer(dataElement.id)}> 
-          //       <svg fill="#000000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-          //         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-          //         <path d="M0 0h24v24H0z" fill="none"/>
-          //       </svg>
-          //   </button>
-          //   <button className="delete-group">
-          //       <svg fill="#b52f54" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-          //         <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-          //         <path d="M0 0h24v24H0z" fill="none"/>
-          //       </svg>
-          //   </button>   
-          //     </td>
-          //   </tr>
-          //   :

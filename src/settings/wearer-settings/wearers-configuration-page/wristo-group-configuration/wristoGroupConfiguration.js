@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import WearerError from '../wearer-error.js';
 import WearersLoading from '../wearer-loading.js';
-import AddWristo from './addWristo.js';
+import EmptyWristo from './emptyWristo.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -89,7 +89,7 @@ console.log('wristoDataTable', wristoDataTable);
         return (
         <div>
         {
-          this.props.error ? <WearerError /> : this.props.wearerDevice.length != 0 ? 
+          this.props.error ? <WearerError /> : this.props.wearerDevice.length !== 0 ? 
           <div className="wearerProfileWrap">
     			  <div className="wearerProfile__header">
               <p>Wristo configuration</p>
@@ -117,7 +117,7 @@ console.log('wristoDataTable', wristoDataTable);
             </table>
           </div>
           :
-             <AddWristo/>
+          <EmptyWristo/>
           } 
         </div>
         )

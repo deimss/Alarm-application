@@ -12,9 +12,7 @@ import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profi
 import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
 import EmptyCarer from './carers-data/emptyCarer.js';
-import AddWristo from './wristo-group-configuration/addWristo.js';
- 
-
+import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -30,24 +28,26 @@ class SettingsPage extends React.Component{
     this.addWearer = this.addWearer.bind(this);
     this.getWearerDevice = this.getWearerDevice.bind(this);
     this.getCarers = this.getCarers.bind(this);
-    this.handleWearerEdit = this.handleWearerEdit.bind(this);
+    this.enableWearerEdit = this.enableWearerEdit.bind(this);
     this.resetWearerEdit = this.resetWearerEdit.bind(this);
     this.updateWearer = this.updateWearer.bind(this);
     this.handleAddWearerButton = this.handleAddWearerButton.bind(this);
     this.deleteCarer = this.deleteCarer.bind(this);
     this.addCarer = this.addCarer.bind(this);
+    this.discardWearerChanges = this.discardWearerChanges.bind(this);
 
     this.state = {
       wearerId: null,
-      activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
-      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}],
+      activeWearer: null,
+      // activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
+      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'}],
       error: false, 
       wearerDevice: [],
       carers: [],
       addNewWearerClicked: false,
-      wearersLoaded: false,
+      wearersLoaded: true,
       carersLoaded: false, 
-      wearerDeviceLoaded: false,
+      wearerDeviceLoaded: true,
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
@@ -71,6 +71,8 @@ handleAddWearerButton(){
 }
 
 addWearer(event){
+  console.log('addWearer');
+  console.log('addWearer event',event);
   axios({
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
@@ -99,7 +101,9 @@ addWearer(event){
              
 ).catch((error) => { 
         console.log(error);
-        this.setState({error: true})
+        if (error.response.status === 404){
+            this.setState({error: true})
+        } 
         })
 };
 
@@ -130,7 +134,9 @@ updateWearer(event){
              
 ).catch((error) => { 
         console.log(error);
-        this.setState({error: true})
+        if (error.response.status === 404){
+            this.setState({error: true})
+        } 
         })
   
 };
@@ -139,6 +145,7 @@ updateWearer(event){
 
 getWearers(event){
   console.log('getWearers');
+
   axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
@@ -146,46 +153,64 @@ getWearers(event){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
-             // console.log('wearerId in axios = ' , response.data[0].id);
 
-             // console.log('wearers response data = ' , response.data);
-
-             // console.log('wearers response data length = ' , response.data.length);
              console.log('wearers response status = ' , response.status);
+             console.log('wearers response data length= ' , response.data.length);
 
-             // if (response.status == 200){
-             //  this.setState({wearersLoaded: true});
-             // }
 
-            this.getWearerDevice(response.data[0].id);
+            if (response.data.length !== 0){
+              this.getWearerDevice(response.data[0].id);
+            };
+            
 
-           let wearerIdToogle = (event)=> {if (event != undefined) {return event.id} else {return response.data[0].id}};
-           let toogledWearerId = wearerIdToogle(event);
-            console.log('toogledWearerId', toogledWearerId);
-            if(response.data.length != 0) {
+            if (response.status === 200 && response.data.length !== 0){
               this.setState({
+                wearerDeviceLoaded: true,
+                wearersLoaded: true
+                })
+            };
+            
+            let toogledWearerId;
 
+                if (event !== undefined) {toogledWearerId = event.id} 
+                  else if (response.data.length !== 0) {toogledWearerId = response.data[0].id};
+
+
+            console.log('toogledWearerId', toogledWearerId);
+
+            
+            if(response.data.length !== 0) {
+              this.setState({
                 wearerId: response.data[0].id,
                 activeWearer: toogledWearerId,
                 wearerData: response.data,
-                wearersLoaded: true
-            });
+              })
+            }; 
+            
 
-             };
-
-//ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdatd ?????
-// яКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
-
-     
-
- //     console.dir('wearerData inside promise -->' + this.state.wearerData);
+//ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
+//ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
 
       }).catch((error) => { 
-        console.log('wearer-error', error);
+        console.log('getWearers error ====> ', error);
 
-        this.setState({error: true})
+        if (error.response.status === 404){
+            this.setState({error: true})
+        } 
+        else this.setState({wearersLoaded: true})
         });
-    };
+
+        //       let emptyData=false;
+
+        // this.state.wearerData.forEach(function(element){
+
+        //     for (let i in element){
+        //     if (element[i] === null){
+        //         emptyData = true;
+        //     }
+        // }
+        // });
+  };
 
 
 
@@ -193,6 +218,7 @@ getWearers(event){
 
 
 getWearerDevice(wearerId){
+  console.log('getWearerDevice');
   console.log('wearerId state in main ==>' + wearerId);
   axios({
       method: 'get',
@@ -203,17 +229,26 @@ getWearerDevice(wearerId){
     }).then(response => {
 
              console.log('wearerDevice response.data', response.data);
+             console.log('wearerDevice response.status', response.status);
 
-             if(response.data.length != 0){
+             if(response.data.length !== 0){
               this.setState({
                 wearerDevice: response.data,
+                // wearerDeviceLoaded: true
+              })
+             };
+
+              if(response.status === 200 && response.data.length !== 0){
+              this.setState({
                 wearerDeviceLoaded: true })
              };
              }
              
 ).catch((error) => { 
         console.log(error);
-        this.setState({error: true})
+        if (error.response.status == 404){
+            this.setState({error: true})
+        } 
         })
 };
 
@@ -229,7 +264,7 @@ getCarers(){
           
           console.log('getCarers response data', response.data);
 
-          if(response.data.length != 0){
+          if(response.status === 200 || response.data.length !== 0){
               this.setState({
                 carers: response.data,
                 carersLoaded: true
@@ -237,8 +272,10 @@ getCarers(){
              };
 
 }).catch((error) => { 
-        console.log(error);
-        this.setState({error: true})
+        console.log('error ====> ', error);
+        if (error.response.status === 404){
+            this.setState({error: true})
+        } 
         });
     };
 
@@ -263,13 +300,19 @@ addCarer(event){
         }
       }
     }).then((response) => {
+
+      console.log("addCarer response.status", response.status);
+
+                this.getCarers();
               
-              this.getCarers();
              }
              
 ).catch((error) => { 
-        console.log(error);
-        this.setState({error: true})
+        console.log('addCarer error.response.status ====> ', error.response.status);
+        if (error.response.status === 404){
+            this.setState({error: true})
+        } else this.getCarers();
+
         })
 };
 
@@ -290,10 +333,13 @@ deleteCarer(event){
 
             this.getCarers();
       
-            }).catch((error) => { 
-          console.log(error);
-          this.setState({error: true})
-          });
+            })
+    // .catch((error) => { 
+    //       console.log(error);
+    //       if (error.response.status === 404){
+    //         this.setState({error: true})
+    //     } 
+    //       });
       };
 
 
@@ -309,14 +355,20 @@ deleteCarer(event){
 
 
 
-  handleWearerEdit(){
-    this.setState({wearersEditing: !this.state.wearersEditing});
-    console.log('handleWearerEdit this.state.wearersEditing', this.state.wearersEditing);
+  enableWearerEdit(){
+    this.setState({wearersEditing: true});
+    this.setState({addNewWearerClicked: false});
+    // console.log('enableWearerEdit this.state.wearersEditing', this.state.wearersEditing);
   };
+
+  discardWearerChanges(){
+    this.setState({wearersEditing: false});
+    this.setState({addNewWearerClicked: false});
+  }
 
  resetWearerEdit(){
     this.setState({wearersEditing: false});
-    console.log('handleWearerEdit this.state.wearersEditing', this.state.wearersEditing);
+    console.log('enableWearerEdit this.state.wearersEditing', this.state.wearersEditing);
   };
 
     render(){
@@ -342,74 +394,93 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
       console.log('this.state.activeWearer', this.state.activeWearer);
       console.log('activeWearer', activeWearer);
 
+      let wearersDataForChildren;
+
+          if(activeWearer === undefined) {
+            wearersDataForChildren = this.state.newWearer;
+          } 
+          else {
+            wearersDataForChildren = activeWearer;
+          };
+       
+
+      
+      console.log('activeWearer', activeWearer);
+
+      console.log('this.state.wearerData.length', this.state.wearerData.length);
+
+      console.log('this.state.wearersLoaded', this.state.wearersLoaded);
+
+      console.log('this.state.wearerDevice', this.state.wearerDevice);
+
+      console.log('this.state.wearerDeviceLoaded', this.state.wearerDeviceLoaded);
+
+      console.log('enableWearerEdit this.state.wearersEditing', this.state.wearersEditing);
+
+      console.log('this.state.addNewWearerClicked', this.state.addNewWearerClicked);
+
     return (
           <div>
           <Header/>
           <div>
-            
               <div className="contentWrap">
-              {
-                this.state.error ? <WearerError /> : this.state.wearersLoaded ? 
-                <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
-                :
-
-                <WearersLoading/>
-              }
-              
-
-                <div className="wearerConfigWrap">
-                <p className="wearerConfigWrap__name">Configuration Page</p>
-                <p className="wearerConfigWrap__description">Manage information about wristo</p>
-                {
-                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
-                  (
-                    this.state.wearersEditing ? 
-                    <AddWearer data = {this.state.newWearer} handleWearerEdit = {this.handleWearerEdit} addWearer = {this.addWearer} />
-                    : 
-                    <WearerProfile wearersData = {this.state.newWearer} handleWearerEdit = {this.handleWearerEdit}/> 
-                  )
-                 :
-
-                  this.state.wearersLoaded ? 
-                  (
-                    this.state.wearersEditing ? 
-                    <EditWearerProfile data = {activeWearer} handleWearerEdit = {this.handleWearerEdit} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/>
+                  {
+                    this.state.error ? <WearerError />
                     :
-                    <WearerProfile wearersData = {activeWearer} wearerId = {this.state.wearerId} handleWearerEdit = {this.handleWearerEdit}/>
-                  )
-                  :
-                  <WearersLoading/>
-                }
-                {
-                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
-                  <AddWristo/> :
-                  this.state.wearerDeviceLoaded ? 
-                  <WristoConfiguration getWearerDevice = {this.getWearerDevice} wearerDevice = {this.state.wearerDevice} error = {this.state.error} />
-                  :
-                  <WearersLoading/>
-                }
-                {
-                  this.state.error ? <WearerError /> : this.state.addNewWearerClicked ?
-                  <EmptyCarer/> :
-                  this.state.carersLoaded ? 
-                  <Carers carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer}/>
-                  :
-                  <WearersLoading/>
-                }
+                    this.state.wearersLoaded ?
+                    <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
+                    :
+                    <WearersLoading/> 
+                  }
 
-                </div> 
-              
-          
-            
                 
+
+              <div className="wearerConfigWrap">
+                    <p className="wearerConfigWrap__name">Configuration Page</p>
+                    <p className="wearerConfigWrap__description">Manage information about wristo</p>
+                    {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.wearersLoaded ?
+                    
+                    this.state.addNewWearerClicked ?
+                      <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
+                      :
+                      this.state.wearersEditing ? 
+                      <EditWearerProfile data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
+                      :
+                      <WearerProfile wearersData = {activeWearer} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
+                    
+                    :
+                    <WearersLoading/> 
+                    }
+
+                  
+                  {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.wearerDeviceLoaded ?
+                    <WristoConfiguration getWearerDevice = {this.getWearerDevice} wearerDevice = {this.state.wearerDevice} error = {this.state.error} />
+                    :
+                    <WearersLoading/>
+                  }
+                  
+                  {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.carersLoaded ?
+                    <Carers carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer}/>
+                    :
+                    <WearersLoading/>                 
+                  }
+
+
+              </div>
+
+            
             </div>
-
-          }
-
-
-          </div> 
+           </div> 
         </div>
-        
         );
     }
 }
@@ -418,3 +489,12 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
 
 export default SettingsPage;
 
+
+
+// activeWearer.id === null ?
+//                     <AddWearer data = {this.state.newWearer} enableWearerEdit = {this.enableWearerEdit} addWearer = {this.addWearer} />
+//                     :
+
+
+// <WearerProfile wearersData = {activeWearer} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
+// <WearerProfile wearersData = {this.state.newWearer} enableWearerEdit = {this.enableWearerEdit}/>
