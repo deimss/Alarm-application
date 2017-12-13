@@ -10,8 +10,16 @@
 @import './settings/wearer-settings/wearers-configuration-page/wearer-profile/addWearer.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/carers.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/emptyCarer.scss';
+@font-face {
+font-family: DINPro-Medium;
+src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
+}
 
-/** {
+@font-face {
+font-family: DINPro-Regular;
+src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
+}
+* {
   margin: 0;
   padding: 0;
   outline: none;
@@ -19,16 +27,6 @@
 body,html {
   height: 100%;
   width: 100%;
-}
-
-@font-face {
-font-family: DINPro;
-src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
-}
-
-@font-face {
-font-family: DINProReg;
-src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
 }
 
 @font-face {
@@ -89,7 +87,7 @@ body {
 }
 
  .Log-in {
-    font-family: DINPro;
+    font-family: "DINPro-Medium";
     font-size: 72px;
     font-weight: 500;
     line-height: 1.33;
@@ -234,4 +232,4 @@ body {
 
 #root {
   height:100%
-}*/
+}

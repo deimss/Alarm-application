@@ -1,0 +1,113 @@
+.contacts-body{
+	display: flex;
+	justify-content: space-between;
+}
+.contacts .theList::-webkit-scrollbar { 
+	display: none; 
+}
+.contacts div.button p{padding-top: 2px;}
+.contacts div.button {
+	display: flex;
+	align-items: center;
+	height: 40px;
+	width: 100%;
+	background-color: #fff;
+	border: none;
+	border-top: 1px solid #EDEDEE;
+	font-size: 16px;
+    color: #b52f54;
+    text-align: left;
+    cursor: pointer;
+}
+.contacts div.button img{padding-left: 15px;}
+.contacts .theList div:last-child img{
+	height: 30px;
+	cursor: pointer;
+	margin-left: 5px;
+	padding: 5px;
+	border-radius: 4px;
+	box-shadow: 0px 0px 3px 1px #ebebeb;
+	margin-top: -10px;
+}
+.contacts .theList div:last-child{
+	margin-top: -5px;
+}
+.contacts .theList {
+	border-top: 1px solid #EDEDEE;
+	max-height: 96px;
+	overflow: scroll;
+	list-style: none;
+	padding-left: 0;
+	width: 100%;
+} 
+.contacts .theList li {
+	max-height: 20px;
+	display: flex;
+	justify-content: space-between;
+	color: #333;
+	padding: 9px;
+	border-bottom: 1px solid #EDEDEE;
+}
+.contacts .theList li {
+	color: #333;
+	background-color: white;
+	padding: 24px;
+}
+.contacts li div:first-child {
+    align-items: center;
+    display: flex;
+}
+.contacts li div:first-child img{
+	height: 30px;
+	border-radius: 50%;
+}
+.contacts .theList li:last-child{
+	border-bottom: none;
+}
+.contacts li div:first-child p{padding-left: 20px; text-transform: capitalize;}
+
+.contacts-container .header{
+	display: flex;
+	justify-content: space-between;
+	background-color: #b52f54;
+	align-items: center;
+	padding: 12px;
+	text-transform: capitalize;
+	font-family: 'DINPro-Regular';
+}
+.contacts-container .header div{display: flex;}
+.contacts-container .header p{
+	position: static;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 70px;
+	font-size: 20px;
+	color: #fff;
+}
+.chooseUser{
+	height: 45px;
+	display: flex;
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #000;
+	font-family: 'DINPro-Regular';
+}
+.chooseUser div{
+	background-color: #fff;
+	flex-grow: 1;
+	padding: 10px 0;
+	text-align: center;
+	cursor: pointer;
+}
+.chooseUser div:first-child{
+	border-bottom: 3px solid #b52f54;
+	color: #b52f54;
+}
+
+.absentcontacts {
+	padding: 15px;
+	background-color: #fff;
+	border-top: 1px solid #EDEDEE;
+	font-family: 'DINPro-Regular';
+	font-size: 16px;
+}

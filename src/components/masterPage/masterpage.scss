@@ -1,0 +1,152 @@
+.masterpage .navigation ul li:first-child {background-color: #a1a1a1;}
+
+.right-bar{
+	width: 30%;
+	margin-top: 42px;
+	margin-right: 10px;
+}
+
+.right-bar > div{
+	box-shadow: 0 0 6px rgba(0,0,0,0.6);
+	margin-top: 30px;
+}
+.left-bar {
+	padding-left:10px;
+	width: 65%;
+}
+.right-bar .addTitle{
+	cursor: pointer;
+	box-shadow: none;
+	margin-top: 25px;
+	margin-bottom: 65px;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px dashed #b3b3b3;
+	color: #000;
+	font-family: 'DINPro-Regular';
+	font-size: 20px;
+}
+.right-bar .addTitle div{
+	display: flex;
+}
+.right-bar  .addTitle div span{
+	margin-left: 5px;
+	color: #585858;
+	line-height: 24px;
+}
+.terms{
+	display: flex;
+	margin-top: 50px;
+	margin-bottom: 10px;
+}
+.terms p, a{
+	color: #565656;
+	font-family: 'DINPro-Regular';
+	font-size: 14px;
+	padding: 0 10px;
+}
+[target="_blank"]{background-color: red;}
+.gmnoprint, 
+.gmnoscreen, 
+.gm-style-cc, 
+.map [type="button"], 
+.map a[target="_blank"] div{display: none;}
+.backdrop {
+	position: fixed;
+	background-color: rgba(0,0,0,0.2);
+	top: 0px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 50;
+}
+[class^="modal"] {
+	display: flex;
+	flex-direction: column;;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	background-color: #fff;
+	border-radius: 3px;
+	max-width: 500px;
+	max-height: 800px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+[class^="modal"] input[type=text] {
+  font-family: "DINPro-Regular";
+  width: 90%;
+  font-size: 14px;
+  line-height: 1.14;
+  color: #000;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  padding: 12px 16px;
+  outline: none;
+  margin: 8px;
+  border: solid 1px #ececec;
+}
+.backdrop .message{
+	border-top: 2px solid #F2F2F2;
+	border-bottom: 2px solid #F2F2F2;
+	padding: 40px 0;
+	font-family: 'DINPro-Regular';
+	font-size: 16px;
+	color: #565656;
+	text-align: center;
+	vertical-align: middle;
+}
+[class^="modal"] p{
+	padding: 15px;
+	font-family: 'DINPro-Medium';
+	font-size: 20px;
+	color: #565656;
+}
+[class^="modal"] .footer{
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px;
+}
+[class^="modal"] .footer button {
+	text-transform: uppercase;
+	margin-left: 10px;
+	border: none;
+    color: white;
+    font-family: 'DINPro-Regular';
+	font-size: 13px;
+    border-radius: 3px;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 1s ease;
+}
+[class^="modal"] .footer button:hover{
+	background-color: #C40050;
+}
+[class$="addgroup"] .list {
+	align-self: center;
+}
+[class$="addgroup"] .message {
+	padding: 10px;
+}
+[class$="addgroup"] ul{
+	margin-top: 10px;
+	text-align: center;
+	height: 100px;
+	overflow: scroll;
+}
+[class$="addgroup"] ul::-webkit-scrollbar { 
+	display: none; 
+}
+[class$="addgroup"] ul li{
+	border-radius: 3px;
+	cursor: pointer;
+	width: 200px;
+	list-style: none;
+	padding-top: 3px;
+}
+[class$="addgroup"] ul li:hover{
+	background: #ccc;
+}
