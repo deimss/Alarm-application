@@ -10,15 +10,13 @@
 @import './settings/wearer-settings/wearers-configuration-page/wearer-profile/addWearer.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/carers.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/emptyCarer.scss';
-<<<<<<< HEAD
+@import './settings/wearer-settings/wearers-configuration-page/carers-data/addCarer.scss';
+
+
 @font-face {
 font-family: DINPro-Medium;
 src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
 }
-=======
-@import './settings/wearer-settings/wearers-configuration-page/carers-data/addCarer.scss';
-
->>>>>>> 2137289de4a5a8f103f9ead1a7590591d078f26b
 
 @font-face {
 font-family: DINPro-Regular;
@@ -28,8 +26,10 @@ src: url(./assets/fonts/DINPro-Regular_13937.ttf);
   margin: 0;
   padding: 0;
   outline: none;
+  font-family: DINPro-Regular;
 }
 body,html {
+
   height: 100%;
   width: 100%;
 }

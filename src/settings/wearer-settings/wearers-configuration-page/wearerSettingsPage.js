@@ -231,12 +231,11 @@ getWearerDevice(wearerId){
              console.log('wearerDevice response.data', response.data);
              console.log('wearerDevice response.status', response.status);
 
-             if(response.data.length !== 0){
               this.setState({
                 wearerDevice: response.data,
                 // wearerDeviceLoaded: true
               })
-             };
+             // };
 
               if(response.status === 200 && response.data.length !== 0){
               this.setState({
