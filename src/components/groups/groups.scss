@@ -1,0 +1,51 @@
+.add-group {
+	height: 72px;
+	display: flex;
+	align-items: center;
+}
+.add-group > div:hover{
+	cursor: pointer;
+	background-color: #a1a1a1;
+}
+.masterpage .add-group > div:hover .dropdown{
+	display: flex;
+	opacity: 0.99;
+	transition: opacity .4s ease-in-out;
+}
+.masterpage .add-group > div{
+	border-bottom: 10px solid #F5F5F5;
+	text-align: center;
+	margin-top: 7px;
+	padding: 7px 0px;
+	font-size: 13px;
+	font-family: 'DINPro-Regular';
+	width: 83px;
+	line-height: 12px;
+}
+.masterpage .add-group img{
+	width: 23px;
+}
+.masterpage .dropdown {
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	position: absolute;
+	z-index: 10;
+	padding: 20px 0;
+	width: 140px;
+	background-color: #fff;
+	text-transform: capitalize;
+	font-size: 16px;
+	font-family: 'DINPro-Regular';
+	margin-top: 17px;
+	list-style: none;
+	display: none;
+	flex-direction: column;
+}
+.masterpage .dropdown:hover{cursor: default;}
+.masterpage .dropdown li{
+	color: #a1a1a1;
+	width: 100%;
+	display: flex;
+	padding: 10px 0 10px 10px;
+	align-self: flex-start;
+}
+.masterpage .dropdown li:hover{cursor: pointer; background-color: #ccc;}

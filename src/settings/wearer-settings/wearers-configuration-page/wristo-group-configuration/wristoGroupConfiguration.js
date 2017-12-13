@@ -4,6 +4,7 @@ import WearerError from '../wearer-error.js';
 import WearersLoading from '../wearer-loading.js';
 import AddWristo from './emptyWristo.js';
 import AddNewWristo from './newWristo.js';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -208,7 +209,9 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
         return (
         <div>
         {
+
           this.props.error ? <WearerError /> : this.state.addNewWristo ? <AddNewWristo addNewWristo = {this.handleAddNewWristo} wearerID={this.state.wearerID}/> : this.props.wearerDeviceData.length != 0 ? 
+
           <div className="wearerProfileWrap">
     			  <div className="wearerProfile__header">
               <p>Wristo configuration</p>
@@ -236,7 +239,9 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
             </table>
           </div>
           :
+
              <AddWristo handleAddNewWristo = {this.handleAddNewWristo}/>
+
           } 
         </div>
         )

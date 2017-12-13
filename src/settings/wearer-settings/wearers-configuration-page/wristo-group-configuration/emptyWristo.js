@@ -7,6 +7,7 @@ import {
   Link
 } from 'react-router-dom';
 
+
 class AddWristo extends React.Component{ 
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class AddWristo extends React.Component{
       addNewWristo: false
      };
   };
+
 
    
     render(){
@@ -36,4 +38,4 @@ class AddWristo extends React.Component{
 
 
 
-export default AddWristo;
+export default EmptyWristo;

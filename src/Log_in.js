@@ -78,7 +78,6 @@ class LogIn extends React.Component {
               <input type="submit"  onClick={this.handleSubmit} value="Sing in"></input>
             </form>
             <p className="Dont-have-an-accoun">Don’t have an account?<Link to="/SignUp" className="pink">&nbsp;Create account</Link></p>
-            <p><Link to='/List'>Test LIst</Link></p>
           </div>
     );
   }
