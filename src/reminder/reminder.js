@@ -14,14 +14,14 @@ class Reminder extends React.Component {
   		cmbbox: "all users",
   		groups: [],
   		groupid: 0,
-  		wearershow: "all users"
+  		wearershow: "all users",
+  		search: 0
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
   	this.getWearers = this.getWearers.bind(this);
   	this.switchwearer = this.switchwearer.bind(this);
-  	this.setactivegroup = this.setactivegroup.bind(this);
-  }
+}
 
 
 addGroup(item){
@@ -52,16 +52,13 @@ getWearers(id){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
 	      responseType: 'json'
 	   	}).then(response => {
-	   		console.log(id, response.data)
 	   		this.setState({wearers: response.data});
 	    }).then(response => {
 	    }).catch((error) => { 
 	        console.log(error);
 	    });
 }
-setactivegroup(id){
-	console.log(id)
-}
+
 componentWillMount(){
 	axios({
 	      method: 'get',
@@ -74,12 +71,14 @@ componentWillMount(){
 	   		return response.data;
 	    }).then(response => {
 	    	this.state.groupid = response[0].id;
-	    	this.setactivegroup(this.state.groupid);
 	    	this.getWearers(this.state.groupid)
 	    }).catch((error) => { 
 	        console.log(error);
 	        this.setState({error: true})
 	    });
+}
+findreminder(){
+	this.setState({search: this.refs.reminder.value});
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -100,17 +99,17 @@ render(){
 					<div className="combobox">
 						<button className="dropbtn">{this.state.cmbbox}</button>
 						<ul className="dropdown-content">
-						<li onClick={(e) => this.switchwearer({full_name: "all users", id: 0}, e)} >
+						<li key="" onClick={(e) => this.switchwearer({full_name: "all users", id: 0}, e)} >
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
-						  <input placeholder="Search" className="input" />
+						  <input placeholder="Search" className="input" ref="reminder" onChange={this.findreminder.bind(this)}/>
 					</div>
 				</div>
 			</div>
 
 			<div className="reminders-table">
-				<Calendar wearers={this.state.wearers} id={this.state.groupid} wearershow={this.state.wearershow}/>
+				<Calendar wearers={this.state.wearers} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
 			</div>
 		</div>
 	)
