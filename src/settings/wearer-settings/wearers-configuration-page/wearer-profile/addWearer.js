@@ -56,7 +56,7 @@ class AddWearer extends React.Component {
           valueGender: objArray.gender,
           valueWeight: objArray.weight,
           valueAge: objArray.age,
-          malechecked:'checked'
+          malechecked:''
        })
     }else {
         this.setState({
@@ -65,7 +65,7 @@ class AddWearer extends React.Component {
           valueGender: objArray.gender,
           valueWeight: objArray.weight,
           valueAge: objArray.age,
-          famelechecked:'checked'
+          famelechecked:''
        })
     }
   }

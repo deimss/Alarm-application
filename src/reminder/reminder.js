@@ -52,6 +52,7 @@ getWearers(id){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
 	      responseType: 'json'
 	   	}).then(response => {
+	   		console.log(id, response.data)
 	   		this.setState({wearers: response.data});
 	    }).then(response => {
 	    }).catch((error) => { 

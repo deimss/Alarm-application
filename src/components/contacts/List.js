@@ -72,7 +72,6 @@ class Delete extends React.Component {
     return <li key={item.id} onClick={this.addwearertogroup.bind(this, item.id)}>{item.full_name}</li>
   }
   addwearertogroup(id){
-    console.log(id, this.props.id)
     axios({
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${this.props.id}/wearers`,

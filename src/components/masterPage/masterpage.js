@@ -98,7 +98,6 @@ getWearers(id){
 	    });
 }
 getGroups(){
-	console.log("get Groups")
 	axios({
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
@@ -107,9 +106,8 @@ getGroups(){
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
-	   		this.state.group = response.data[0].id
-	   		this.getWearers(this.state.group);
-	   		console.log(this.state.groups)
+	   		this.state.group = response.data[0].id;
+	   		this.getWearers(response.data[0].id);
 	    }).catch((error) => { 
 	        console.log(error);
 	    });
@@ -117,11 +115,9 @@ getGroups(){
 onchangestate(item){
 	if(this.state.showmodal == false) {
 		this.setState({showmodal: true, todelete: item.id, usertodeletename: item.full_name});
-		console.log(this.state.showmodal)
 	} else {
 		this.setState({showmodal: false, todelete: ""})
 	}
-	console.log(this.state.todelete)
 }
 onGroupClick(item){
 	this.state.group = item.id;
@@ -173,18 +169,18 @@ render(){
 	}
 
 	return <div className="masterpage">
-			<Header />
+		<Header />
 			<div className="contacts-body">
 				<div className="left-bar">
 					<AddGroup active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
 					<MapContainer />
 					<div className="terms">
-						<a href="https://www.wristo.co.uk/">About Wristo</a>
+						<p onClick={() => console.log(this.state)}>About Wristo</p>
 						<p>Terms and Conditions</p>
 					</div>
 				</div>
 				<div className="right-bar">
-					<Contacts id={this.state.group} reloadwearers={this.getWearers}group={this.state.groupname} usersdata={this.state.axiosData} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
+					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.axiosData} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
 					<Notifications />
 					<AddTitle />
 				</div>
@@ -214,7 +210,7 @@ class Modal extends React.Component {
         <div className="modal">
         <p>Delete member</p>
           {this.props.children}
-          <div className="message">Are you shure you want to delete the wearer {this.props.todelete} <br/> from {this.props.group}?</div>
+          <div className="message">Are you sure you want to delete the wearer {this.props.todelete} <br/> from {this.props.group}?</div>
           <div className="footer">
             <button onClick={this.props.onchangestate}>
               cancel
