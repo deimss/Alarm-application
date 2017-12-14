@@ -543,8 +543,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     this.state.error ? <WearerError />
                     :
                     this.state.wearerDeviceLoaded ?
-                    
-                    <WristoConfiguration getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error}/>
+
                     :
                     <WearersLoading/>
                   }

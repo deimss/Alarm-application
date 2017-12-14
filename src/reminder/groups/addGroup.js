@@ -6,9 +6,9 @@ import adduser from '../../assets/icons/add.svg'
 
 const DropDownMenu = (props) => {
 	return <ul className="dropdown">
-		<li onClick={() => props.onListClick("rename", props.item)}>rename</li>
-		<li onClick={() => props.onListClick("duplicate", props.item)}>duplicate</li>
-		<li onClick={() => props.onListClick("delete", props.item)}>delete</li>
+		<li key="" onClick={() => props.onListClick("rename", props.item)}>rename</li>
+		<li key="" onClick={() => props.onListClick("duplicate", props.item)}>duplicate</li>
+		<li key="" onClick={() => props.onListClick("delete", props.item)}>delete</li>
 	</ul>
 }
 

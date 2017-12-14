@@ -39,8 +39,6 @@ class Createwearer extends React.Component{
 		}
 	}
 	createevent(item){
-		//console.log("item", item);
-		//debugger;
 		var date = new Date(item.start_date);
 		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color;
 		if(hours < 10) hours = '0' + hours;
@@ -90,7 +88,6 @@ class Createwearer extends React.Component{
 			sunday: []
 		})
 		this.state.wearershow = nextProps.wearershow;
-		console.log("show=====",this.state.wearershow);
 		this.state.idid = nextProps.id;
 		this.getReminders();
 	}
@@ -118,7 +115,6 @@ class Createwearer extends React.Component{
 
 	filterReminders(reminders){
 		this.state.filteredreminders = reminders.filter(item => {
-			//console.log("item", item);
 			let date = new Date(item.start_date);
 			if(date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day){
 				return item;	
@@ -166,14 +162,6 @@ export default class UserEvents extends React.Component{
 			wearershow: 0
 		}
 	}
-	// componentWillUpdate(){
-	// 	if(this.props.wearershow){
-	// 		for(let i = 0; i < this.props.wearershow.length; i++){
-	// 			arrayofid[i] = this.props.wearershow[i]
-	// 		}
-	// 	}
-	// 	this.state.filter = arrayofid.map(this.createwearer.bind(this))	
-	// }
 	componentWillReceiveProps(nextProps){
 		this.state.wearershow = nextProps.wearershow;
 		this.state.id = nextProps.id;
@@ -198,7 +186,6 @@ export default class UserEvents extends React.Component{
 		return <Createwearer wearershow={this.state.wearershow} id={item.id} groupid={this.state.id}  firstname={item.full_name} weekarray={this.props.weekarray}/>
 	}
 	render(){
-		console.log(this.props)
 		return (
 			<div>
 				{this.state.filter}
