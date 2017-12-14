@@ -107,6 +107,8 @@ getGroups(){
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
+	   		this.state.group = response.data[0].id
+	   		this.getWearers(this.state.group);
 	   		console.log(this.state.groups)
 	    }).catch((error) => { 
 	        console.log(error);
@@ -174,7 +176,7 @@ render(){
 			<Header />
 			<div className="contacts-body">
 				<div className="left-bar">
-					<AddGroup groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
+					<AddGroup active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
 					<MapContainer />
 					<div className="terms">
 						<a href="https://www.wristo.co.uk/">About Wristo</a>

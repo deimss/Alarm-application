@@ -73,6 +73,9 @@
 	margin: 0 auto;
 	margin-top: 50px;
 }
+[class^="modal"] form{
+	text-align: center;
+}
 [class^="modal"] input[type=text] {
   font-family: "DINPro-Regular";
   width: 90%;
@@ -132,6 +135,8 @@
 	padding: 10px;
 }
 [class$="addgroup"] ul{
+	font-family: 'DINPro-Regular';
+	font-size: 16px;
 	margin-top: 10px;
 	text-align: center;
 	height: 100px;

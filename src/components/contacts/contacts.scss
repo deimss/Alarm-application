@@ -64,7 +64,12 @@
 .contacts .theList li:last-child{
 	border-bottom: none;
 }
-.contacts li div:first-child p{padding-left: 20px; text-transform: capitalize;}
+.contacts li div:first-child p{
+	padding-left: 20px; 
+	text-transform: capitalize;
+	font-family: 'DINPro-Regular';
+	font-size: 16px;
+}
 
 .contacts-container .header{
 	display: flex;
