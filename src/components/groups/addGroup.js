@@ -17,7 +17,9 @@ export default class AddGroup extends React.Component{
 		super(props);
 	}
 	addGroup(item){
-		return <div className="group" onClick={() => this.props.onGroupClick(item)}>
+		let color = "#f5f5f5";
+		if(item.id == this.props.active) color = "#d2d2d2";
+		return <div className="group" style={{backgroundColor: color}} onClick={() => this.props.onGroupClick(item)}>
 			<div className="groupbutton"><img src={group} alt="" />
 			<p>{item.name}</p></div>
 			<DropDownMenu onListClick={this.props.onListClick} item={item}/>
