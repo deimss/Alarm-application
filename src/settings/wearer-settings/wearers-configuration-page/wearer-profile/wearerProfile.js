@@ -49,12 +49,12 @@ class WearerProfile extends React.Component{
 
 
 
-        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': }
 // img src={`${wearer.image}`} 
 
 
         let wearer = this.props.wearersData;
-
+// <img src={`${wearer.image}`} alt=''/>
 
 
         return (
