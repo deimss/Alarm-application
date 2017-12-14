@@ -26,6 +26,7 @@ class WristoConfiguration extends React.Component{
       editButton: true,
       toogleButton: true,
       addNewWristo: false,
+      emptyWearerDevice: false,
       wearerID: this.props.wearerID
      };
     this.hadnleClickEditButton = this.hadnleClickEditButton.bind(this);
@@ -34,12 +35,12 @@ class WristoConfiguration extends React.Component{
   };
 
 
-    componentWillMount() {        
+  componentWillMount() {        
       console.log('result getDeviccesDATA',this.getDevicesData());
       this.setState({
         wearerDevice: this.getDevicesData()
       })
-    };
+  };
     
     getDevicesData(event){
       let dataDevices = [];
@@ -50,13 +51,15 @@ class WristoConfiguration extends React.Component{
     }
 
   componentWillReceiveProps(nextProps){
+
     this.setState({
       wearerDevice: nextProps.wearerDeviceData,
       toogleButton: true,
       editButton: true,
       wearerID: nextProps.wearerID,
-      addNewWristo: false
-    })
+      addNewWristo: false,
+      emptyWearerDevice: nextProps.addNewWearerClicked
+    });
   }
   
   handleDiscardData(index){
@@ -210,7 +213,7 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
         <div>
         {
 
-          this.props.error ? <WearerError /> : this.state.addNewWristo ? <AddNewWristo addNewWristo = {this.handleAddNewWristo} wearerID={this.state.wearerID}/> : this.props.wearerDeviceData.length != 0 ? 
+          this.props.error ? <WearerError /> : this.state.addNewWristo ? <AddNewWristo addNewWristo = {this.handleAddNewWristo} wearerID={this.state.wearerID}/> : this.props.wearerDeviceData.length != 0 && !this.state.emptyWearerDevice ? 
 
           <div className="wearerProfileWrap">
     			  <div className="wearerProfile__header">
@@ -238,9 +241,34 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
                 </tbody>
             </table>
           </div>
-          :
+          : !this.state.emptyWearerDevice ?   <AddWristo handleAddNewWristo = {this.handleAddNewWristo}/> : <div className="wearerProfileWrap">
+          <div className="wearerProfile__header">
+            <p>Wristo configuration</p>
+              <button className="addWristoDetails" >
+                    <svg className="addWristoDetails__icon" fill="#B52F54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                      <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                    <span className="addWristoDetails__name">Add Wristo Details</span>
+                </button>
+          </div>
+          <table className="wristo-configuration-table">
+              <thead>
+                <tr>
+                  <th>NAME</th>
+                  <th>SIM NUMBER</th>
+                  <th>UNIQUE WRISTO ID</th>
+                  <th>STATUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>                    
+              </tbody>
+          </table>
+        </div>
+        
 
-             <AddWristo handleAddNewWristo = {this.handleAddNewWristo}/>
+
 
           } 
         </div>
