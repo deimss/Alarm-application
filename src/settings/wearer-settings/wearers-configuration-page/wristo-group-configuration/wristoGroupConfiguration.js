@@ -241,7 +241,8 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
                 </tbody>
             </table>
           </div>
-          : !this.state.emptyWearerDevice ?   <AddWristo handleAddNewWristo = {this.handleAddNewWristo}/> : <div className="wearerProfileWrap">
+          : !this.state.emptyWearerDevice ?   <WearersLoading/> : 
+          <div className="wearerProfileWrap">
           <div className="wearerProfile__header">
             <p>Wristo configuration</p>
               <button className="addWristoDetails" >
@@ -265,7 +266,7 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
               <tbody>                    
               </tbody>
           </table>
-        </div>
+        </div> 
         
 
 

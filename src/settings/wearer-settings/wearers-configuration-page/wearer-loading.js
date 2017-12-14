@@ -21,7 +21,7 @@ render(){
 
     return (
          
-         <h1> Loading wearers data... </h1>
+      <div className="loader"></div>
         
         );
     }
