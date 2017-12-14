@@ -198,6 +198,7 @@ export default class UserEvents extends React.Component{
 		return <Createwearer wearershow={this.state.wearershow} id={item.id} groupid={this.state.id}  firstname={item.full_name} weekarray={this.props.weekarray}/>
 	}
 	render(){
+		console.log(this.props)
 		return (
 			<div>
 				{this.state.filter}
