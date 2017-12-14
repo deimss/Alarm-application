@@ -134,10 +134,10 @@ class Calendar extends React.Component{
         this.createweek();
     }
     componentWillReceiveProps(nextProps){
+        console.log("next", nextProps.filter)
         this.setState({wearershow: nextProps.wearershow});
     }
 	render(){
-        console.log("props", this.props)
     	return (<div className="calendar">
             <div className="switch-date">
     			<span onClick={this.previousWeek.bind(this)}>&#60;</span>
@@ -146,7 +146,7 @@ class Calendar extends React.Component{
     		</div>
                 <Weeks weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
-                    <UserEvents wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.props.wearers} changedweek={this.state.week}/>
+                    <UserEvents search={this.props.search} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.props.wearers} changedweek={this.state.week}/>
                 </div>
             </div>
         )
