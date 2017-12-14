@@ -1,0 +1,54 @@
+.add-group {
+	height: 72px;
+	display: flex;
+	align-items: center;
+}
+.add-group > div:hover{
+	cursor: pointer;
+	background-color: #b3b3b3;
+}
+.masterpage .add-group > div:hover .dropdown{
+	display: flex;
+	opacity: 0.99;
+	transition: opacity .4s ease-in-out;
+}
+
+.add-group > div{
+	border-bottom: 6px solid #F5F5F5;
+	text-align: center;
+	margin-top: 7px;
+	padding-top: 7px;
+	font-size: 13px;
+	font-family: 'DINPro-Regular';
+	width: 83px;
+	height: 47px;
+	line-height: 12px;
+}
+
+.add-group img{
+	width: 23px;
+}
+.dropdown {
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	position: absolute;
+	z-index: 10;
+	padding: 20px 0;
+	width: 140px;
+	background-color: #fff;
+	text-transform: capitalize;
+	font-size: 16px;
+	font-family: 'DINPro-Regular';
+	margin-top: 17px;
+	list-style: none;
+	display: none;
+	flex-direction: column;
+}
+.dropdown:hover{cursor: default;}
+.dropdown li{
+	color: #a1a1a1;
+	width: 93%;
+	display: flex;
+	padding: 10px 0 10px 10px;
+	align-self: flex-start;
+}
+.dropdown li:hover{cursor: pointer; background-color: #ccc;}
