@@ -19,7 +19,7 @@ ReactDOM.render(
       <Route path="/login" component={LogIn}/>
       <Route path="/settings" component={SettingsPage}/>
       <Route path="/reminders" component={Reminder}/>
-      <Route exact path="/" component={Reminder}/>
+      <Route exact path="/" component={MasterPage}/>
     </div>
   </Router>,
   document.getElementById('root')
