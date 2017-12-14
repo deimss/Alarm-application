@@ -213,6 +213,7 @@ input {
   height: 372px;
   background-color: white;
   padding-right: 20px;
+  margin-bottom: 35px;
 
   .wrapper-image-field {
     margin-left: 23px;
@@ -454,12 +455,11 @@ input {
 
 /*Start: Style wearer configuration */
 .wearerProfileWrap {
-  margin-top:22px;
   margin-right: 20px;
   /*min-width: 959px;*/
   width: 100%;
 	background-color: white;
-	box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
+  box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
 }
 
 .wearerProfile__header {
