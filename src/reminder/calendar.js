@@ -137,6 +137,7 @@ class Calendar extends React.Component{
         this.setState({wearershow: nextProps.wearershow});
     }
 	render(){
+        console.log("props", this.props)
     	return (<div className="calendar">
             <div className="switch-date">
     			<span onClick={this.previousWeek.bind(this)}>&#60;</span>
