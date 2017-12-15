@@ -37,6 +37,7 @@ class SettingsPage extends React.Component{
     this.deleteCarer = this.deleteCarer.bind(this);
     this.addCarer = this.addCarer.bind(this);
     this.discardWearerChanges = this.discardWearerChanges.bind(this);
+    this.getGroups = this.getGroups.bind(this);
 
     this.state = {
       wearerId: null,
@@ -44,7 +45,7 @@ class SettingsPage extends React.Component{
 
       // activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
       wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}],
-
+      wearerGroupData: null,
       error: false, 
       wearerDevice: [],
       carers: [],
@@ -76,6 +77,27 @@ handleAddWearerButton(){
 
   this.setState({addNewWearerClicked: true});
   this.setState({wearerAdded: false});
+}
+
+getGroups(wearerId){
+
+  console.log('GETGROUPS');
+
+  axios({
+      method: 'get',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      responseType: 'json'
+    }).then(response => {
+        console.log('getGroups response', response);
+
+        this.setState({wearerGroupData: response.data});
+
+      }).catch((error) => { 
+        console.log('getGroups error ====> ', error);
+
+        });
 }
 
 addWearer(event){
@@ -236,13 +258,6 @@ getWearers(event){
              console.log('wearers response data length= ' , response.data.length);
 
 
-
-
-              this.getWearerDevice(response.data[0].id);
-
-            
-
-
             if (response.status === 200 && response.data.length !== 0){
               this.setState({
                 wearerDeviceLoaded: true,
@@ -266,7 +281,8 @@ getWearers(event){
                 wearerData: response.data,
               })
             }; 
-            
+            this.getWearerDevice(toogledWearerId);
+            this.getGroups(toogledWearerId);
 
 //ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
 //ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
@@ -458,7 +474,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
 
  console.log('wearerId  inside settingpage render -->' + this.state.wearerId);
 
-
+console.log('wearerGroupData ---------->>>>>>', this.state.wearerGroupData)
    // let  wearersData = [
    //    {'id': '1','full_name': 'Joan', 'gender': 'Female', 'age': '78', 'weight': '72', 'heart_rate': '120-150', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
    //    {'id': '2','full_name': 'Kate', 'gender': 'Female', 'age': '68', 'weight': '60', 'heart_rate': '60-120', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
@@ -510,7 +526,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     this.state.error ? <WearerError />
                     :
                     this.state.wearersLoaded ?
-                    <SettingsNavbar wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
+                    <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
                     :
                     <WearersLoading/> 
                   }
@@ -532,7 +548,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                       this.state.wearersEditing ? 
                       <EditWearerProfile data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
                       :
-                      <WearerProfile wearersData = {activeWearer} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
+                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {activeWearer} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
                     
                     :
                     <WearersLoading/> 
