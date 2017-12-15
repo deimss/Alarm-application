@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './reminder.scss';
-import './groups/groups.scss';
+//import './groups/groups.scss';
 import Header from "../settings/wearer-settings/header/header";
 import userImage from "../assets/icons/person.svg";
 import Calendar from './calendar';
