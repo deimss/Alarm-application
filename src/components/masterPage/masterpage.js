@@ -237,7 +237,7 @@ class RenameGroup extends React.Component {
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
-	 		//this.props.reloadgroup();
+	 		this.props.reloadgroup();
 	 		this.props.onchangestate("rename");	
         }).catch(function (error) {
             console.log(error);
@@ -321,10 +321,11 @@ class Duplicate extends React.Component {
 		this.props.onchangestate("duplicate");
 	}
 	makecopy(data){
+		console.log(data);
 		for(let i = 0; i < data.length; i++){
 			axios({
 		 	method: 'post',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/{group_id}/wearers ',
+		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.newGroup+'/wearers ',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
 	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
 		    responseType: 'json',
