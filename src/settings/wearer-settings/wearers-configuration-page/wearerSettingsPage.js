@@ -44,7 +44,7 @@ class SettingsPage extends React.Component{
 
       // activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
       wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}],
-
+      firstIdWearer: null,
       error: false, 
       wearerDevice: [],
       carers: [],
@@ -79,6 +79,7 @@ handleAddWearerButton(){
 }
 
 addWearer(event){
+  if(event != undefined) this.setState({wearerDevice: [] })
   console.log('addWearer');
   console.log('addWearer event',event);
   axios({
@@ -215,8 +216,8 @@ addWearerDevices(event){
              
 ).catch((error) => { 
         console.log(error);
-        this.setState({error: true})
-        })
+      //  this.setState({error: true})
+      })
 };
 
 getWearers(event){
@@ -246,7 +247,8 @@ getWearers(event){
             if (response.status === 200 && response.data.length !== 0){
               this.setState({
                 wearerDeviceLoaded: true,
-                wearersLoaded: true
+                wearersLoaded: true,
+                firstIdWearer: response.data[0].id 
                 })
             };
             
@@ -265,6 +267,7 @@ getWearers(event){
                 activeWearer: toogledWearerId,
                 wearerData: response.data,
               })
+              this.getWearerDevice(toogledWearerId);
             }; 
             
 
@@ -432,7 +435,7 @@ deleteCarer(event){
     this.setState({addNewWearerClicked: false});
     this.setState({wearerId: event});
     this.setState({activeWearer: event});
-    this.getWearerDevice(event);
+   //this.getWearerDevice(event);
   };
 
 
@@ -544,7 +547,7 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     :
                     this.state.wearerDeviceLoaded ?
 
-                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
+                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
                     :
                     <WearersLoading/>
                   }
