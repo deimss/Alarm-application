@@ -79,7 +79,8 @@ handleAddWearerButton(){
 }
 
 addWearer(event){
-  if(event != undefined) this.setState({wearerDevice: [] })
+  if(event) {
+    this.setState({wearerDevice: [] })}
   console.log('addWearer');
   console.log('addWearer event',event);
   axios({
@@ -115,6 +116,8 @@ addWearer(event){
         } 
         })
 };
+
+
 
 updateWearer(event){
   console.log('updateWearer');
@@ -232,17 +235,6 @@ getWearers(event){
       'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
       responseType: 'json'
     }).then(response => {
-
-             console.log('wearers response status = ' , response.status);
-             console.log('wearers response data length= ' , response.data.length);
-
-
-
-
-              this.getWearerDevice(response.data[0].id);
-
-            
-
 
             if (response.status === 200 && response.data.length !== 0){
               this.setState({
