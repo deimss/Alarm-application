@@ -29,20 +29,7 @@ class Carers extends React.Component{
       currentCarerId: null,
       rowEdited: false,
       addCarerClicked: false,
-      // shouldRowUpdate: false,
-      //discardChange: false,
-      // valueId: '',
-      // valueMaster_id: '',
-      // valueEmail: '',
-      // valueEmail: '',
-
-      // carersData: this.props.carers.slice(0),
-
       carersData: []
-      // CarersData : [
-      // {'fullName': 'Full name', 'simNumber': '+380698632654', 'email': 'email@gmail.com', 'permition': 'master account'},
-      // {'fullName': 'Full name', 'simNumber': '+380698632125', 'email': 'email@gmail.com', 'permition': 'view only'} 
-      //              ]
     };
 
     
@@ -52,7 +39,6 @@ class Carers extends React.Component{
 
     setCarersData(){
 
-      console.log('setCarersData');
 
      let arr = [];
 
@@ -65,22 +51,15 @@ class Carers extends React.Component{
 
     componentWillMount(){
       
-      console.log("componentWillMount this.props.carers", this.props.carers);
       this.setCarersData();
-      
-      
-    };
+   };
+
     componentWillReceiveProps(){
       this.setState({addCarerClicked: false});
     }
 
    
     handleInputChange(element, event){
-
-      console.log('handleInputChange element ', element);
-      console.log('handleInputChange event ', event.target);
-      console.log('this.state.carersData', this.state.carersData);
-      
 
       let data = this.state.carersData.find(i => i.id === this.state.currentCarerId);
 
@@ -94,19 +73,16 @@ class Carers extends React.Component{
         };
       
 
-      console.log('carers handleInputChange currentElement', currentElement);
+  
 
       var newCarersData = this.state.carersData.slice(0);
 
       newCarersData[currentElement][dataKey] = event.target.value;
 
-      console.log('newCarersData', newCarersData);
 
       this.setState({carersData: newCarersData});
 
-      console.log("handleInputChange this.state.carersData", this.state.carersData);
-      console.log("handleInputChange this.props.carers", this.props.carers);
-  
+ 
     };
 
     handleAddCarer(){
@@ -155,9 +131,6 @@ class Carers extends React.Component{
 
     render(){
 
-      console.log("this.state.carersData", this.state.carersData);
-      console.log("this.props.carers", this.props.carers);
-
 
       let carersBuffer = this.state.rowEdited ? this.state.carersData : this.props.carers;
 
@@ -165,7 +138,7 @@ class Carers extends React.Component{
 
       let CarersDataTable = carersBuffer.map((dataElement) => {
       
-      console.log('carers dataElement', dataElement);
+
 
       if(this.props.carers.length !== 0){
 
@@ -176,8 +149,6 @@ class Carers extends React.Component{
           disableCarer = this.state.disabled;
           editRow = this.state.rowEdited;
        };
-
-       console.log('disableCarer', disableCarer);
 
 
        rowKey++;
@@ -224,21 +195,6 @@ class Carers extends React.Component{
             </tr>
       } 
 });
-
-// const carersDataNotFound = <tr key={Math.random().toString()}>
-//               <td>---</td>
-//               <td>---</td>
-//               <td>---</td>
-//               <td>---</td>
-//               <td>
-//                 {tableActions}   
-//               </td>
-//             </tr>;
-
-        console.log('CarersDataTable', CarersDataTable);
-
-        console.log('Carers this.state.addCarerClicked', this.state.addCarerClicked);
-        
 
         return (
           <div>

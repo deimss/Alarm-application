@@ -17,8 +17,6 @@ class AddCarer extends React.Component{
     this.handleSaveChange = this.handleSaveChange.bind(this);
 
     this.state = {
-      
-      //newCarer: {'first_name': 'first_name', 'last_name': 'last_name', 'email': 'email@gmail.com', 'age':'', 'password': ''}
       first_name: '', 
       last_name: '', 
       email: '', 
@@ -46,12 +44,6 @@ class AddCarer extends React.Component{
         break;
       
       };
-
-      console.log('addCarer this.state.first_name', this.state.first_name);
-      console.log('addCarer this.state.last_name', this.state.last_name);
-      console.log('addCarer this.state.email', this.state.email);
-      console.log('addCarer this.state.age', this.state.age);
-      console.log('addCarer this.state.password', this.state.password);
   };
 
       handleDiscardChange(event){

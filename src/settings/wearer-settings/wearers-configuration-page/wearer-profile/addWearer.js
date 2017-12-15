@@ -51,7 +51,6 @@ class AddWearer extends React.Component {
 
   componentWillMount(){
     let objArray = this.props.data;
-    console.log('Obj newdata',objArray)
     if(objArray.gender =='male'){
         this.setState({
           value: objArray.heart_rate,

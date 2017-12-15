@@ -14,43 +14,11 @@ class WearerProfile extends React.Component{
   constructor(props) {
     super(props);
 
-    // this.editWearer = this.editWearer.bind(this);
-    // this.state = {
-    //   wearerData : [{'id': '0','full_name': 'Joan', 'gender': 'Female', 'age': '78', 'weight': '72', 'heart_rate': '120-150', 'image': 'string', 'master_id': '0'}, 
-    //                ]
-    // };
   };
   
-  // editWearer(){
-
-  //   this.props.handleWearerEdit();
-  //   console.log('editWearer event', event);
-  // };
+ 
 
     render(){
-        // if (!this.props.wearerData || this.props.wearerData.length === 0) {
-        //   return null;
-        // }
-
-        console.log('props.wearers', this.props.wearersData);
-
-        // let wearersBuffer = this.props.wearersData;
- 
-        // // console.log(wearersBuffer);
-        // let wearerID = this.props.wearerId;
-        // console.log('wearerID', wearerID)
-        // let wearerArray = wearersBuffer.filter(function (element){ 
-        // // console.log('element',element);
-        // if(element.id===wearerID) {return true}});//element
-
-        // console.log('wearerArray', wearerArray);
-        // let wearer = wearerArray[0];
-
-
-
-
-        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': }
-// img src={`${wearer.image}`} 
 
         let groups = null;
         let groupList = null;
@@ -77,9 +45,6 @@ class WearerProfile extends React.Component{
       }
 
       groupList = <select>{groups}</select>;
-
-
-        console.log('groupList', groupList);
 
         return (
         <div className="wearerProfileWrap">
@@ -140,4 +105,3 @@ class WearerProfile extends React.Component{
 
 export default WearerProfile;
 
-//|| '-'
