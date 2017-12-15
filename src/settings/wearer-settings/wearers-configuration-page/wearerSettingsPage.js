@@ -101,7 +101,8 @@ getGroups(wearerId){
 }
 
 addWearer(event){
-  if(event != undefined) this.setState({wearerDevice: [] })
+  if(event) {
+    this.setState({wearerDevice: [] })}
   console.log('addWearer');
 
   axios({
@@ -136,6 +137,8 @@ addWearer(event){
         } 
         })
 };
+
+
 
 updateWearer(event){
 
