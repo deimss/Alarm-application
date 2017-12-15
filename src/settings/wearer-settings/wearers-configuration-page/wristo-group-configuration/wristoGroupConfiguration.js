@@ -2,8 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import WearerError from '../wearer-error.js';
 import WearersLoading from '../wearer-loading.js';
-import AddWristo from './emptyWristo.js';
+import EmptyWristo from './emptyWristo.js';
 import AddNewWristo from './newWristo.js';
+import EmptyTable from './emptyTable.js';
 
 import {
   BrowserRouter as Router,
@@ -26,20 +27,22 @@ class WristoConfiguration extends React.Component{
       editButton: true,
       toogleButton: true,
       addNewWristo: false,
+      emptyWearerDevice: false,
       wearerID: this.props.wearerID
      };
     this.hadnleClickEditButton = this.hadnleClickEditButton.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleAddNewWristo = this.handleAddNewWristo.bind(this);
+    this.changeStateAddNewWristo = this.changeStateAddNewWristo.bind(this);
   };
 
 
-    componentWillMount() {        
+  componentWillMount() {        
       console.log('result getDeviccesDATA',this.getDevicesData());
       this.setState({
         wearerDevice: this.getDevicesData()
       })
-    };
+  };
     
     getDevicesData(event){
       let dataDevices = [];
@@ -50,13 +53,15 @@ class WristoConfiguration extends React.Component{
     }
 
   componentWillReceiveProps(nextProps){
+
     this.setState({
       wearerDevice: nextProps.wearerDeviceData,
       toogleButton: true,
       editButton: true,
       wearerID: nextProps.wearerID,
-      addNewWristo: false
-    })
+      addNewWristo: false,
+      emptyWearerDevice: nextProps.addNewWearerClicked
+    });
   }
   
   handleDiscardData(index){
@@ -69,11 +74,13 @@ class WristoConfiguration extends React.Component{
       })
   }
 
-  handleAddNewWristo(event){
-
+  changeStateAddNewWristo(){
     this.setState({
       addNewWristo: !this.state.addNewWristo
     });
+  }
+
+  handleAddNewWristo(event){
     console.log('event FOR NEW DEVICES', event);
     this.props.addWearerDevices(event);
 
@@ -153,7 +160,6 @@ class WristoConfiguration extends React.Component{
 
     render(){
 
-
 const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
        // console.log((dataElement.uniqueWristoId.concat(Math.random())).toString());
 
@@ -209,13 +215,12 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
         return (
         <div>
         {
-
-          this.props.error ? <WearerError /> : this.state.addNewWristo ? <AddNewWristo addNewWristo = {this.handleAddNewWristo} wearerID={this.state.wearerID}/> : this.props.wearerDeviceData.length != 0 ? 
-
+//<AddNewWristo addNewWristo = {this.handleAddNewWristo} wearerID={this.state.wearerID}/>
+          this.props.error ? <WearerError /> : this.state.addNewWristo ? <AddNewWristo addNewWristo = {this.handleAddNewWristo}  changeStateAddNewWristo={this.changeStateAddNewWristo} wearerID={this.state.wearerID}/> : this.state.emptyWearerDevice ?  <EmptyTable /> : this.state.wearerDevice.length != 0  ? 
           <div className="wearerProfileWrap">
     			  <div className="wearerProfile__header">
               <p>Wristo configuration</p>
-                <button className="addWristoDetails" onClick={this.handleAddNewWristo}>
+                <button className="addWristoDetails" onClick={this.changeStateAddNewWristo}>
                       <svg className="addWristoDetails__icon" fill="#B52F54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                         <path d="M0 0h24v24H0z" fill="none"/>
@@ -238,10 +243,7 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
                 </tbody>
             </table>
           </div>
-          :
-
-             <AddWristo handleAddNewWristo = {this.handleAddNewWristo}/>
-
+          : this.state.wearerID === this.props.firstIdWearer ? <EmptyTable /> :  <EmptyWristo changeStateAddNewWristo = {this.changeStateAddNewWristo} /> 
           } 
         </div>
         )

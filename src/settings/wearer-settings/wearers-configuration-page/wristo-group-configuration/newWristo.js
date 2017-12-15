@@ -51,7 +51,7 @@ class AddNewWristo extends React.Component{
   }
 
   backToConfig(){
-    this.props.addNewWristo();
+    this.props.changeStateAddNewWristo();
   }
 
   render(){

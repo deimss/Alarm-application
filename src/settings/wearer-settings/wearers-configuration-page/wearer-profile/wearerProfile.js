@@ -49,12 +49,12 @@ class WearerProfile extends React.Component{
 
 
 
-        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null}
+        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': }
 // img src={`${wearer.image}`} 
 
 
         let wearer = this.props.wearersData;
-
+// <img src={`${wearer.image}`} alt=''/>
 
 
         return (
@@ -69,36 +69,39 @@ class WearerProfile extends React.Component{
           </button>
           </div>
           <div className="wearerProfile__info">
-            <img src={`${wearer.image}`} alt=''/>
+            <div className="wearerProfile__image">
+              <img src={`${wearer.image}`} alt=''/>
+            </div>
+            
             <div className="wearerProfile__info__table">
               <table>
                 <tbody>
                   <tr>
                     <td>Full name</td>
-                    <td>{wearer.full_name || '-'}</td>
+                    <td>{wearer.full_name}</td>  
                   </tr>
                   <tr>
                     <td>Gender</td>
-                    <td>{wearer.gender || '-'}</td>
+                    <td>{wearer.gender}</td>
                   </tr>
                   <tr>
                     <td>Age</td>
-                    <td>{wearer.age || '-'}</td>
+                    <td>{wearer.age}</td>
                   </tr>
                   <tr>
                     <td>Weight</td>
-                    <td>{wearer.weight || '-'}</td>
+                    <td>{wearer.weight}</td>
                   </tr>
                   <tr>
                     <td>
                       <p>Resting Max</p>
                       <p>heart rate</p>
                     </td>
-                    <td>{wearer.heart_rate || '-'}</td>
+                    <td>{wearer.heart_rate}</td>
                   </tr>
                   <tr>
                     <td>Group</td>
-                    <td>{wearer.master_id || '-'}</td>
+                    <td>{wearer.master_id}</td>
                   </tr>
                 </tbody>
               </table>
@@ -112,3 +115,5 @@ class WearerProfile extends React.Component{
 
 
 export default WearerProfile;
+
+//|| '-'

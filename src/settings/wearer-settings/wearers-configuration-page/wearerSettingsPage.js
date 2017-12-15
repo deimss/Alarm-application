@@ -43,23 +43,26 @@ class SettingsPage extends React.Component{
       activeWearer: null,
 
       // activeWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null},
-      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'}],
-
+      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}],
+      firstIdWearer: null,
       error: false, 
       wearerDevice: [],
       carers: [],
       addNewWearerClicked: false,
-      wearersLoaded: true,
+      wearersLoaded: false,
+      emptyWearersLoaded: false,
       carersLoaded: false, 
-      wearerDeviceLoaded: true,
+      wearerDeviceLoaded: false,
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
       wearerAdded: false,
-      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'}
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}
     }
   };
 
+
+// 'image': 'https://collaborativecbt.com/wp-content/uploads/2016/12/default-avatar.png'
 
 componentWillMount() {          
   this.getWearers();
@@ -76,6 +79,7 @@ handleAddWearerButton(){
 }
 
 addWearer(event){
+  if(event != undefined) this.setState({wearerDevice: [] })
   console.log('addWearer');
   console.log('addWearer event',event);
   axios({
@@ -212,8 +216,8 @@ addWearerDevices(event){
              
 ).catch((error) => { 
         console.log(error);
-        this.setState({error: true})
-        })
+      //  this.setState({error: true})
+      })
 };
 
 getWearers(event){
@@ -243,7 +247,8 @@ getWearers(event){
             if (response.status === 200 && response.data.length !== 0){
               this.setState({
                 wearerDeviceLoaded: true,
-                wearersLoaded: true
+                wearersLoaded: true,
+                firstIdWearer: response.data[0].id 
                 })
             };
             
@@ -262,6 +267,7 @@ getWearers(event){
                 activeWearer: toogledWearerId,
                 wearerData: response.data,
               })
+              this.getWearerDevice(toogledWearerId);
             }; 
             
 
@@ -323,7 +329,7 @@ getWearerDevice(wearerId){
 
              }
              
-}).catch((error) => { 
+}, err => console.log(err)).catch((error) => { 
         console.log(error);
         if (error.response.status == 404){
             this.setState({error: true})
@@ -429,7 +435,7 @@ deleteCarer(event){
     this.setState({addNewWearerClicked: false});
     this.setState({wearerId: event});
     this.setState({activeWearer: event});
-    this.getWearerDevice(event);
+   //this.getWearerDevice(event);
   };
 
 
@@ -540,7 +546,8 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     this.state.error ? <WearerError />
                     :
                     this.state.wearerDeviceLoaded ?
-                    <WristoConfiguration getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
+
+                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
                     :
                     <WearersLoading/>
                   }
@@ -549,7 +556,8 @@ console.log('wearerAdded inside settingpage render -->' + this.state.wearerAdded
                     this.state.error ? <WearerError />
                     :
                     this.state.carersLoaded ?
-                    <Carers carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer}/>
+                    
+                    <Carers carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer} addNewWearerClicked = {this.state.addNewWearerClicked}/>
                     :
                     <WearersLoading/>                 
                   }
