@@ -118,7 +118,7 @@ class Delete extends React.Component {
     return (
       <div className="backdrop">
         <div className="modal-addgroup">
-        <p>Delete group</p>
+        <p>Adding wearer to group</p>
           {this.props.children}
           <div className="message">Please select wearer you want to add to group {this.props.group}.</div>
           <div className="list"><ul>{this.state.filteredwearers}</ul></div>

@@ -58,7 +58,9 @@ getWearers(id){
 	        console.log(error);
 	    });
 }
-
+getallreminders(){
+	
+}
 componentWillMount(){
 	axios({
 	      method: 'get',
@@ -78,7 +80,7 @@ componentWillMount(){
 	    });
 }
 findreminder(){
-	this.setState({search: this.refs.reminder.value});
+
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))

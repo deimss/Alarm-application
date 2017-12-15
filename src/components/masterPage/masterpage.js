@@ -12,20 +12,6 @@ import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
 
 
-
-const AddTitle = () => {
-	return <div className="addTitle">
-		<div>
-			<svg fill="#585858" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-   			<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-			<path d="M0 0h24v24H0z" fill="none"/>
-			</svg>
-			<span>Add title</span>
-		</div>
-	</div>
-}
-
-
 class MasterPage extends React.Component{
 	constructor(props){
 		super(props);
@@ -49,6 +35,7 @@ class MasterPage extends React.Component{
 		this.getGroups = this.getGroups.bind(this);
 		this.onGroupClick = this.onGroupClick.bind(this);
 		this.listClick = this.listClick.bind(this);
+		//this.renamegroup = this.renamegroup.bind(this);
 	}
 
 // componentWillMount(){
@@ -107,6 +94,7 @@ getGroups(){
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
 	   		this.state.group = response.data[0].id;
+	   		this.state.groupname = response.data[0].name;
 	   		this.getWearers(response.data[0].id);
 	    }).catch((error) => { 
 	        console.log(error);
@@ -140,6 +128,13 @@ deleteListItem(){
 	// const filteredUsers = this.state.axiosData.filter(user => user.id != this.state.todelete);
 	// this.setState({ confirm: true, axiosData: filteredUsers });
 }
+// renamegroup(name){
+// 	for(let i = 0; i < this.state.groups.length; i++){
+// 		if(this.state.group == this.state.groups[i].id){
+// 			this.state.groups[i].name = name;
+// 		}
+// 	}
+// }
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
 	if(this.state.showmodal === true){
@@ -182,7 +177,6 @@ render(){
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.axiosData} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
 					<Notifications />
-					<AddTitle />
 				</div>
 			</div>
 			{duplicateGroup}
@@ -251,6 +245,7 @@ class RenameGroup extends React.Component {
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
+	 		//this.props.onchange(this.state.newname)
 	 		this.props.reloadgroup();
 	 		this.props.onchangestate("rename");	
         }).catch(function (error) {
@@ -335,10 +330,11 @@ class Duplicate extends React.Component {
 		this.props.onchangestate("duplicate");
 	}
 	makecopy(data){
+		console.log(data);
 		for(let i = 0; i < data.length; i++){
 			axios({
 		 	method: 'post',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/{group_id}/wearers ',
+		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.newGroup+'/wearers ',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
 	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
 		    responseType: 'json',
