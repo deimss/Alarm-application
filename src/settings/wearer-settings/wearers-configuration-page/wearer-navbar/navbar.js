@@ -20,13 +20,6 @@ constructor(props) {
       liIsClicked : false,
       wearersBuffer: [],
       addWearerButtonClicked: false,
-
-      // wearersData : [
-      // {'id': '1','full_name': 'Joan', 'gender': 'Female', 'age': '78', 'weight': '72', 'heart_rate': '120-150', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
-      // {'id': '2','full_name': 'Kate', 'gender': 'Female', 'age': '68', 'weight': '60', 'heart_rate': '60-120', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
-      // {'id': '3','full_name': 'Mark', 'gender': 'Male', 'age': '70', 'weight': '65', 'heart_rate': '80 - 130', 'image': 'https://image.flaticon.com/icons/svg/145/145842.svg', 'master_id': '0'},
-      // {'id': '4','full_name': 'Angelina', 'gender': 'Female', 'age': '50', 'weight': '85', 'heart_rate': '110-160', 'image': 'https://image.flaticon.com/icons/svg/145/145847.svg', 'master_id': '0'},
-      // ],
       search: ""
     };
   };
@@ -78,6 +71,7 @@ constructor(props) {
               {this.props.handleWearerData(wearer.id); 
               this.setState({wearerId:wearer.id}); 
               this.props.getWearerDevice(wearer.id); 
+              this.props.getGroups(wearer.id); 
               this.setState({liIsClicked : true}); 
               this.setState({addWearerButtonClicked : false}); 
               this.props.resetWearerEdit();
@@ -93,20 +87,7 @@ constructor(props) {
 
         }
 
-        
 
-
-
-
-
-
-
-
-
-
-
-        
-        console.log('navbar namesList', namesList);
 
  return (
             <div>

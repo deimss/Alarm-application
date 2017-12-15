@@ -14,48 +14,37 @@ class WearerProfile extends React.Component{
   constructor(props) {
     super(props);
 
-    // this.editWearer = this.editWearer.bind(this);
-    // this.state = {
-    //   wearerData : [{'id': '0','full_name': 'Joan', 'gender': 'Female', 'age': '78', 'weight': '72', 'heart_rate': '120-150', 'image': 'string', 'master_id': '0'}, 
-    //                ]
-    // };
   };
   
-  // editWearer(){
-
-  //   this.props.handleWearerEdit();
-  //   console.log('editWearer event', event);
-  // };
+ 
 
     render(){
-        // if (!this.props.wearerData || this.props.wearerData.length === 0) {
-        //   return null;
-        // }
 
-        console.log('props.wearers', this.props.wearersData);
-
-        // let wearersBuffer = this.props.wearersData;
- 
-        // // console.log(wearersBuffer);
-        // let wearerID = this.props.wearerId;
-        // console.log('wearerID', wearerID)
-        // let wearerArray = wearersBuffer.filter(function (element){ 
-        // // console.log('element',element);
-        // if(element.id===wearerID) {return true}});//element
-
-        // console.log('wearerArray', wearerArray);
-        // let wearer = wearerArray[0];
-
-
-
-
-        // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': }
-// img src={`${wearer.image}`} 
-
-
+        let groups = null;
+        let groupList = null;
+        let emptyGroupList = '-';
         let wearer = this.props.wearersData;
+        let avatar = "https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiztfjJ5IvYAhWDdpoKHRJrCQwQjRwIBw&url=https%3A%2F%2Fwww.abyssproject.net%2F2017%2F11%2Fcroisade-patcher-lintel-me%2F&psig=AOvVaw0QjBEPO2AKO-J97reF-d9Q&ust=1513419309575182";
 // <img src={`${wearer.image}`} alt=''/>
+        if (wearer.image !== null){
+           avatar = wearer.image.url
+        }; 
 
+        let wearerGroup = this.props.wearerGroupData;
+
+        if (this.props.wearerGroupData !== null){
+          groups = wearerGroup.map((group) => {
+
+          return (
+            <option key={group.id.toString()}> {group.name}
+            </option>
+          )
+
+          
+        });
+      }
+
+      groupList = <select>{groups}</select>;
 
         return (
         <div className="wearerProfileWrap">
@@ -70,7 +59,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={`${wearer.image}`} alt=''/>
+              <img src={avatar} alt=''/>
             </div>
             
             <div className="wearerProfile__info__table">
@@ -101,7 +90,7 @@ class WearerProfile extends React.Component{
                   </tr>
                   <tr>
                     <td>Group</td>
-                    <td>{wearer.master_id}</td>
+                    <td>{groupList || emptyGroupList}</td>
                   </tr>
                 </tbody>
               </table>
@@ -116,4 +105,3 @@ class WearerProfile extends React.Component{
 
 export default WearerProfile;
 
-//|| '-'

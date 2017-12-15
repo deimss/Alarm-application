@@ -92,6 +92,7 @@ header{
   line-height: 1.33;
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
+  font-family: DINPro-Medium;
 }
 
 .inputField {
@@ -130,15 +131,19 @@ form p {
     font-weight: 500;
 }
 
-p a{
+p#forgotPass a{
     text-decoration: none;
     font-size: 14px;
     font-weight: 300;
     text-align: left;
     color: #b52f54;
     font-family: DINPro-Regular;
+    padding: 0;
 }
 
+.sign p a{
+    color: #b52f54;
+}
 
 .inputField::-moz-placeholder { /* Firefox 19+ */
   color: black;
@@ -198,6 +203,7 @@ input::placeholder {
     padding: 11px 0;
     color:white;
     font-family: DINPro-Medium;    
+    margin-top: 25px;
 }
 
 .signInForm [value]{
@@ -230,11 +236,22 @@ span{
     position: absolute;
 }
 
+.error span{
+
+    font-family: DINPro-Medium;
+
+}
+
 .login-error {
     padding-top: 2px;
-    font-family: DINPro-Medium;
     font-size: 14px;
     position: absolute;
+}
+
+.login-error span{
+
+    font-family: DINPro-Medium;
+
 }
 
 .signUpForm{

@@ -31,14 +31,3 @@ render(){
 
 export default WearersLoading;
 
-
-
-            // { 
-            //   wearerError ?
-            //     <WearerError errorData={wearerError} >
-            //     :
-            //     wearerArray ?
-            //       <WearerData data={wearerArray}
-            //       :
-            //       <WearerLoading />
-            // }

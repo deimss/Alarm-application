@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import InputRange from 'react-input-range';
+import FileBase64 from 'react-file-base64';
 
 class AddWearer extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class AddWearer extends React.Component {
       valueWeight: '',
       valueAge: '',
       malechecked:'',
-      famelechecked:''
+      famelechecked:'',
+      files: []
   };
 
   this.handleChangeField = this.handleChangeField.bind(this);
@@ -30,6 +32,7 @@ class AddWearer extends React.Component {
           valueAge: nextProps.data.age,
           malechecked:'checked',
           famelechecked: ''
+
        })
     }else {
         this.setState({
@@ -48,7 +51,6 @@ class AddWearer extends React.Component {
 
   componentWillMount(){
     let objArray = this.props.data;
-    console.log('Obj newdata',objArray)
     if(objArray.gender =='male'){
         this.setState({
           value: objArray.heart_rate,
