@@ -13,6 +13,7 @@
 	transition: opacity .4s ease-in-out;
 }
 .masterpage .add-group > div{
+	min-width: 80px;
 	border-bottom: 10px solid #F5F5F5;
 	text-align: center;
 	margin-top: 14px;
@@ -22,6 +23,9 @@
 	font-family: 'DINPro-Regular';
 	width: auto;
 	line-height: 12px;
+}
+.masterpage .add-group > div:active{
+	background-color: red;
 }
 .masterpage .add-group img{
 	width: 23px;

@@ -34,21 +34,6 @@ class Header extends React.Component{
                     </svg>
                     <p className="settings_header__menu__item__link" href="#"> REMINDERS </p>
                 </Link>
-                <Link to="login" className="settings_header__menu__item">
-                    <svg className="settings_header__menu__item__icon"  fill="#FFFFFF" height="29.5" viewBox="0 0 24 24" width="29.5" xmlns="http://www.w3.org/2000/svg">
-                    
-                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                 </svg>
-                    
-                    <div className="settings_notificationDot">
-                    <svg width="12" height="12">
-                    <circle r="6" cx="6" cy="6"
-                    fill="#bf0050"/>
-                    </svg>
-                    </div> 
-                    <Link to="settings" className="settings_header__menu__item__link" > NOTIFICATIONS </Link>
-                    
-                </Link>
                 <Link to="settings" className="settings_header__menu__item">
                     <svg className="settings_header__menu__item__icon" fill="#FFFFFF" height="29.5" viewBox="0 0 24 24" width="29.5" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"/>
