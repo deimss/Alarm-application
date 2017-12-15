@@ -237,7 +237,7 @@ class RenameGroup extends React.Component {
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
-	 		//this.props.reloadgroup();
+	 		this.props.reloadgroup();
 	 		this.props.onchangestate("rename");	
         }).catch(function (error) {
             console.log(error);
