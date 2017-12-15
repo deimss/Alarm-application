@@ -6,8 +6,9 @@ export default {
 		debugger;
 		console.log("here")
 	    var itemArray = items;
+	    console.log(itemArray)
 	    if (inputValue !== "") {
-	    itemArray.push({
+	    itemArray.unshift({
 	        text: inputValue,
 	        key: Date.now()
 	      });}

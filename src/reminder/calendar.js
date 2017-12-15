@@ -134,7 +134,6 @@ class Calendar extends React.Component{
         this.createweek();
     }
     componentWillReceiveProps(nextProps){
-        console.log("next", nextProps.filter)
         this.setState({wearershow: nextProps.wearershow});
     }
 	render(){

@@ -12,20 +12,6 @@ import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
 
 
-
-const AddTitle = () => {
-	return <div className="addTitle">
-		<div>
-			<svg fill="#585858" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-   			<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-			<path d="M0 0h24v24H0z" fill="none"/>
-			</svg>
-			<span>Add title</span>
-		</div>
-	</div>
-}
-
-
 class MasterPage extends React.Component{
 	constructor(props){
 		super(props);
@@ -107,6 +93,7 @@ getGroups(){
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
 	   		this.state.group = response.data[0].id;
+	   		this.state.groupname = response.data[0].name;
 	   		this.getWearers(response.data[0].id);
 	    }).catch((error) => { 
 	        console.log(error);
@@ -182,7 +169,6 @@ render(){
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.axiosData} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
 					<Notifications />
-					<AddTitle />
 				</div>
 			</div>
 			{duplicateGroup}
@@ -251,7 +237,7 @@ class RenameGroup extends React.Component {
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
-	 		this.props.reloadgroup();
+	 		//this.props.reloadgroup();
 	 		this.props.onchangestate("rename");	
         }).catch(function (error) {
             console.log(error);
