@@ -52,10 +52,34 @@ class WearerProfile extends React.Component{
         // let wearer = {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': }
 // img src={`${wearer.image}`} 
 
-
+        let groups = null;
+        let groupList = null;
+        let emptyGroupList = '-';
         let wearer = this.props.wearersData;
+        let avatar = "https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiztfjJ5IvYAhWDdpoKHRJrCQwQjRwIBw&url=https%3A%2F%2Fwww.abyssproject.net%2F2017%2F11%2Fcroisade-patcher-lintel-me%2F&psig=AOvVaw0QjBEPO2AKO-J97reF-d9Q&ust=1513419309575182";
 // <img src={`${wearer.image}`} alt=''/>
+        if (wearer.image !== null){
+           avatar = wearer.image.url
+        }; 
 
+        let wearerGroup = this.props.wearerGroupData;
+
+        if (this.props.wearerGroupData !== null){
+          groups = wearerGroup.map((group) => {
+
+          return (
+            <option key={group.id.toString()}> {group.name}
+            </option>
+          )
+
+          
+        });
+      }
+
+      groupList = <select>{groups}</select>;
+
+
+        console.log('groupList', groupList);
 
         return (
         <div className="wearerProfileWrap">
@@ -70,7 +94,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={`${wearer.image}`} alt=''/>
+              <img src={avatar} alt=''/>
             </div>
             
             <div className="wearerProfile__info__table">
@@ -101,7 +125,7 @@ class WearerProfile extends React.Component{
                   </tr>
                   <tr>
                     <td>Group</td>
-                    <td>{wearer.master_id}</td>
+                    <td>{groupList || emptyGroupList}</td>
                   </tr>
                 </tbody>
               </table>

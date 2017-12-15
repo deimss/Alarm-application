@@ -35,7 +35,7 @@ class MasterPage extends React.Component{
 		this.getGroups = this.getGroups.bind(this);
 		this.onGroupClick = this.onGroupClick.bind(this);
 		this.listClick = this.listClick.bind(this);
-		this.renamegroup = this.renamegroup.bind(this);
+		//this.renamegroup = this.renamegroup.bind(this);
 	}
 
 // componentWillMount(){
@@ -128,13 +128,13 @@ deleteListItem(){
 	// const filteredUsers = this.state.axiosData.filter(user => user.id != this.state.todelete);
 	// this.setState({ confirm: true, axiosData: filteredUsers });
 }
-renamegroup(name){
-	for(let i = 0; i < this.state.groups.length; i++){
-		if(this.state.group == this.state.groups[i].id){
-			this.state.groups[i].name = name;
-		}
-	}
-}
+// renamegroup(name){
+// 	for(let i = 0; i < this.state.groups.length; i++){
+// 		if(this.state.group == this.state.groups[i].id){
+// 			this.state.groups[i].name = name;
+// 		}
+// 	}
+// }
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
 	if(this.state.showmodal === true){
@@ -143,7 +143,7 @@ render(){
 		modal = null;
 	}
 	if(this.state.renamegroup === true){
-		renamemodal = <RenameGroup onchange={this.renamegroup} reloadgroup={this.getGroups} onchangestate={this.listClick} torename={this.state.groupdelete} id={this.state.group}/>
+		renamemodal = <RenameGroup reloadgroup={this.getGroups} onchangestate={this.listClick} torename={this.state.groupdelete} id={this.state.group}/>
 	} else {
 		renamemodal = null;
 	}
@@ -245,8 +245,8 @@ class RenameGroup extends React.Component {
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
-	 		this.props.onchange(this.state.newname)
-	 		//this.props.reloadgroup();
+	 		//this.props.onchange(this.state.newname)
+	 		this.props.reloadgroup();
 	 		this.props.onchangestate("rename");	
         }).catch(function (error) {
             console.log(error);

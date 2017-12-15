@@ -83,7 +83,6 @@ class WristoConfiguration extends React.Component{
   handleAddNewWristo(event){
     console.log('event FOR NEW DEVICES', event);
     this.props.addWearerDevices(event);
-
   }
 
 /*

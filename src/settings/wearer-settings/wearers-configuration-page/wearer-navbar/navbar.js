@@ -78,6 +78,7 @@ constructor(props) {
               {this.props.handleWearerData(wearer.id); 
               this.setState({wearerId:wearer.id}); 
               this.props.getWearerDevice(wearer.id); 
+              this.props.getGroups(wearer.id); 
               this.setState({liIsClicked : true}); 
               this.setState({addWearerButtonClicked : false}); 
               this.props.resetWearerEdit();
