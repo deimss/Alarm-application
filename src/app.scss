@@ -37,7 +37,9 @@ src: url(./assets/fonts/DINPro-Regular_13937.ttf);
 a {
   text-decoration-line: none;
 }
-
+.active {
+  background-color: #C0C0C0;
+}
 body {
     font-family: DINPro;
     font-size: 14px;
