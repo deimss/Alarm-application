@@ -38,7 +38,6 @@ class WristoConfiguration extends React.Component{
 
 
   componentWillMount() {        
-      console.log('result getDeviccesDATA',this.getDevicesData());
       this.setState({
         wearerDevice: this.getDevicesData()
       })
@@ -81,19 +80,9 @@ class WristoConfiguration extends React.Component{
   }
 
   handleAddNewWristo(event){
-    console.log('event FOR NEW DEVICES', event);
     this.props.addWearerDevices(event);
   }
 
-/*
-  handleSaveData(index){
-    this.setState({ 
-      isEdit: !this.state.isEdit,
-      idElArray: index,
-      editButton: !this.state.editButton,
-      toogleButton: !this.state.toogleButton,
-      })
-  }*/
 
   hadnleClickEditButton(index){
     let focusInp = this.state.wearerDevice.find(i => i.id === index);
@@ -110,7 +99,6 @@ class WristoConfiguration extends React.Component{
   }
 
   handleChangeInput(nameField,idInput ,event){ 
-    console.log('SELECT', event.target.value)
     let focusInp = this.state.wearerDevice.find(i => i.id === idInput);
     let array = this.state.wearerDevice;
     let currentObj = this.state.wearerDevice.indexOf(focusInp);
@@ -160,9 +148,7 @@ class WristoConfiguration extends React.Component{
     render(){
 
 const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
-       // console.log((dataElement.uniqueWristoId.concat(Math.random())).toString());
 
-// key={wearerDeviceObject.id.toString()}
         if(this.props.wearerDeviceData.length !== 0 ) {  
           
           let disabledINp = 'disabled';

@@ -7,12 +7,12 @@
 	cursor: pointer;
 	background-color: #a1a1a1;
 }
-.masterpage .add-group > div:hover .dropdown{
+.add-group > div:hover .dropdown{
 	display: flex;
 	opacity: 0.99;
 	transition: opacity .4s ease-in-out;
 }
-.masterpage .add-group > div{
+.add-group > div{
 	min-width: 80px;
 	border-bottom: 10px solid #F5F5F5;
 	text-align: center;
@@ -24,7 +24,7 @@
 	width: auto;
 	line-height: 12px;
 }
-.masterpage .add-group img{
+.add-group img{
 	width: 23px;
 }
 .masterpage .dropdown {

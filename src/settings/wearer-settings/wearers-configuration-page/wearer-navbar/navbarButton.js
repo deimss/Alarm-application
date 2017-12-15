@@ -12,7 +12,6 @@ class NavbarButton extends React.Component{
 
 
  render(){
-// onClick={()=>{this.props.addWearer(); this.props.getWearers()}}
         return (
             
                 <button className="addWearerButton" onClick={()=>{this.props.handleAddWearerButton(); this.props.handleAddWearerButtonClicked()}} >
