@@ -67,6 +67,6 @@
 	margin-left: 7%;
 }
 
-/*.wearerProfile__info__table td:first-child{
-	font-weight: 500;
-}*/
+.wearerProfile__info__table td {
+	min-width: 200px;
+}
