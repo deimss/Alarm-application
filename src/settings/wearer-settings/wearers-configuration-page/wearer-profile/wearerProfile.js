@@ -14,18 +14,14 @@ class WearerProfile extends React.Component{
       wearersData: this.props.wearersData
     }
   };
-<<<<<<< HEAD
-  
-  
 
-=======
   componentWillReceiveProps(nextProps){
     this.setState({
       wearersData : nextProps.wearersData
     })
   }
  
->>>>>>> 3e19c150d7ded09e02ccfb0dd251539e750ec8ac
+
     render(){
         let groups = null;
         let groupList = null;
