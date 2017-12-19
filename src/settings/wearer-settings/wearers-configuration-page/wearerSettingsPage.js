@@ -12,6 +12,8 @@ import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profi
 import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
 
+import {Test} from '../../../actions/test'
+
 import EmptyCarer from './carers-data/emptyCarer.js';
 import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
 
@@ -80,24 +82,26 @@ handleAddWearerButton(){
 }
 
 getGroups(wearerId){
-
   console.log('GETGROUPS');
+  Test.a(wearerId).then(resp => {
+    this.setState({wearerGroupData: resp.data})
+  })
 
-  axios({
-      method: 'get',
-      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
-      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
-      responseType: 'json'
-    }).then(response => {
-        console.log('getGroups response', response);
+  // axios({
+  //     method: 'get',
+  //     url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
+  //     headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+  //     'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+  //     responseType: 'json'
+  //   }).then(response => {
+  //       console.log('getGroups response', response);
 
-        this.setState({wearerGroupData: response.data});
+  //       this.setState({wearerGroupData: response.data});
 
-      }).catch((error) => { 
-        console.log('getGroups error ====> ', error);
+  //     }).catch((error) => { 
+  //       console.log('getGroups error ====> ', error);
 
-        });
+  //       });
 }
 
 addWearer(event){
@@ -141,7 +145,6 @@ addWearer(event){
 
 
 updateWearer(event){
-
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
