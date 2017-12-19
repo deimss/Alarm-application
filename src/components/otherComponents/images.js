@@ -7,8 +7,9 @@ const imground = {
 }
 
 
-export const ImageRound = () => {
-	return <img alt="" style={imground} src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
+export const ImageRound = (props) => {
+	console.log(props.url)
+	return <img alt="" style={imground} src={props.url}/>
 }
 
 

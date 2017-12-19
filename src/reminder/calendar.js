@@ -25,7 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-var d = new Date();
+var d = new Date(2017, 11, 4);
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
@@ -47,7 +47,9 @@ class Calendar extends React.Component{
   		super(props);
   		this.state = {
             week: "",
-            arrayofweek: []
+            arrayofweek: [],
+            reminders: [],
+            search: []
         }
   	}
     setweek(str){
@@ -64,7 +66,6 @@ class Calendar extends React.Component{
         }
         if(str === "next"){
               date += 7;
-              thismonth = daysInMonth((k),year);
               if(date > numberofdays){
                 k++;
                 n = month[k]
@@ -135,6 +136,13 @@ class Calendar extends React.Component{
     }
     componentWillReceiveProps(nextProps){
         this.setState({wearershow: nextProps.wearershow});
+        this.state.wearers = nextProps.wearers;
+        this.state.reminders = nextProps.search;
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        if(nextProps.wearers == this.state.wearers){ 
+            return true;
+        } else return false;
     }
 	render(){
     	return (<div className="calendar">
@@ -145,7 +153,7 @@ class Calendar extends React.Component{
     		</div>
                 <Weeks weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
-                    <UserEvents search={this.props.search} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.props.wearers} changedweek={this.state.week}/>
+                    <UserEvents  wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>
             </div>
         )

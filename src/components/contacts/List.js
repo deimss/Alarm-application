@@ -35,7 +35,7 @@ class List extends React.Component {
 
   createTasks(item) {
     return (
-      <li key={item.id}><div><ImageRound /><p>{item.full_name}</p></div> <div> 
+      <li key={item.id}><div><ImageRound url={item.image.url} /><p>{item.full_name}</p></div> <div> 
     <img alt="" src={email}/><img alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
   }
   tooglemodal(){

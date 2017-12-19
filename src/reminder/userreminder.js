@@ -7,7 +7,7 @@ let arrayofid = [];
 function UserName(props){
 	return (
 		<div className="user-name" >
-			<div><img src="https://n6-img-fp.akamaized.net/free-icon/baby-head-with-a-small-heart-outline_318-46289.jpg?size=338c&ext=jpg" alt=""/><p>{props.firstname}<br/>{props.lastname}</p></div>	
+			<div><img src={props.url} alt=""/><p>{props.firstname}<br/>{props.lastname}</p></div>	
 			<div><img className="edit" src={edit} alt="" /></div>
 		</div>
 	)
@@ -20,7 +20,6 @@ const Event = (props) => {
 		</div>
 	)
 }
-var opo = 0
 class Createwearer extends React.Component{
 	constructor(props){
 		super(props);
@@ -88,6 +87,7 @@ class Createwearer extends React.Component{
 			sunday: []
 		})
 		this.state.wearershow = nextProps.wearershow;
+		this.setState({filteredreminders: []});
 		this.state.idid = nextProps.id;
 		this.getReminders();
 	}
@@ -116,17 +116,19 @@ class Createwearer extends React.Component{
 	filterReminders(reminders){
 		this.state.filteredreminders = reminders.filter(item => {
 			let date = new Date(item.start_date);
-			if(date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day){
+			if(date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
+				&& date.getMonth() >= this.props.weekarray[0].month && date.getMonth() <= this.props.weekarray[6].month){
 				return item;	
 			}
 		})
+		//console.log("events", this.state.filteredreminders)
 		this.state.filteredreminders.map(this.createevent);
 	}
 	render(){
 		if(this.state.done){
 			return (
 				<div className="user">
-					<UserName lastname={this.props.lastname} firstname={this.props.firstname}/>
+					<UserName lastname={this.props.lastname} url={this.props.url} firstname={this.props.firstname}/>
 					<div className="events" >
 						{this.state.monday}
 					</div>
@@ -163,6 +165,7 @@ export default class UserEvents extends React.Component{
 		}
 	}
 	componentWillReceiveProps(nextProps){
+		this.state.weekarray = nextProps.weekarray;
 		this.state.wearershow = nextProps.wearershow;
 		this.state.id = nextProps.id;
 		if(!nextProps.wearers) 
@@ -183,7 +186,7 @@ export default class UserEvents extends React.Component{
 		this.setState({filter: arrayofid.map(this.createwearer.bind(this))})
 	}
 	createwearer(item){
-		return <Createwearer wearershow={this.state.wearershow} id={item.id} groupid={this.state.id}  firstname={item.full_name} weekarray={this.props.weekarray}/>
+		return <Createwearer wearershow={this.state.wearershow} id={item.id} url={item.image.url} groupid={this.state.id}  firstname={item.full_name} weekarray={this.state.weekarray}/>
 	}
 	render(){
 		return (

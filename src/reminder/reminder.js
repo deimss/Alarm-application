@@ -7,7 +7,8 @@ import Calendar from './calendar';
 import axios from 'axios';
 import group from '../assets/icons/group.svg';
 
-/*commit in other branch*/
+/*commit in other*/
+let reminders = [];
 
 class Reminder extends React.Component {
   constructor(props){
@@ -17,12 +18,16 @@ class Reminder extends React.Component {
   		groups: [],
   		groupid: 0,
   		wearershow: "all users",
-  		search: 0
+  		search: 0,
+  		filteredreminders: []
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
   	this.getWearers = this.getWearers.bind(this);
   	this.switchwearer = this.switchwearer.bind(this);
+  	this.getReminders = this.getReminders.bind(this);
+  	this.createreminder = this.createreminder.bind(this);
+  	this.chooseevent = this.chooseevent.bind(this);
 }
 
 
@@ -60,9 +65,6 @@ getWearers(id){
 	        console.log(error);
 	    });
 }
-getallreminders(){
-	
-}
 componentWillMount(){
 	axios({
 	      method: 'get',
@@ -76,24 +78,52 @@ componentWillMount(){
 	    }).then(response => {
 	    	this.state.groupid = response[0].id;
 	    	this.getWearers(this.state.groupid)
+	    }).then(response => {
+	    	this.getReminders()
 	    }).catch((error) => { 
 	        console.log(error);
 	        this.setState({error: true})
 	    });
 }
+componentDidMount(){
+	if(this.state.groupid) this.getReminders();
+}
+getReminders(){
+		axios({
+	      method: 'get',
+	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.groupid+'/reminders',
+	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+     	 'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	      responseType: 'json'
+	   	}).then(response => {
+	   		this.state.reminders = response.data;
+	    }).catch((error) => { 
+	        console.log("error", error);
+	    });
+}
 findreminder(){
-
+	let find, rem;
+	find = this.refs.reminder.value;
+	rem = this.state.reminders.filter(item => {
+		return item.title.toLowerCase().indexOf(find.toLowerCase()) !== -1;})
+	this.setState({filteredreminders: rem});
+}
+createreminder(item){
+	return <li onMouseOver={(e) => this.chooseevent}>{item.title}</li>
+}
+chooseevent(e){
+	console.log("hello");
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
-	let listWearers;
+	let listWearers, createreminders = [];
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
+  	this.state.filteredreminders ? createreminders = this.state.filteredreminders.map(this.createreminder) : createreminders = this.state.reminders.map(this.createreminder)
 	return( 
 		<div className="reminders">
 		<Header />
-			<p style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>All Wearers</p>
 			<div className="switch-wearers">
 				<div className="add-group">
 					{listOfGroups}
@@ -108,12 +138,15 @@ render(){
 					</div>
 					<div className="search">
 						  <input placeholder="Search" className="input" ref="reminder" onChange={this.findreminder.bind(this)}/>
+						  <ul className="reminderslist">
+						  {createreminders}
+						  </ul>
 					</div>
 				</div>
 			</div>
 
 			<div className="reminders-table">
-				<Calendar wearers={this.state.wearers} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
+				<Calendar wearers={this.state.wearers} search={this.state.filteredreminders} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
 			</div>
 		</div>
 	)

@@ -98,7 +98,9 @@
 .search input:focus + ul{
   display: block;
 }
-
+.user-image {
+  margin-right: 5px;
+}
 .switch-date{
   background-color: #F9F9F9;
   height: 40px;
@@ -152,6 +154,7 @@
 .calendar .user img{
   width: 20px;
   height: 20px;
+  border-radius: 50%;
 }
 .calendar .user-week > div > div:nth-child(odd){
   background-color: #fff;
@@ -160,9 +163,8 @@
   background-color: #f7f7f7;
 }
 .calendar .user .user-name div:nth-of-type(2){
-  width: 24px;
-  height: 24px;
-  border: 1px solid red;
+  padding: 2px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.6);
   margin-right: 10px;
   border-radius: 2px;
 }
@@ -171,7 +173,11 @@
   margin-left: 5px;
   align-items: center;
 }
+.calendar .user .user-name div:first-of-type img{
+  margin-right: 5px;
+}
 .calendar .user .events {
+  min-height: 47px;
   width: 12.5%;
   max-height: 161px;
 }
