@@ -16,7 +16,7 @@ class WearerProfile extends React.Component{
 
   };
   
- 
+  
 
     render(){
 
@@ -32,20 +32,32 @@ class WearerProfile extends React.Component{
 
         let wearerGroup = this.props.wearerGroupData;
 
-        if (this.props.wearerGroupData !== null){
-          groups = wearerGroup.map((group) => {
+      //   if (this.props.wearerGroupData !== null){
+      //     groups = wearerGroup.map((group) => {
 
-          return (
-            <option key={group.id.toString()}> {group.name}
-            </option>
-          )
+      //     return (
+      //       <option key={group.id.toString()}> {group.name}
+      //       </option>
+      //     )
 
           
-        });
-      }
+      //   });
+      // }
 
-      groupList = <select>{groups}</select>;
+      // groupList = <select>{groups}</select>;
 
+
+        console.log('this.props.wearerGroupData', this.props.wearerGroupData);
+
+        if (this.props.wearerGroupData !== null){
+          groups = wearerGroup.map((group) => group.name);
+
+          groupList = groups.join(', ');
+        };
+
+
+        console.log('this.props.wearersData', this.props.wearersData);
+        // console.log('wearerProfile groups', groups)
         return (
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">

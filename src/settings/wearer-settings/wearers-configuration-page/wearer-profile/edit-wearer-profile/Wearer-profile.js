@@ -12,13 +12,29 @@ class EditWearerProfile extends React.Component {
       valueWeight: '',
       valueAge: '',
       malechecked:'',
-      famelechecked:''
+      famelechecked:'',
+      deleteMemberGroup: null,    deleteMemberWearerId: null,
+      wearerGroupData: []
   };
 
   this.handleChangeField = this.handleChangeField.bind(this);
   this.handleChangeRadioButton = this.handleChangeRadioButton.bind(this);
   this.setData = this.setData.bind(this);
+  this.handleDeleteMember = this.handleDeleteMember.bind(this);
+  this.setWearerGroupData = this.setWearerGroupData.bind(this);
+  // this.setNewGroupData = this.setNewGroupData.bind(this);
   }
+
+  setWearerGroupData(){
+     let groupArray = [];
+     this.props.wearerGroupData.forEach(function(element){
+        groupArray.push(Object.assign({}, element));
+      })
+      this.setState({wearerGroupData: groupArray});
+      console.log("componentWillMount this.state.wearerGroupData", this.state.wearerGroupData); 
+    };
+
+
 
   componentWillReceiveProps(nextProps) {   
     if(nextProps.data.gender =='male'){
@@ -68,9 +84,16 @@ class EditWearerProfile extends React.Component {
           famelechecked:'checked'
        })
     }
+    this.setWearerGroupData();
+    
   }
 
   setData(){
+
+    if(this.state.deleteMemberGroup.id != null && this.state.deleteMemberWearerId != null){
+      this.props.deleteMember(this.state.deleteMemberGroup, this.state.deleteMemberWearerId)
+    }
+
     let newData = {
       id: this.props.data.id,
       heart_rate: this.state.value,
@@ -81,7 +104,16 @@ class EditWearerProfile extends React.Component {
       image: this.props.data.image
     }
     this.props.updateWearer(newData);
+
+    
+    
   }
+
+  // setNewGroupData(){
+  //   if(this.state.deleteMemberGroup !=null this.state.deleteMemberWearerId != null){
+  //     this.props.setNewGroupData(this.state.wearerGroupData)
+  //   }
+  // }
 
   handleChangeField(inputName) {
     if(inputName === 'valueFullName'){
@@ -114,7 +146,51 @@ class EditWearerProfile extends React.Component {
   }
   }
 
+  handleDeleteMember(group, wearerId){
+    let wearerGroupData = this.state.wearerGroupData;
+    //let group = wearerGroupData.find(element=> element.id === group.id);
+    let groupIndex = wearerGroupData.indexOf(group);
+    wearerGroupData.splice(groupIndex, 1);
+    this.setState({
+      deleteMemberGroup: group,
+      deleteMemberWearerId: wearerId,
+      wearerGroupData: wearerGroupData
+    });
+  }
+
+  
+
+// delete-group-button
+
   render() {  
+        let groups = null;
+        let groupList = null;
+        let emptyGroupList = '-';
+
+        let wearerGroup = this.state.wearerGroupData;
+
+        if (this.props.wearerGroupData !== null){
+          groups = wearerGroup.map((group) => {
+
+          return (
+            <li key={group.id.toString()}> {group.name}
+              
+              <button className="delete-group-button" onClick={()=> this.handleDeleteMember(group, this.props.data.id)}> 
+                <svg fill="#B2B2B2" height="10" viewBox="0 0 24 24" width="10" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+              </button>
+            </li>
+            )
+
+            
+          });
+        }
+
+        // groupList = <select>{groups}</select>;
+
+
     return (   
       <div className="wearer-profile-wrapper">
         <div className="wrapper-image-field">
@@ -152,6 +228,7 @@ class EditWearerProfile extends React.Component {
                           onChange={value => this.setState({ value })} />
                         </div>             
                   </div>
+
                   <ul className='range-timeline'>
                       <li></li>
                       <li></li>
@@ -176,7 +253,12 @@ class EditWearerProfile extends React.Component {
                       <li></li>  
                     </ul>
                 </div>
+                <div className="edit-wearer-profile-group">
+                      <label>Group</label>
+                     <ul> {groups} </ul>          
+                </div>
             </div>
+            
         </div>           
         <div className='profile-button'>
             <button className="delete-setting-button" onClick={()=> this.props.discardWearerChanges()}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
