@@ -95,7 +95,7 @@ class EditWearerProfile extends React.Component {
 
   setData(){
 
-    if(this.state.deleteMemberGroup.id != null && this.state.deleteMemberWearerId != null){
+    if(this.state.deleteMemberGroup != null && this.state.deleteMemberWearerId != null){
       this.props.deleteMember(this.state.deleteMemberGroup, this.state.deleteMemberWearerId)
     }
 
