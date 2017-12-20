@@ -146,6 +146,7 @@ addWearer(event){
 
 
 updateWearer(event){
+  console.log('evwnt weaerer data', event)
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
@@ -282,7 +283,7 @@ getWearers(event){
               })
               this.getWearerDevice(toogledWearerId);
             }; 
-            this.getWearerDevice(toogledWearerId);
+           // this.getWearerDevice(toogledWearerId);
             this.getGroups(toogledWearerId);
 
 //ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
