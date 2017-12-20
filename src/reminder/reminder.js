@@ -6,6 +6,7 @@ import userImage from "../assets/icons/person.svg";
 import Calendar from './calendar';
 import axios from 'axios';
 import group from '../assets/icons/group.svg';
+import {master} from "../login/loginForm.js"
 
 /*commit in other*/
 let reminders = [];
@@ -56,7 +57,7 @@ getWearers(id){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + id + '/wearers',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({wearers: response.data});
@@ -70,7 +71,7 @@ componentWillMount(){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+     'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
@@ -93,7 +94,7 @@ getReminders(){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.groupid+'/reminders',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-     	 'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+     	 'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.state.reminders = response.data;
@@ -112,7 +113,7 @@ createreminder(item){
 	return <li onMouseOver={(e) => this.chooseevent}>{item.title}</li>
 }
 chooseevent(e){
-	console.log("hello");
+	//console.log("hello");
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))

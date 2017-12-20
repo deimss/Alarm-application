@@ -15,15 +15,17 @@ class WearerProfile extends React.Component{
     }
   };
 
-  
-  
-
 
   componentWillReceiveProps(nextProps){
+   // debugger
+   // if(nextProps.wearersData){this.props.wearersData = nextProps.wearersData}
+
+   // debugger
     this.setState({
       wearersData : nextProps.wearersData
     })
   }
+
 
     render(){
 
@@ -36,12 +38,12 @@ class WearerProfile extends React.Component{
         let avatar;
         console.log('WEARAR URL IMAGE', wearer.image)
 // <img src={`${wearer.image}`} alt=''/>
-        if (wearer.image === null){
-         avatar = "https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/48/image.jpeg";
+       // if (wearer.image === null){
+       //  avatar = "https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/48/image.jpeg";
 
-      }else {
-       avatar = wearer.image.url;
-       }
+     // }else {
+     //  avatar = wearer.image.url;
+     //  }
        // console.log('Avataaaer',avatar)
         let wearerGroup = this.props.wearerGroupData;
 
@@ -84,7 +86,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={avatar} alt='' width="196" height="216"/>
+              <img src={this.state.wearersData.image.url} alt='' width="196" height="216"/>
             </div>
             
             <div className="wearerProfile__info__table">

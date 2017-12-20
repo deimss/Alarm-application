@@ -22,6 +22,8 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import {master} from "../../../login/loginForm.js"
+
 
 class SettingsPage extends React.Component{ 
 
@@ -85,6 +87,7 @@ handleAddWearerButton(){
 }
 
 getGroups(wearerId){
+
   // console.log('GETGROUPS');
   // Test.a(wearerId).then(resp => {
   //   this.setState({wearerGroupData: resp.data})
@@ -94,7 +97,8 @@ getGroups(wearerId){
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
@@ -105,6 +109,7 @@ getGroups(wearerId){
         console.log('getGroups error ====> ', error);
 
         });
+
 }
 
 
@@ -119,7 +124,8 @@ addWearer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+
       data: {
         "wearer": {
           "full_name": event.full_name,
@@ -248,11 +254,13 @@ getWearers(event){
 };
 
 updateWearer(event){
+  console.log('evwnt weaerer data', event)
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+
       data: {
         "wearer": {
           "full_name": event.full_name,
@@ -320,7 +328,8 @@ updateWearerDevices(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+
       data: {
         name: event.name,
         phone_number: event.phone_number,
@@ -346,7 +355,8 @@ deleteWearerDevices(event){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+
     }).then(() => {
 
       //this.setState({addNewWearerClicked: false});
@@ -367,7 +377,7 @@ addWearerDevices(event){
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       data: {
           name: event.name,
           phone_number: event.phone_number,
@@ -386,11 +396,6 @@ addWearerDevices(event){
 
 
 
-
-
-
-
-
 getWearerDevice(wearerId){
   console.log('getWearerDevice');
 
@@ -399,7 +404,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
 
@@ -430,7 +435,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
 
@@ -457,7 +462,7 @@ addCarer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       data: {
         "carer": {
           "first_name": event.first_name,
@@ -492,7 +497,7 @@ deleteCarer(event){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
 

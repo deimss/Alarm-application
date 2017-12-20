@@ -7,6 +7,8 @@ import email from '../../assets/icons/email.svg';
 import deleteelem from '../../assets/icons/delete.svg'
 import {ImageRound} from '../otherComponents/images';
 import axios from 'axios';
+import {master} from "../../login/loginForm.js"
+
 
 class List extends React.Component {
  constructor(props, context) {
@@ -76,7 +78,7 @@ class Delete extends React.Component {
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${this.props.id}/wearers`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json',
       data: {
         "wearer_id": id,
@@ -106,7 +108,7 @@ class Delete extends React.Component {
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
       this.filterwearers(response.data);

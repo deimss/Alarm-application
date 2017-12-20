@@ -2,6 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+export const master = {
+    client: 'dcap6lWaoLUnnrqp3e0BXA',
+    accesstoken: 'JMQEZxa7-QZogK6lzJ-tog',
+    uid: 'boretskairuna23@gmail.com'
+}
+
+
 class LogInForm extends React.Component {
   constructor(props) {
     super(props);

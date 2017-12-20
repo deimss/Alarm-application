@@ -10,7 +10,7 @@ import Notifications from '../notifications/notifications'
 import List from '../contacts/List';
 import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
-
+import {master} from "../../login/loginForm.js";
 
 class MasterPage extends React.Component{
 	constructor(props){
@@ -76,7 +76,7 @@ getWearers(id){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + id + '/wearers',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      	 'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({axiosData: response.data}); 
@@ -89,7 +89,7 @@ getGroups(){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+     'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({groups:  response.data});
@@ -117,7 +117,7 @@ deleteListItem(){
 		 	method: 'delete',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.state.group + '/wearers/' + this.state.todelete,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json',
 	 	}).then(res => {
 	 		this.getWearers(this.state.group);		
@@ -241,7 +241,7 @@ class RenameGroup extends React.Component {
 		 	method: 'put',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
@@ -288,7 +288,7 @@ class Delete extends React.Component {
 		 	method: 'delete',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json'
 		}).then(res => {
 			console.log("success  !!")
@@ -330,13 +330,12 @@ class Duplicate extends React.Component {
 		this.props.onchangestate("duplicate");
 	}
 	makecopy(data){
-		console.log(data);
 		for(let i = 0; i < data.length; i++){
 			axios({
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.newGroup+'/wearers ',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json',
 		    data: 
 		    {
@@ -354,23 +353,21 @@ class Duplicate extends React.Component {
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json',
 		    data: {"name": this.props.todelete}
 		}).then(response => {
 	 		this.props.reloadgroup();
 	 		this.props.onchangestate("duplicate");
-	 		console.log("response", response.data.id);
 	 		this.state.newGroup = response.data.id;
         }).then(response => {
         	axios({
 		    method: 'get',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id + '/wearers',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	      	'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	      	'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json'
 		   	}).then(response => {
-		   		console.log(response)
 		   		this.makecopy(response.data)
 		    }).catch((error) => { 
 		        console.log(error);
@@ -422,7 +419,7 @@ class NewGroup extends React.Component {
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
