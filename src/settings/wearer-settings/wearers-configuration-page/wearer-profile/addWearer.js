@@ -14,7 +14,8 @@ class AddWearer extends React.Component {
       valueAge: '',
       malechecked:'',
       famelechecked:'',
-      files: []
+      files: [],
+      image: ''
   };
 
   this.handleChangeField = this.handleChangeField.bind(this);
@@ -80,7 +81,8 @@ class AddWearer extends React.Component {
       gender: this.state.valueGender,
       weight: this.state.valueWeight,
       age: this.state.valueAge,
-      image: this.props.data.image
+      // image: this.props.data.image
+      image: this.state.image
     }
     this.props.addWearer(newData);
   }
@@ -116,13 +118,24 @@ class AddWearer extends React.Component {
   }
   }
 
+    getFiles(e){
+    // console.log(image)
+    let image = e[0].base64;
+    this.setState({
+      image: image
+    })
+  }
+
   render() {  
     return (   
       <div className="wearer-profile-wrapper">
         <div className="wrapper-image-field">
               <p>Wearer profile</p>
-              <div className="image-wearer"/>
-              <div><a href="#">Change image</a></div>
+              <div className="wearerProfile__image"><img src={this.state.image} className="avatar-edit" alt=''/>
+              </div>
+              <label class="fileContainer">Change image
+              <div><FileBase64 multiple={ true } onDone={ this.getFiles.bind(this) } /></div>
+              </label>
         </div>
         <div className="wearer-profile1">
 

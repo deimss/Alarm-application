@@ -43,20 +43,22 @@ class SettingsPage extends React.Component{
     this.deleteMember = this.deleteMember.bind(this);
 
     this.state = {
-      wearerId: null,
-      activeWearer: null,
-
+      // wearerId: null,
+      activeWearerId: null,
+      createdWearer: null,
       wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': {'url': null}}],
       wearerGroupData: null,
       firstIdWearer: null,
       error: false, 
       wearerDevice: [],
       carers: [],
+
       addNewWearerClicked: false,
       wearersLoaded: false,
       emptyWearersLoaded: false,
       carersLoaded: false, 
       wearerDeviceLoaded: false,
+
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
@@ -83,38 +85,41 @@ handleAddWearerButton(){
 }
 
 getGroups(wearerId){
-  console.log('GETGROUPS');
-  Test.a(wearerId).then(resp => {
-    this.setState({wearerGroupData: resp.data})
-  })
+  // console.log('GETGROUPS');
+  // Test.a(wearerId).then(resp => {
+  //   this.setState({wearerGroupData: resp.data})
+  // })
 
-  // axios({
-  //     method: 'get',
-  //     url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
-  //     headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-  //     'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
-  //     responseType: 'json'
-  //   }).then(response => {
-  //       console.log('getGroups response', response);
+  axios({
+      method: 'get',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      responseType: 'json'
+    }).then(response => {
+        console.log('getGroups response', response);
 
-  //       this.setState({wearerGroupData: response.data});
+        this.setState({wearerGroupData: response.data});
 
-  //     }).catch((error) => { 
-  //       console.log('getGroups error ====> ', error);
+      }).catch((error) => { 
+        console.log('getGroups error ====> ', error);
 
-  //       });
+        });
 }
+
+
 
 addWearer(event){
   if(event) {
-    this.setState({wearerDevice: [] })}
+  this.setState({wearerDevice: [] })}
+
   console.log('addWearer');
 
   axios({
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       data: {
         "wearer": {
           "full_name": event.full_name,
@@ -127,15 +132,54 @@ addWearer(event){
         }
       }
     }).then((response) => {
+      debugger
+      console.log('addWearer response', response);
               this.setState({addNewWearerClicked: false});
-              this.getWearers(response.data);
-              if(response.status==201){
-                  this.setState({wearerAdded: true})
-              }
+              
+              // this.getWearers(response.data);
+              // if(response.status==201){
+              //     this.setState({wearerAdded: true})
+              // }
               //this.setState({wearerId: event.id});
-             }
-             
-).catch((error) => { 
+
+
+                let wearerArray = [];
+
+                let wearer = {};
+                
+                
+                this.state.wearerData.forEach(function(element){
+                  wearerArray.push(Object.assign({}, element));
+                });
+                
+
+                if (response.status==201) {
+                  
+                  Object.assign(wearer, response.data);
+                  wearer.image.url = event.image;
+                  // wearer.id = response.data.id;
+
+
+                  wearerArray.push(wearer);
+                  this.setState({
+                    wearerData: wearerArray,
+                    activeWearerId: response.data.id,
+                    wearerAdded: true,
+
+                  });
+                  
+                };
+
+
+               
+                console.log('addWearer wearer', wearer );
+                console.log('addWearer event', event );
+                console.log('addWearer response.data', response.data );
+                console.log('addWearer wearerArray', wearerArray );
+
+                
+
+}).catch((error) => { 
 
         if (error.response.status === 404){
             this.setState({error: true})
@@ -143,14 +187,72 @@ addWearer(event){
         })
 };
 
+getWearers(event){
 
+  console.log('getWearers');
+
+
+  axios({
+      method: 'get',
+      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      responseType: 'json'
+    }).then(response => {
+
+            if (response.status === 200 && response.data.length !== 0){
+              this.setState({
+                wearerDeviceLoaded: true,
+                wearersLoaded: true,
+                firstIdWearer: response.data[0].id, 
+
+                })
+            };
+            
+            // let toogledWearerId;
+
+            //     if (event !== undefined) {toogledWearerId = event.id} 
+            //       else if (response.data.length !== 0) {toogledWearerId = response.data[0].id};
+
+            
+            if(response.data.length !== 0) {
+              this.setState({
+
+                // activeWearerId: toogledWearerId,
+                wearerData: response.data,
+              })
+            }; 
+            
+            if(this.state.activeWearerId != null){
+              this.getWearerDevice(this.state.activeWearerId);
+              this.getGroups(this.state.activeWearerId);
+            }
+            else{
+              this.getWearerDevice(this.state.firstIdWearer);
+              this.getGroups(this.state.firstIdWearer);
+            }
+
+//ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
+//ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
+
+      }).catch((error) => { 
+        console.log('getWearers error ====> ', error);
+
+        // if (error.response.status === 404){
+        //     this.setState({error: true})
+        // } 
+        // else this.setState({wearersLoaded: true})
+
+
+  });
+};
 
 updateWearer(event){
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       data: {
         "wearer": {
           "full_name": event.full_name,
@@ -162,20 +264,55 @@ updateWearer(event){
 
         }
       }
-    }).then(() => {
-      this.setState({addNewWearerClicked: false});
-              this.getWearers(event);
-              //this.setState({wearerId: event.id});
-             }
+    }).then(resp => {
+              this.setState({addNewWearerClicked: false});
+              // this.getWearers(event);
+              this.setState({activeWearerId: resp.data.id});
+              // this.setState({createdWearer: resp.data});
+
+              let wearerArray = [];
+              //  this.state.wearerData.forEach(function(element){
+              //   if(element.id === resp.data.id){
+              //    wearerArray.push(Object.assign({}, resp.data));
+              //   }
+              //   else wearerArray.push(Object.assign({}, element));
+              //   });
+
+              let wearer = {};
+              Object.assign(wearer, event);
+              wearer.image = {'url': event.image};
+
+              if(resp.status===200){
+                this.state.wearerData.forEach(function(element){
+                if(element.id === event.id){
+                 wearerArray.push(Object.assign({}, wearer));
+                }
+                else wearerArray.push(Object.assign({}, element));
+                });
+
+                // this.setState({createdWearer: event});
+              }
+
+
+              // let wearerIndex = this.state.wearerData.find(i => i.id === resp.data.id);
+              // // wearerArray[wearerIndex] = resp.data;
+              // Object.assign(wearerArray[wearerIndex], resp.data)
+              console.log('updateWearer event', event );
+              console.log('updateWearer resp.data', resp.data );
+              console.log('updateWearer wearerArray', wearerArray );
+              // console.log('updateWearer wearerArray[wearerIndex]', wearerArray[wearerIndex] );
+              this.setState({wearerData: wearerArray});
              
-).catch((error) => { 
-        console.log(error);
-        if (error.response.status === 404){
-            this.setState({error: true})
-        } 
-        })
-  
-};
+// let groupArray = [];
+//      this.props.wearerGroupData.forEach(function(element){
+//         groupArray.push(Object.assign({}, element));
+//       })
+
+
+             }, 
+             err => console.log('updateWearer error ', err)
+    )
+  };
 
 updateWearerDevices(event){
   console.log('updateWearerDevices event',event);
@@ -183,7 +320,7 @@ updateWearerDevices(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       data: {
         name: event.name,
         phone_number: event.phone_number,
@@ -209,7 +346,7 @@ deleteWearerDevices(event){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
     }).then(() => {
 
       //this.setState({addNewWearerClicked: false});
@@ -230,7 +367,7 @@ addWearerDevices(event){
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       data: {
           name: event.name,
           phone_number: event.phone_number,
@@ -247,58 +384,7 @@ addWearerDevices(event){
       })
 };
 
-getWearers(event){
 
-  console.log('getWearers');
-
-
-  axios({
-      method: 'get',
-      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
-      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
-      responseType: 'json'
-    }).then(response => {
-
-            if (response.status === 200 && response.data.length !== 0){
-              this.setState({
-                wearerDeviceLoaded: true,
-                wearersLoaded: true,
-                firstIdWearer: response.data[0].id 
-                })
-            };
-            
-            let toogledWearerId;
-
-                if (event !== undefined) {toogledWearerId = event.id} 
-                  else if (response.data.length !== 0) {toogledWearerId = response.data[0].id};
-
-            
-            if(response.data.length !== 0) {
-              this.setState({
-                wearerId: response.data[0].id,
-                activeWearer: toogledWearerId,
-                wearerData: response.data,
-              })
-              this.getWearerDevice(toogledWearerId);
-            }; 
-            this.getWearerDevice(toogledWearerId);
-            this.getGroups(toogledWearerId);
-
-//ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
-//ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
-
-      }).catch((error) => { 
-        console.log('getWearers error ====> ', error);
-
-        // if (error.response.status === 404){
-        //     this.setState({error: true})
-        // } 
-        // else this.setState({wearersLoaded: true})
-
-
-  });
-};
 
 
 
@@ -313,7 +399,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       responseType: 'json'
     }).then(response => {
 
@@ -344,7 +430,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       responseType: 'json'
     }).then(response => {
 
@@ -371,7 +457,7 @@ addCarer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       data: {
         "carer": {
           "first_name": event.first_name,
@@ -401,12 +487,12 @@ addCarer(event){
 
 
 deleteCarer(event){
-  console.log('getWearers');
+  console.log('deleteCarer');
   axios({
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       responseType: 'json'
     }).then(response => {
 
@@ -430,7 +516,7 @@ deleteMember(group, wearerId){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${group.id}/wearers/${wearerId}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
@@ -460,7 +546,8 @@ deleteMember(group, wearerId){
 
     this.setState({addNewWearerClicked: false});
     this.setState({wearerId: event});
-    this.setState({activeWearer: event});
+    this.setState({activeWearerId: event});
+    this.setState({createdWearer: null});
    //this.getWearerDevice(event);
   };
 
@@ -483,22 +570,47 @@ deleteMember(group, wearerId){
   };
 
     render(){
-  
-
-      const activeWearer = this.state.wearerData.find(i => i.id === this.state.activeWearer);
-
-
       let wearersDataForChildren;
 
-          if(activeWearer === undefined) {
-            wearersDataForChildren = this.state.newWearer;
-          } 
-          else {
-            wearersDataForChildren = activeWearer;
-          };
-       
+      if(this.state.wearerData[0].id != null){
+        const firstWearer = this.state.wearerData.find(i => i.id === this.state.firstIdWearer);
+        const activeWearer = this.state.wearerData.find(i => i.id === this.state.activeWearerId);
+
 
      
+
+          if(this.state.activeWearerId === null && this.state.firstIdWearer === null) {
+            wearersDataForChildren = this.state.newWearer;
+          } 
+          else if (this.state.activeWearerId === null && this.state.firstIdWearer !== null) {
+            wearersDataForChildren = firstWearer;
+          }
+          else if (this.state.createdWearer != null){
+            wearersDataForChildren = this.state.createdWearer;
+          }
+          else wearersDataForChildren = activeWearer;
+     
+
+
+      console.log('wearerSettingPage this.state.wearerData', this.state.wearerData);
+      console.log('wearerSettingPage this.state.createdWearer', this.state.createdWearer);
+      console.log('wearerSettingPage firstWearer', firstWearer);
+      console.log('wearerSettingPage activeWearer', activeWearer);
+
+      }
+
+      else {
+        wearersDataForChildren = this.state.newWearer
+      }
+
+
+      
+       
+
+      
+     
+// wearerId = {this.state.wearerId}
+// wearerId = {this.state.wearerId}
 
     return (
           <div>
@@ -509,7 +621,7 @@ deleteMember(group, wearerId){
                     this.state.error ? <WearerError />
                     :
                     this.state.wearersLoaded ?
-                    <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} wearerId = {this.state.wearerId} activeWearer = {this.state.activeWearer} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
+                    <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} activeWearerId = {this.state.activeWearerId} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
                     :
                     <WearersLoading/> 
                   }
@@ -531,7 +643,7 @@ deleteMember(group, wearerId){
                       this.state.wearersEditing ? 
                       <EditWearerProfile deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
                       :
-                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
+                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
                     
                     :
                     <WearersLoading/> 
@@ -543,7 +655,7 @@ deleteMember(group, wearerId){
                     :
                     this.state.wearerDeviceLoaded ?
 
-                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearer} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
+                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearerId} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
                     :
                     <WearersLoading/>
                   }

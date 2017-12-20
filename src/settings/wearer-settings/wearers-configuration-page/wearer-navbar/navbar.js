@@ -59,7 +59,7 @@ constructor(props) {
 
            let wearerElementStyle = classNames({
               'wearers__user': true,
-              'selWearer':  this.props.wearerAdded && this.props.activeWearer === wearer.id ||  !this.state.addWearerButtonClicked && this.props.activeWearer === wearer.id || this.state.liIsClicked && this.props.activeWearer === wearer.id,
+              'selWearer':  this.props.wearerAdded && this.props.activeWearerId === wearer.id ||  !this.state.addWearerButtonClicked && this.props.activeWearerId === wearer.id || this.state.liIsClicked && this.props.activeWearerId === wearer.id,
               'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
             });
 
@@ -77,7 +77,7 @@ constructor(props) {
               this.props.resetWearerEdit();
             }}>
 
-                <div className="wearers__user__logo"> <img src={`${wearer.image}`} alt='' /> </div> 
+                <div className="wearers__user__logo"> <img src={`${wearer.image.url}`} alt='' /> </div> 
                 <div className="wearers__user__name"> {wearer.full_name} </div>
             </li>
           )
