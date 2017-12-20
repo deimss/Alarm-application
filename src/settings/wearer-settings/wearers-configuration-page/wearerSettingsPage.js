@@ -98,6 +98,7 @@ getGroups(wearerId){
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
+      })
 }
 
 addWearer(event){
