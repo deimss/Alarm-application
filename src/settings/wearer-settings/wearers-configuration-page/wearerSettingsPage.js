@@ -171,6 +171,7 @@ addWearer(event){
                     wearerData: wearerArray,
                     activeWearerId: response.data.id,
                     wearerAdded: true,
+                    wearerGroupData: null
 
                   });
                   
