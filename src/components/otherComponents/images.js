@@ -8,7 +8,6 @@ const imground = {
 
 
 export const ImageRound = (props) => {
-	console.log(props.url)
 	return <img alt="" style={imground} src={props.url}/>
 }
 
