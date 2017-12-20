@@ -8,44 +8,67 @@ import {
 } from 'react-router-dom';
 
 class WearerProfile extends React.Component{ 
-
-
-
   constructor(props) {
     super(props);
-
+    this.state ={
+      wearersData: this.props.wearersData
+    }
   };
-  
+
+  componentWillReceiveProps(nextProps){
+   // debugger
+   // if(nextProps.wearersData){this.props.wearersData = nextProps.wearersData}
+
+   // debugger
+    this.setState({
+      wearersData : nextProps.wearersData
+    })
+  }
  
 
     render(){
-
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
-        let wearer = this.props.wearersData;
-        let avatar = "https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiztfjJ5IvYAhWDdpoKHRJrCQwQjRwIBw&url=https%3A%2F%2Fwww.abyssproject.net%2F2017%2F11%2Fcroisade-patcher-lintel-me%2F&psig=AOvVaw0QjBEPO2AKO-J97reF-d9Q&ust=1513419309575182";
+        let wearer = this.state.wearersData;
+        let avatar;
+        console.log('WEARAR URL IMAGE', wearer.image)
 // <img src={`${wearer.image}`} alt=''/>
-        if (wearer.image !== null){
-           avatar = wearer.image.url
-        }; 
+       // if (wearer.image === null){
+       //  avatar = "https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/48/image.jpeg";
 
+     // }else {
+     //  avatar = wearer.image.url;
+     //  }
+       // console.log('Avataaaer',avatar)
         let wearerGroup = this.props.wearerGroupData;
 
-        if (this.props.wearerGroupData !== null){
-          groups = wearerGroup.map((group) => {
+      //   if (this.props.wearerGroupData !== null){
+      //     groups = wearerGroup.map((group) => {
 
-          return (
-            <option key={group.id.toString()}> {group.name}
-            </option>
-          )
+      //     return (
+      //       <option key={group.id.toString()}> {group.name}
+      //       </option>
+      //     )
 
           
-        });
-      }
+      //   });
+      // }
 
-      groupList = <select>{groups}</select>;
+      // groupList = <select>{groups}</select>;
 
+
+        console.log('this.props.wearerGroupData', this.props.wearerGroupData);
+
+        if (this.props.wearerGroupData !== null){
+          groups = wearerGroup.map((group) => group.name);
+
+          groupList = groups.join(', ');
+        };
+
+
+        console.log('this.props.wearersData', this.props.wearersData);
+        // console.log('wearerProfile groups', groups)
         return (
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">
@@ -59,7 +82,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={avatar} alt=''/>
+              <img src={this.state.wearersData.image.url} alt='' width="196" height="216"/>
             </div>
             
             <div className="wearerProfile__info__table">

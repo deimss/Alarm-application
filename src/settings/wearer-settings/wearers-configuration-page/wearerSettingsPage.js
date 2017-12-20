@@ -12,6 +12,8 @@ import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profi
 import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
 
+import {Test} from '../../../actions/test'
+
 import EmptyCarer from './carers-data/emptyCarer.js';
 import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
 
@@ -40,12 +42,13 @@ class SettingsPage extends React.Component{
     this.addCarer = this.addCarer.bind(this);
     this.discardWearerChanges = this.discardWearerChanges.bind(this);
     this.getGroups = this.getGroups.bind(this);
+    this.deleteMember = this.deleteMember.bind(this);
 
     this.state = {
       wearerId: null,
       activeWearer: null,
 
-      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}],
+      wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': {'url': null}}],
       wearerGroupData: null,
       firstIdWearer: null,
       error: false, 
@@ -60,7 +63,7 @@ class SettingsPage extends React.Component{
       carersEditing: false,
       wearerDeviceEditing: false,
       wearerAdded: false,
-      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': null}
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': {'url': null}}
     }
   };
 
@@ -82,8 +85,10 @@ handleAddWearerButton(){
 }
 
 getGroups(wearerId){
-
   console.log('GETGROUPS');
+  Test.a(wearerId).then(resp => {
+    this.setState({wearerGroupData: resp.data})
+  })
 
   axios({
       method: 'get',
@@ -93,13 +98,6 @@ getGroups(wearerId){
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
-
-        this.setState({wearerGroupData: response.data});
-
-      }).catch((error) => { 
-        console.log('getGroups error ====> ', error);
-
-        });
 }
 
 addWearer(event){
@@ -143,7 +141,7 @@ addWearer(event){
 
 
 updateWearer(event){
-
+  console.log('evwnt weaerer data', event)
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
@@ -280,7 +278,7 @@ getWearers(event){
               })
               this.getWearerDevice(toogledWearerId);
             }; 
-            this.getWearerDevice(toogledWearerId);
+           // this.getWearerDevice(toogledWearerId);
             this.getGroups(toogledWearerId);
 
 //ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
@@ -289,14 +287,14 @@ getWearers(event){
       }).catch((error) => { 
         console.log('getWearers error ====> ', error);
 
-        if (error.response.status === 404){
-            this.setState({error: true})
-        } 
-        else this.setState({wearersLoaded: true})
-        });
+        // if (error.response.status === 404){
+        //     this.setState({error: true})
+        // } 
+        // else this.setState({wearersLoaded: true})
 
-  };
 
+  });
+};
 
 
 
@@ -419,6 +417,38 @@ deleteCarer(event){
     //       });
       };
 
+deleteMember(group, wearerId){
+
+    console.log('deleteMember group = ', group);
+    console.log('deleteMember wearerId = ', wearerId);
+
+    axios({
+      method: 'delete',
+      url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${group.id}/wearers/${wearerId}`,
+      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      'uid': 'boretskairuna23@gmail.com', 'client': 'ldhWd6MKE0QI-pn39bcuag', 'access-token': 'NOoEY1SGJa_Sy_TVwq_jYA'},
+      responseType: 'json'
+    }).then(response => {
+        console.log('getGroups response', response);
+        console.log('getGroups wearerId', wearerId);
+
+        if (response.status === 200){
+          let groupArray = [];
+          this.state.wearerGroupData.forEach(function(element){
+            if(element.id !== group.id){
+              groupArray.push(Object.assign({}, element));
+            }
+            
+          })
+        this.setState({wearerGroupData: groupArray});
+        }
+        //this.getGroups(wearerId);
+
+      }).catch((error) => { 
+        console.log('getGroups error ====> ', error);
+
+        })
+}
 
 
 
@@ -495,9 +525,9 @@ deleteCarer(event){
                       <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
                       :
                       this.state.wearersEditing ? 
-                      <EditWearerProfile data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
+                      <EditWearerProfile deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
                       :
-                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {activeWearer} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
+                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren} wearerId = {this.state.wearerId} enableWearerEdit = {this.enableWearerEdit}/>
                     
                     :
                     <WearersLoading/> 
