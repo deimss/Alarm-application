@@ -73,6 +73,9 @@ class WearerProfile extends React.Component{
 
         console.log('this.props.wearersData', this.props.wearersData);
         // console.log('wearerProfile groups', groups)
+
+// disabled = {(this.state.disableEdit) ? "disabled" : ""}
+
         return (
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">
