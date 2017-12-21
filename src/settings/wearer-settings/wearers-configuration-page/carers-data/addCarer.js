@@ -69,6 +69,7 @@ class AddCarer extends React.Component{
           'password_confirmation': this.state.password
         };
         this.props.addCarer(newCarer);
+        this.props.handleDiscardNewCarer();
       }
 
     render(){

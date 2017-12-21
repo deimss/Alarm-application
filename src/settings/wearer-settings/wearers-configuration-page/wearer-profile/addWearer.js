@@ -75,7 +75,7 @@ class AddWearer extends React.Component {
 
   setData(){
     let newData = {
-      id: this.props.data.id,
+      //id: this.props.data.id,
       heart_rate: this.state.value,
       full_name: this.state.valueFullName,
       gender: this.state.valueGender,

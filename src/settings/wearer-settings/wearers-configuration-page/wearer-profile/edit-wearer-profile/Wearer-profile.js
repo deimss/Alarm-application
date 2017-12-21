@@ -29,9 +29,12 @@ class EditWearerProfile extends React.Component {
 
   setWearerGroupData(){
      let groupArray = [];
-     this.props.wearerGroupData.forEach(function(element){
+     if(this.props.wearerGroupData !== null){
+      this.props.wearerGroupData.forEach(function(element){
         groupArray.push(Object.assign({}, element));
       })
+     }
+     
       this.setState({wearerGroupData: groupArray});
       console.log("componentWillMount this.state.wearerGroupData", this.state.wearerGroupData); 
     };

@@ -94,26 +94,26 @@ class WearerProfile extends React.Component{
                 <tbody>
                   <tr>
                     <td>Full name</td>
-                    <td>{wearer.full_name}</td>  
+                    <td>{wearer.full_name || emptyGroupList}</td>  
                   </tr>
                   <tr>
                     <td>Gender</td>
-                    <td>{wearer.gender}</td>
+                    <td>{wearer.gender || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Age</td>
-                    <td>{wearer.age}</td>
+                    <td>{wearer.age || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Weight</td>
-                    <td>{wearer.weight}</td>
+                    <td>{wearer.weight || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>
                       <p>Resting Max</p>
                       <p>heart rate</p>
                     </td>
-                    <td>{wearer.heart_rate}</td>
+                    <td>{wearer.heart_rate || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Group</td>
