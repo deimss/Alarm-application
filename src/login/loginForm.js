@@ -117,12 +117,8 @@ class LogInForm extends React.Component {
       isAuthenticated: false
     });
     console.log(error);
-    //this.setState({loginError: true});
-    //console.log(this.state.loginError);
-    //errorStatus = error;
-    //setTimeout(this.setState({loginError: true}),1000);
+
   });
-//console.log(this.state.loginError);
 };
 
 
@@ -160,7 +156,7 @@ class LogInForm extends React.Component {
       <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
       
       <p>Password</p>
-          <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onChange={this.saveInput} />
+          <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="Enter your password" onChange={this.saveInput} />
           {this.state.loginError && <div className="login-error">
               <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0V0z" fill="none"/>
