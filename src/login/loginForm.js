@@ -3,9 +3,14 @@ import axios from 'axios';
 import classNames from 'classnames';
 
 export const master = {
-    client: 'dcap6lWaoLUnnrqp3e0BXA',
-    accesstoken: 'JMQEZxa7-QZogK6lzJ-tog',
-    uid: 'boretskairuna23@gmail.com'
+  
+    client: 'ejbYpLdnX25AFGFq6TepKQ',
+    accesstoken: 'FgPYMpIca2A9-059GI-aLA',
+    uid: 'deimssssss19482@gmail.com'
+    
+    // client: 'dcap6lWaoLUnnrqp3e0BXA',
+    // accesstoken: 'JMQEZxa7-QZogK6lzJ-tog',
+    // uid: 'boretskairuna23@gmail.com'
 }
 
 

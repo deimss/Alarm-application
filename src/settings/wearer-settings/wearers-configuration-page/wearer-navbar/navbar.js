@@ -39,6 +39,7 @@ constructor(props) {
  
 
  render(){
+  console.log('NAVBAR this.props.wearersData', this.props.wearersData);
 
         let filteredWearers;
         let namesList = null;
