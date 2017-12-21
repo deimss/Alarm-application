@@ -122,7 +122,7 @@ addWearer(event){
   if(event) {
   this.setState({wearerDevice: [] })}
 
-  console.log('addWearer');
+  console.log('addWearer event', event);
 
   axios({
       method: 'post',
@@ -616,7 +616,7 @@ deleteMember(group, wearerId){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${group.id}/wearers/${wearerId}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
@@ -741,7 +741,7 @@ deleteMember(group, wearerId){
                       <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
                       :
                       this.state.wearersEditing ? 
-                      <EditWearerProfile deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
+                      <EditWearerProfile addWearer = {this.addWearer}  deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
                       :
                       <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
                     

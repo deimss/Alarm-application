@@ -110,7 +110,10 @@ class EditWearerProfile extends React.Component {
       age: this.state.valueAge,
       image: this.state.image
     }
-    this.props.updateWearer(newData);
+    if(this.props.data.id === null){
+      this.props.addWearer(newData);
+    }
+    else this.props.updateWearer(newData);
 
     
     
