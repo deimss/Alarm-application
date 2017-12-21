@@ -45,6 +45,7 @@ class LogIn extends React.Component {
       self.setState({
         emailError: false,
       });
+      
       console.log("Sucsses");
     })
     .catch(function (error) {
@@ -77,7 +78,7 @@ class LogIn extends React.Component {
               <p className="Forgot-pas"><a href="#" className="pink">Forgot password?</a></p>
               <input type="submit"  onClick={this.handleSubmit} value="Sing in"></input>
             </form>
-            <p className="Dont-have-an-accoun">Don’t have an account?<Link to="/SignUp" className="pink">&nbsp;Create account</Link></p>
+            <p className="Dont-have-an-accoun">Don’t have an account?<Link to="/masterpage" className="pink">&nbsp;Create account</Link></p>
           </div>
     );
   }

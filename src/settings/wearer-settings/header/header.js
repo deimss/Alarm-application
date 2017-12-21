@@ -20,7 +20,7 @@ class Header extends React.Component{
             </div>
             <div className="settings_header__menu__wrap">
             <div className="settings_header__menu">
-                <NavLink to="/" className="settings_header__menu__item" exact>
+                <NavLink to="/masterpage" className="settings_header__menu__item" exact>
                     <svg className="settings_header__menu__item__icon" fill="#FFFFFF" height="29.5" viewBox="0 0 24 24" width="29.5" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10 18h5v-6h-5v6zm-6 0h5V5H4v13zm12 0h5v-6h-5v6zM10 5v6h11V5H10z"/>
                     <path d="M0 0h24v24H0z" fill="none"/>

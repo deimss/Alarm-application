@@ -3,7 +3,9 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect,
+  withRouter
 } from 'react-router-dom';
 import { HashRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom';
@@ -17,9 +19,11 @@ import SettingsPage from './settings/wearer-settings/wearers-configuration-page/
 ReactDOM.render(
   <HashRouter >
     <div>
+      <Route path="/signup" component={SignUp}/>
+      <Route path="/masterpage" component={MasterPage}/>
       <Route path="/settings" component={SettingsPage}/>
       <Route path="/reminders" component={Reminder}/>
-      <Route exact path="/" component={MasterPage} />
+      <Route exact path="/" component={LogIn} />
     </div>
   </HashRouter >,
   document.getElementById('root')

@@ -1,6 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
+//import MasterPage from '../../components/masterPage/masterpage';
 
 export const master = {
     client: 'dcap6lWaoLUnnrqp3e0BXA',
@@ -31,7 +39,8 @@ class LogInForm extends React.Component {
       loginError: false,
       accessToken: null, 
       client: null,
-      uid: null
+      uid: null,
+      isAuthenticated: false
    };
   }
 
@@ -48,12 +57,21 @@ class LogInForm extends React.Component {
       console.log("password success");
     };
  };
-
   
+ isAuthenticated(){
+   if(this.state.client !== null && this.state.accesstoken !== null  && this.state.uid !== null ){
+     this.setState({isAuthenticated: true})
+   }else {
+    this.setState({isAuthenticated: false})
+   }
+ }
   
   sendData(event){
-
-    this.setState({isSendData: true});
+   // this.isAuthenticated();
+    this.setState({
+      isSendData: true,
+    //  isAuthenticated: true
+    });
     var errorStatus = false;
     event.preventDefault();
     axios({
@@ -65,7 +83,22 @@ class LogInForm extends React.Component {
             }
 
 }).then(response => {
-    console.log('loginForm response headers',response.headers);
+    console.log('loginForm response headers', response.headers['access-token'],response.headers.client,response.headers.uid);
+  if(response.status === 200){
+    master.client = response.headers.client ;
+    master.accesstoken = response.headers['access-token'];
+    master.uid = response.headers.uid;
+    this.setState({
+      isAuthenticated: true
+    })
+  }else {
+    this.setState({
+      isAuthenticated: false
+    })
+  }
+
+
+
     this.setState({
       accessToken: response.headers['access-token'], 
       client: response.headers.client,
@@ -74,7 +107,10 @@ class LogInForm extends React.Component {
 
   })
   .catch((error) => { 
-    this.setState({loginError: true});
+    this.setState({
+      loginError: true,
+      isAuthenticated: false
+    });
     console.log(error);
     //this.setState({loginError: true});
     //console.log(this.state.loginError);
@@ -111,25 +147,30 @@ class LogInForm extends React.Component {
 
 
     return (
-        <form className="signInForm">
-        <p>Email</p>
-        <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
+      <div>
+        {this.state.isAuthenticated ? <Redirect to={{
+        pathname: '/masterpage'
+      }}/> :  <form className="signInForm">
+      <p>Email</p>
+      <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
+      
+      <p>Password</p>
+          <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onChange={this.saveInput} />
+          {this.state.loginError && <div className="login-error">
+              <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+              </svg>
+              <span> Invalid login or password. Please try again. </span>
+          </div>}
+          <p id="forgotPass"><a href="#"> Forgot password?</a></p>
+          
+          <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
+          
+      </form> 
+      }
         
-        <p>Password</p>
-            <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onChange={this.saveInput} />
-            {this.state.loginError && <div className="login-error">
-                <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0V0z" fill="none"/>
-                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-                </svg>
-                <span> Invalid login or password. Please try again. </span>
-            </div>}
-            <p id="forgotPass"><a href="#"> Forgot password?</a></p>
-            
-            <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
-            
-        </form>
-
+      </div>
     );
   }
 }

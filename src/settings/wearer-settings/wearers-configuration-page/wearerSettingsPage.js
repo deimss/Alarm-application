@@ -203,7 +203,7 @@ getWearers(event){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': 'boretskairuna23@gmail.com', 'client': 'dcap6lWaoLUnnrqp3e0BXA', 'access-token': 'JMQEZxa7-QZogK6lzJ-tog'},
+      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
       responseType: 'json'
     }).then(response => {
 

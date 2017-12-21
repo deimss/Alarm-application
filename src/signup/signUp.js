@@ -36,7 +36,7 @@ class SignUp extends React.Component{
         
         <div className="sign">
             <p>
-            <Link to='/login'>Go back to log in</Link>    
+            <Link to='/'>Go back to log in</Link>    
             </p>
         </div>
     </div>    
