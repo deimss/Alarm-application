@@ -196,7 +196,7 @@ class EditWearerProfile extends React.Component {
         //       avatar = this.state.image
          //   }; 
 
-          let groups = null;
+        let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
 

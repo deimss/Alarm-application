@@ -91,7 +91,7 @@ constructor(props) {
 
 
  return (
-            <div>
+            <div className="wearers-list-wrap">
             <div className="wearers">
                 <div className="tile__header"> Wearers list </div>
                 <div className="searchWrap">
