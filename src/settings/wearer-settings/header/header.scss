@@ -66,6 +66,9 @@ html, body{
     flex-wrap: wrap;
 
 }
+.settings_header__menu > div{
+    flex-wrap: wrap;
+}
 .settings_header__menu__item{
     height: 63px;
     padding: 0 7px;
@@ -124,3 +127,21 @@ html, body{
     border-radius: 50%;
 }
 
+
+@media screen and (max-width: 860px) {
+    .settings_header__profile {
+        width: auto;
+    }
+}
+@media screen and (max-width: 735px) {
+    .settings_header__logo {
+        display: none;
+    }
+    .settings_header__menu {
+        margin-left: 0px;
+    }
+    .settings_header {
+        display: flex;
+        justify-content: space-between;
+    }
+}
