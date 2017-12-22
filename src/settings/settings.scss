@@ -25,6 +25,9 @@ input {
   background: white;
 }
 
+html{
+  width: auto;
+}
 
  /*Start: Style navbar section */
 
@@ -331,12 +334,24 @@ input {
         margin-left: 136px;
         list-style: none;
         background: white;
+        /*display: flex;
+        flex-direction: row;
+        justify-content: flex-start;*/
+
+        /*flex-wrap: nowrap;*/
         /*-webkit-appearance: none;*/
+
+
       }
       li {
         display: flex;
         flex-direction: row;
+
+        button{
+          margin-right: 10px;
+        }
       }
+
     }
     .profile-gender {
     .gender-position{

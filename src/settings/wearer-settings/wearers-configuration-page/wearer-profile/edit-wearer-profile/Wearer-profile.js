@@ -29,9 +29,12 @@ class EditWearerProfile extends React.Component {
 
   setWearerGroupData(){
      let groupArray = [];
-     this.props.wearerGroupData.forEach(function(element){
+     if(this.props.wearerGroupData !== null){
+      this.props.wearerGroupData.forEach(function(element){
         groupArray.push(Object.assign({}, element));
       })
+     }
+     
       this.setState({wearerGroupData: groupArray});
       console.log("componentWillMount this.state.wearerGroupData", this.state.wearerGroupData); 
     };
@@ -107,7 +110,10 @@ class EditWearerProfile extends React.Component {
       age: this.state.valueAge,
       image: this.state.image
     }
-    this.props.updateWearer(newData);
+    if(this.props.data.id === null){
+      this.props.addWearer(newData);
+    }
+    else this.props.updateWearer(newData);
 
     
     
@@ -171,11 +177,25 @@ class EditWearerProfile extends React.Component {
     })
   }
 
-  
+
 
 // delete-group-button
 
+ 
+       
+        // groupList = <select>{groups}</select>;
+
+
+
+  
+
   render() {  
+   // let avatar = "data:image/png;base64,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";
+    // <img src={`${wearer.image}`} alt=''/>
+       //     if (this.state.image !== ''){
+        //       avatar = this.state.image
+         //   }; 
+
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
@@ -200,9 +220,6 @@ class EditWearerProfile extends React.Component {
             
           });
         }
-
-        // groupList = <select>{groups}</select>;
-
 
 
 

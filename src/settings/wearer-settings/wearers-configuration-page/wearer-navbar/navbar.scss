@@ -8,8 +8,14 @@
 }*/
 
 
+.wearers-list-wrap{
+    width: 24%;
+    /*min-width: 342px;*/
+    min-width: 330px;
+}
+
  .wearers{
- 	width: 342px;
+ 	width: 100%;
     /*height: */
     /*margin-bottom: 0;*/
     box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
@@ -54,26 +60,26 @@
     background-color: #f2f2f2;
 }
 
-/*.wearers__user__logo{
+
+.wearers__user__logo {
     width: 35px;
     height: 35px;
     margin-left: 20px;
     margin-right: 15px;
     border-radius: 35px;
-    background-size: cover;
+    background-position: center;
+    background-size: 100%;
     background-repeat: no-repeat;
-   
-}*/
-
-.wearers__user__logo{
-    width: 15px;
-    height: 15px;
-    margin-left: 20px;
-    margin-right: 15px;
-    border-radius: 35px;   
+    background-image: url(./settings/default_avatar.png)
 }
 
-
+.wearers__user__logo img{
+    width: 35px;
+    height: 35px;
+    /*margin-left: 20px;
+    margin-right: 15px;*/
+    border-radius: 35px;
+}
 .user__name{
     display: block;
     width: 240px;

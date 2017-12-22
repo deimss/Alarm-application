@@ -3,8 +3,13 @@ import axios from 'axios';
 import classNames from 'classnames';
 
 export const master = {
-    client: 'dcap6lWaoLUnnrqp3e0BXA',
-    accesstoken: 'JMQEZxa7-QZogK6lzJ-tog',
+  
+    // client: 'ejbYpLdnX25AFGFq6TepKQ',
+    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
+    // uid: 'deimssssss19482@gmail.com'
+    
+    client: '-Ez_27jy5-ryOfFeUQZ2_g',
+    accesstoken: 'eqktstj-arbMAOLmt7TuSg',
     uid: 'boretskairuna23@gmail.com'
 }
 

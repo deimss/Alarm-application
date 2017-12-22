@@ -15,6 +15,7 @@ class WearerProfile extends React.Component{
     }
   };
 
+
   componentWillReceiveProps(nextProps){
    // debugger
    // if(nextProps.wearersData){this.props.wearersData = nextProps.wearersData}
@@ -24,9 +25,12 @@ class WearerProfile extends React.Component{
       wearersData : nextProps.wearersData
     })
   }
- 
+
 
     render(){
+
+      console.log('WEARERPROFILE this.props.wearersData', this.props.wearersData);
+
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
@@ -69,6 +73,9 @@ class WearerProfile extends React.Component{
 
         console.log('this.props.wearersData', this.props.wearersData);
         // console.log('wearerProfile groups', groups)
+
+// disabled = {(this.state.disableEdit) ? "disabled" : ""}
+
         return (
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">
@@ -90,26 +97,26 @@ class WearerProfile extends React.Component{
                 <tbody>
                   <tr>
                     <td>Full name</td>
-                    <td>{wearer.full_name}</td>  
+                    <td>{wearer.full_name || emptyGroupList}</td>  
                   </tr>
                   <tr>
                     <td>Gender</td>
-                    <td>{wearer.gender}</td>
+                    <td>{wearer.gender || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Age</td>
-                    <td>{wearer.age}</td>
+                    <td>{wearer.age || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Weight</td>
-                    <td>{wearer.weight}</td>
+                    <td>{wearer.weight || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>
                       <p>Resting Max</p>
                       <p>heart rate</p>
                     </td>
-                    <td>{wearer.heart_rate}</td>
+                    <td>{wearer.heart_rate || emptyGroupList}</td>
                   </tr>
                   <tr>
                     <td>Group</td>
