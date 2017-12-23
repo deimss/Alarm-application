@@ -136,6 +136,7 @@
 }
 .calendar .user {
   display: flex;
+  flex-wrap: wrap;
   background-color: #fff;
   font-size: 14px;
   color: #808080;
@@ -192,3 +193,13 @@
   border-radius: 3px;
 }
 .calendar .user .dayevents p {margin-left: 5px;}
+
+@media screen and (max-width: 829px) {
+  .reminders .group {
+    padding: 3px 14px;
+  }
+  .switch-wearers {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -156,7 +156,7 @@
 	background: #ccc;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 825px) {
 	.map {
 		margin-right: 10px;
 	}
@@ -178,7 +178,7 @@
      .right-bar {
      	display: flex;
      	justify-content: space-around;
-		& > div {width: 48%;}
+		& > div {width: 48%; height: 100%}
 		.events {
 			max-height: 237px;
 			.addEvent {

@@ -3,16 +3,6 @@
     padding: 0px;
     margin: 0px;
 }
-
-/*@font-face{
-   font-family: DINPro-Regular;
-   src: url(../../assets/fonts/DINPro-Regular_13937.ttf);
-}
-@font-face{   
-    font-family: DINPro-Medium;
-    src: url(../../assets/fonts/DINPro-Medium_13936.ttf);
-}*/
-
 html, body{
     background-color: #F5F5F5;
     font-family: DINPro-Regular;
@@ -20,7 +10,6 @@ html, body{
 .settings_container{
     width: 100%;
     height: 100%;
-/*    background-color: #F5F5F5;*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .settings_header{
@@ -33,11 +22,8 @@ html, body{
 }
 
 .settings_header__logo{
-    /*width: 191px;
+    width: 191px;
     height: 63px;
-    margin-left: 5px;*/
-    width: 15%;
-    height: 8%;
     margin-left: 5px;
     display: flex;
     align-items: center;
@@ -61,7 +47,7 @@ html, body{
     letter-spacing: 1px;
 }
 .settings_header__menu{
-/*    flex-shrink: 1;*/
+/*  flex-shrink: 1;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,6 +65,7 @@ html, body{
     align-items: center;
     justify-content: center;
     position: relative;
+    transition: all 0.2s ease;
     /*border-left: 1px solid red;*/
 
 }
@@ -119,7 +106,6 @@ html, body{
     width: 35px;
     height: 35px;
     border-radius: 35px;
-    /*background-image: url(../../assets/images/OldWoman3.png);*/
     background-size: contain;
     background-position: top;
     background-size: 130%;
@@ -129,22 +115,92 @@ html, body{
     height: 35px;
     border-radius: 50%;
 }
-
+.hidden{
+  display: none;
+}
+#nav:checked + .nav-open {
+  transform: rotate(45deg);
+}
+#nav:checked + .nav-open i {
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+#nav:checked + .nav-open i:nth-child(1) {
+  transform: translateY(6px) rotate(180deg);
+}
+#nav:checked + .nav-open i:nth-child(2) {
+  opacity: 0;
+}
+#nav:checked + .nav-open i:nth-child(3) {
+  transform: translateY(-6px) rotate(90deg);
+}
+#nav:checked ~ .settings_header__menu {
+  z-index: 9990;
+  opacity: 1;
+}
 
 @media screen and (max-width: 860px) {
     .settings_header__profile {
-        width: auto;
+    width: auto;
     }
 }
 @media screen and (max-width: 735px) {
     .settings_header__logo {
-        display: none;
+    display: none;
     }
     .settings_header__menu {
-        margin-left: 0px;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.2s ease;
+    }
+    .nav-open {
+        right: 10px;
+        top: 10px;
+        display: block;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        z-index: 9999;
+        border-radius: 50%;
+    }
+    .nav-open i {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: #1f2227;
+        border-radius: 2px;
+        margin-left: 14px;
+    }
+    .nav-open i:nth-child(1) {
+        margin-top: 16px;
+    }
+    .nav-open i:nth-child(2) {
+        margin-top: 4px;
+        opacity: 1;
+    }
+    .nav-open i:nth-child(3) {
+        margin-top: 4px;
     }
     .settings_header {
         display: flex;
         justify-content: space-between;
+    }
+}
+@media screen and (max-width: 530px) {
+    .settings_header__menu{
+       flex-direction: column;
+       background-color: #ccc;
+       border-radius: 4px;
+       top: 70px; 
+       left: -60px;   
+    }
+    .settings_header__menu__item{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 485px) {
+    .add-group > div {
+        padding: 3px 14px;
     }
 }
