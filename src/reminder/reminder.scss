@@ -13,6 +13,7 @@
   font-size: 16px;
   text-align: left;
   cursor: pointer;
+  z-index: 0;
 }
 .dropbtn:after {
   z-index: 100;
@@ -194,6 +195,39 @@
 }
 .calendar .user .dayevents p {margin-left: 5px;}
 
+.modal-edit{
+  display: flex;
+  padding: 0;
+  height: 500px;
+}
+.modal-edit input{
+  width: 94%;
+  margin-left: 15px;
+}
+.modal-edit .rdt input {display: none;}
+.calendarnone {
+  display: none;
+}
+
+
+
+
+@media screen and (max-width: 970px) {
+  .events > div img {display: none;}
+  .calendar .user .user-name{
+    flex-direction: column;
+    justify-content: flex-start;
+    & > div:last-child {
+      margin-top: 10px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+    }
+  }
+  .calendar .user .dayevents p{margin-left: 0;}
+  .calendar .user .dayevents {padding-top: 3px;}
+  .calendar .user .events {
+  }
+}
 @media screen and (max-width: 829px) {
   .reminders .group {
     padding: 3px 14px;

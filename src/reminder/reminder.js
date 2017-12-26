@@ -28,7 +28,6 @@ class Reminder extends React.Component {
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
   	this.createreminder = this.createreminder.bind(this);
-  	this.chooseevent = this.chooseevent.bind(this);
 }
 
 
@@ -110,10 +109,10 @@ findreminder(){
 	this.setState({filteredreminders: rem});
 }
 createreminder(item){
-	return <li onMouseOver={(e) => this.chooseevent}>{item.title}</li>
+	return <li key={Math.floor(Math.random() * (10 - 1 + 1)) + 1} onClick={this.ch.bind(this)}>{item.title}</li>
 }
-chooseevent(e){
-	//console.log("hello");
+ch(e){
+	console.log("hello", e);
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -121,7 +120,7 @@ render(){
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
-  	this.state.filteredreminders ? createreminders = this.state.filteredreminders.map(this.createreminder) : createreminders = this.state.reminders.map(this.createreminder)
+	if(this.state.filteredreminders) createreminders = this.state.filteredreminders.map(this.createreminder)
 	return( 
 		<div className="reminders">
 		<Header />

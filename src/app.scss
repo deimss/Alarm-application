@@ -22,6 +22,9 @@ src: url(./assets/fonts/DINPro-Medium_13936.ttf);
 font-family: DINPro-Regular;
 src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
 }
+#portal{
+  z-index: 99999999;
+}
 * {
   margin: 0;
   padding: 0;
