@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 import Header from './settings/wearer-settings/header/header'
 import SignUp from './signup/signUp';
 import LogIn from './login/login';
+import ResetPassword from './login/password';
 import Reminder from '../src/reminder/reminder';
 import MasterPage from './components/masterPage/masterpage';
 import SettingsPage from './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.js'
@@ -19,6 +20,7 @@ import SettingsPage from './settings/wearer-settings/wearers-configuration-page/
 ReactDOM.render(
   <HashRouter >
     <div>
+      <Route path="/resetpassword" component={ResetPassword}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="/masterpage" component={MasterPage}/>
       <Route path="/settings" component={SettingsPage}/>

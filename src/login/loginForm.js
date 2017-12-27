@@ -11,12 +11,6 @@ import {
 //import MasterPage from '../../components/masterPage/masterpage';
 
 export const master = {
-  
-    // client: 'ejbYpLdnX25AFGFq6TepKQ',
-    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
-    // uid: 'deimssssss19482@gmail.com'
-    
-
     client: null,
     accesstoken: null,
     uid: null
@@ -43,7 +37,7 @@ class LogInForm extends React.Component {
       isSendData: false,
       testError: false,
       loginError: false,
-      accessToken: null, 
+      accesstoken: null, 
       client: null,
       uid: null,
       isAuthenticated: false
@@ -73,11 +67,11 @@ class LogInForm extends React.Component {
  }
   
   sendData(event){
-   // this.isAuthenticated();
     this.setState({
-      isSendData: true,
-    //  isAuthenticated: true
+    isSendData: true
+    
     });
+    console.log('MASTER',master)
     var errorStatus = false;
     event.preventDefault();
     axios({
@@ -95,22 +89,17 @@ class LogInForm extends React.Component {
     master.accesstoken = response.headers['access-token'];
     master.uid = response.headers.uid;
     this.setState({
-      isAuthenticated: true
+      isAuthenticated: true,
+      accesstoken: response.headers['access-token'],
+      uid: response.headers.uid,
+      client: response.headers.client
     })
   }else {
     this.setState({
       isAuthenticated: false
     })
   }
-
-
-
-    this.setState({
-      accessToken: response.headers['access-token'], 
-      client: response.headers.client,
-      uid: response.headers.uid
-    })
-
+  console.log('MASTER',master)  
   })
   .catch((error) => { 
     this.setState({
@@ -122,14 +111,8 @@ class LogInForm extends React.Component {
   });
 };
 
-
-
-
-
-
   render() {
-
-    console.log('Login this.state.accessToken', this.state.accessToken);
+    console.log('Login this.state.accessToken', this.state.accesstoken);
     console.log('Login this.state.client', this.state.client);
     console.log('Login this.state.uid', this.state.uid);
 
@@ -147,10 +130,9 @@ class LogInForm extends React.Component {
       'inputField': (this.state.passError) || (this.state.password == null && this.state.isSendData)
     });
 
-
     return (
       <div>
-        {this.state.isAuthenticated ? <Redirect to={{
+        {this.state.isAuthenticated ? <Redirect master={master} to={{
         pathname: '/masterpage'
       }}/> :  <form className="signInForm">
       <p>Email</p>
@@ -165,7 +147,7 @@ class LogInForm extends React.Component {
               </svg>
               <span> Invalid login or password. Please try again. </span>
           </div>}
-          <p id="forgotPass"><a href="#"> Forgot password?</a></p>
+          <p id="forgotPass" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
           
           <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
           

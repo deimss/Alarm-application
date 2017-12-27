@@ -11,19 +11,18 @@ import WearerProfile from './wearer-profile/wearerProfile.js';
 import EditWearerProfile from './wearer-profile/edit-wearer-profile/Wearer-profile.js';
 import Carers from './carers-data/carers.js';
 import AddWearer from './wearer-profile/addWearer.js';
-
-import {Test} from '../../../actions/test'
-
-import EmptyCarer from './carers-data/emptyCarer.js';
-import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
-
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect,
+  withRouter
 } from 'react-router-dom';
+import {Test} from '../../../actions/test'
+import EmptyCarer from './carers-data/emptyCarer.js';
+import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
 import {master} from "../../../login/loginForm.js"
-
+import LogIn from '../../../login/login';
 
 class SettingsPage extends React.Component{ 
 
@@ -47,6 +46,7 @@ class SettingsPage extends React.Component{
     this.updateWearerDevices = this.updateWearerDevices.bind(this);
     this.addWearerDevices = this.addWearerDevices.bind(this);
     this.deleteWearerDevices = this.deleteWearerDevices.bind(this);
+    this.redirectToLogin = this.redirectToLogin.bind(this);
 
     this.state = {
       // wearerId: null,
@@ -58,34 +58,47 @@ class SettingsPage extends React.Component{
       error: false, 
       wearerDevice: [],
       carers: [],
-
       addNewWearerClicked: false,
       wearersLoaded: false,
       emptyWearersLoaded: false,
       carersLoaded: false, 
       wearerDeviceLoaded: false,
-
       wearersEditing: false,
       carersEditing: false,
       wearerDeviceEditing: false,
       wearerAdded: false,
-      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': {'url': null}}
+      newWearer: {'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight': null, 'image': {'url': null}},
+      redirectToLogin: null,
+      accesstoken: null,
+      uid: null,
+      client: null
     }
   };
 
 
 
 
-componentWillMount() {          
+componentWillMount() {
+  if( master.accesstoken !== null && master.uid !== null && master.client !== null){
+  this.setState({
+    accesstoken: master.accesstoken,
+    uid: master.uid,
+    client: master.client
+  })  
+  } 
+} 
+
+componentDidMount(){
+  
   this.getWearers();
   this.getCarers();
- // this.getWearerDevice();
-    };
+}
+    
+ 
 
 
 
 handleAddWearerButton(){
-
   this.setState({addNewWearerClicked: true});
   this.setState({wearerAdded: false});
 }
@@ -102,7 +115,7 @@ getGroups(wearerId){
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
@@ -128,7 +141,7 @@ addWearer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
 
       data: {
         "wearer": {
@@ -185,10 +198,10 @@ addWearer(event){
 
 
                
-                console.log('addWearer wearer', wearer );
-                console.log('addWearer event', event );
-                console.log('addWearer response.data', response.data );
-                console.log('addWearer wearerArray', wearerArray );
+                // console.log('addWearer wearer', wearer );
+                // console.log('addWearer event', event );
+                // console.log('addWearer response.data', response.data );
+                // console.log('addWearer wearerArray', wearerArray );
 
                 
 
@@ -201,24 +214,18 @@ addWearer(event){
 };
 
 getWearers(event){
-
-  console.log('getWearers');
-
-
+  console.log('STATE WEARER MASTER', this.state.accesstoken)
   axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
-
             if (response.status === 200){
               this.setState({
                 wearerDeviceLoaded: true,
                 wearersLoaded: true,
-                
-
                 })
             };
             
@@ -235,6 +242,12 @@ getWearers(event){
                 wearerData: response.data
               })
             }; 
+
+            if(response.status == 200){
+              this.setState({
+                redirectToLogin: false
+              })
+            }
             
             if(this.state.activeWearerId != null){
               this.getWearerDevice(this.state.activeWearerId);
@@ -249,7 +262,11 @@ getWearers(event){
 //ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
 
       }).catch((error) => { 
-        console.log('getWearers error ====> ', error);
+         console.log('getWearers error ====> ', error);
+         if(error.response.status === 401)
+        this.setState({
+          redirectToLogin: true
+        })
 
         // if (error.response.status === 404){
         //     this.setState({error: true})
@@ -266,7 +283,7 @@ updateWearer(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
 
       data: {
         "wearer": {
@@ -312,9 +329,9 @@ updateWearer(event){
               // let wearerIndex = this.state.wearerData.find(i => i.id === resp.data.id);
               // // wearerArray[wearerIndex] = resp.data;
               // Object.assign(wearerArray[wearerIndex], resp.data)
-              console.log('updateWearer event', event );
-              console.log('updateWearer resp.data', resp.data );
-              console.log('updateWearer wearerArray', wearerArray );
+              // console.log('updateWearer event', event );
+              // console.log('updateWearer resp.data', resp.data );
+              // console.log('updateWearer wearerArray', wearerArray );
               // console.log('updateWearer wearerArray[wearerIndex]', wearerArray[wearerIndex] );
               this.setState({wearerData: wearerArray});
              
@@ -344,7 +361,7 @@ updateWearerDevices(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerID}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
 
       data: {
         name: event.name,
@@ -378,7 +395,7 @@ deleteWearerDevices(event){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerID}/devices/${event.idDevice}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
 
     }).then(() => {
 
@@ -395,6 +412,7 @@ deleteWearerDevices(event){
 };
 
 addWearerDevices(event){
+ 
 let wearerID;
       if (event.id !== null){
         wearerID = event.id
@@ -406,7 +424,7 @@ let wearerID;
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerID}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       data: {
           name: event.name,
           phone_number: event.phone_number,
@@ -432,7 +450,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/devices`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
 
@@ -463,7 +481,7 @@ getWearerDevice(wearerId){
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
 
@@ -490,7 +508,7 @@ updateCarer(event){
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event.id}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       data: {
         "carer": {
           "first_name": event.first_name,
@@ -557,7 +575,7 @@ addCarer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state, 'client': this.state.client, 'access-token': this.state.accesstoken},
       data: {
         "carer": {
           "first_name": event.first_name,
@@ -592,7 +610,7 @@ deleteCarer(event){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
 
@@ -616,7 +634,7 @@ deleteMember(group, wearerId){
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${group.id}/wearers/${wearerId}`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
         console.log('getGroups response', response);
@@ -669,6 +687,14 @@ deleteMember(group, wearerId){
     console.log('enableWearerEdit this.state.wearersEditing', this.state.wearersEditing);
   };
 
+  redirectToLogin() {          
+    if( this.state.client == null && this.state.accesstoken == null && this.state.uid == null){
+      this.setState({
+        redirectToLogin: true
+      })
+    }
+    };
+
     render(){
       let wearersDataForChildren;
 
@@ -713,70 +739,74 @@ deleteMember(group, wearerId){
 // wearerId = {this.state.wearerId}
 
     return (
-          <div>
-          <Header/>
-          <div>
-              <div className="contentWrap">
-                  {
-                    this.state.error ? <WearerError />
-                    :
-                    this.state.wearersLoaded ?
-                    <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} activeWearerId = {this.state.activeWearerId} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
-                    :
-                    <WearersLoading/> 
-                  }
-
-                
-
-              <div className="wearerConfigWrap">
-                    <p className="wearerConfigWrap__name">Configuration Page</p>
-                    <p className="wearerConfigWrap__description">Manage information about wristo</p>
-                    {
-                    this.state.error ? <WearerError />
-                    :
-
-                    this.state.wearersLoaded ?
-                    
-                    this.state.addNewWearerClicked ?
-                      <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
-                      :
-                      this.state.wearersEditing ? 
-                      <EditWearerProfile addWearer = {this.addWearer}  deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
-                      :
-                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
-                    
-                    :
-                    <WearersLoading/> 
-                    }
-
-                  
-                  {
-                    this.state.error ? <WearerError />
-                    :
-                    this.state.wearerDeviceLoaded ?
-
-                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearerId} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
-                    :
-                    <WearersLoading/>
-                  }
-                  
-                  {
-                    this.state.error ? <WearerError />
-                    :
-                    this.state.carersLoaded ?
-                    
-                    <Carers updateCarer = {this.updateCarer} carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer} addNewWearerClicked = {this.state.addNewWearerClicked}/>
-                    :
-                    <WearersLoading/>                 
-                  }
-
-
-
-              </div>
+      <div>{this.state.redirectToLogin ?  <Redirect to={{
+        pathname: '/'
+      }}/> : this.state.redirectToLogin=== false ? <div>
+      <Header redirectToLogin = {this.redirectToLogin} />
+      <div>
+          <div className="contentWrap">
+              {
+                this.state.error ? <WearerError />
+                :
+                this.state.wearersLoaded ?
+                <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} activeWearerId = {this.state.activeWearerId} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
+                :
+                <WearersLoading/> 
+              }
 
             
-            </div>
-           </div> 
+
+          <div className="wearerConfigWrap">
+                <p className="wearerConfigWrap__name">Configuration Page</p>
+                <p className="wearerConfigWrap__description">Manage information about wristo</p>
+                {
+                this.state.error ? <WearerError />
+                :
+
+                this.state.wearersLoaded ?
+                
+                this.state.addNewWearerClicked ?
+                  <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
+                  :
+                  this.state.wearersEditing ? 
+                  <EditWearerProfile addWearer = {this.addWearer}  deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
+                  :
+                  <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
+                
+                :
+                <WearersLoading/> 
+                }
+
+              
+              {
+                this.state.error ? <WearerError />
+                :
+                this.state.wearerDeviceLoaded ?
+
+                <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearerId} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
+                :
+                <WearersLoading/>
+              }
+              
+              {
+                this.state.error ? <WearerError />
+                :
+                this.state.carersLoaded ?
+                
+                <Carers updateCarer = {this.updateCarer} carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer} addNewWearerClicked = {this.state.addNewWearerClicked}/>
+                :
+                <WearersLoading/>                 
+              }
+
+
+
+          </div>
+
+        
+        </div>
+       </div> 
+    </div> : <WearersLoading/> }
+          
         </div>
         );
     }

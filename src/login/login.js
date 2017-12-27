@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // import logoImg from '../../assets/images/logoW.png';
 import logo from '../assets/images/logo.png'
 import LogInForm from './loginForm.js';
+import Email from './email.js';
 //import { Link } from 'react-router';
 // import {
 //   BrowserRouter as Router,
@@ -17,6 +18,20 @@ import {
 } from 'react-router-dom';
 
 class Login extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            forgetPasswordClicked: false
+        }
+        this.toogleEmailInp = this.toogleEmailInp.bind(this);
+    }
+
+    toogleEmailInp(){
+        this.setState({
+            forgetPasswordClicked: !this.state.forgetPasswordClicked
+        })
+    }
+
     render(){
         return (
     <div className="sign_Page">
@@ -26,20 +41,22 @@ class Login extends React.Component{
         <span> wristo </span>
         </div>
     </header>
-    
-    <div className="wrap">
+    {this.state.forgetPasswordClicked ? <div className="wrap">
+    <p id="heading">Reset</p>
+        <Email toogleEmailInp ={this.toogleEmailInp}/></div> : <div className="wrap">
         <div>
         <p id="heading">Log in</p>
         </div>
         
-        <LogInForm/>
+        <LogInForm toogleEmailInp ={this.toogleEmailInp}/>
 
         <div className="sign">
             <p>Don't have an account? 
                 <Link to='/signup'>Create account</Link>
             </p>
         </div>
-    </div>    
+    </div> }
+       
 </div>
         );
     }

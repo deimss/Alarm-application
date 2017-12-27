@@ -8,19 +8,31 @@ import {
   NavLink,
   Redirect
 } from 'react-router-dom';
-
+import {master} from "../../../login/loginForm.js"
 // {logoImg}
 
 class Header extends React.Component{ 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
-            isLogout: false
+            isLogout: false,
+            isDropDown : false
         }
         this.logout = this.logout.bind(this);
+        this.changeDropdown = this.changeDropdown.bind(this);
+    }
+
+    changeDropdown(){
+    master.client = null ;
+    master.accesstoken = null;
+    master.uid = null;
+    this.setState({
+        isDropDown: !this.state.isDropDown
+    })
     }
 
     logout(){
+     // this.props.redirectToLogin();
         this.setState({
             isLogout: true 
         })
@@ -62,17 +74,24 @@ class Header extends React.Component{
               </NavLink>
           </div>
           </div>
-          <div className="settings_header__profile">
+          <div className="settings_header__profile ">
               <div className="settings_header__profile__logo">
-              <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG" alt="" onClick={this.logout}/>
+              {this.state.isDropDown ? <div><img src='https://mir-s3-cdn-cf.behance.net/user/276/7872685.540ebc2d6eb7f.jpg' alt="" onClick={this.changeDropdown}/>
+              <div id="myDropdown" className="dropdown-content">
+              <a onClick={() => {this.logout(); this.props.redirectToLogin()}}>Log Out</a>
+            </div></div>  : <img src="https://mir-s3-cdn-cf.behance.net/user/276/7872685.540ebc2d6eb7f.jpg" alt="" onClick={this.changeDropdown}/>}
+              
               </div>
           </div>
-        </div> 
-          }
+          </div> 
+        }
         </div> 
         );  
+      
+      }
+
     }
-}
+
 
 
 
