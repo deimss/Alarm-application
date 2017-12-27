@@ -8,9 +8,9 @@ export const master = {
     // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
     // uid: 'deimssssss19482@gmail.com'
     
-    client: '-Ez_27jy5-ryOfFeUQZ2_g',
-    accesstoken: 'eqktstj-arbMAOLmt7TuSg',
-    uid: 'boretskairuna23@gmail.com'
+    client: 'WPTypISPfhT1paSsuUAbGg',
+    accesstoken: '3-YHysTcGNYbaTwnErwUIA',
+    uid: 'dmytro.pogoretsky@gmail.com'
 }
 
 

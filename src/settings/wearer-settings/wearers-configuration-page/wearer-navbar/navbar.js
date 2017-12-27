@@ -53,9 +53,11 @@ constructor(props) {
               }
         );
 
-            
+           
+
             namesList = filteredWearers.map((wearer) => {
 
+              console.log("NAVBAR filteredWearers", filteredWearers);
  
 
            let wearerElementStyle = classNames({

@@ -65,8 +65,9 @@ header{
 .wrap{
     width: 100%;
     max-width: 400px;
-    margin:auto;
+    margin: auto;
     margin-top: 153px;
+    /*margin-top: 10%;*/
 /*    margin-bottom: 328px;*/
 /*    height: 100%;*/
 }
@@ -172,7 +173,7 @@ input::placeholder {
     text-decoration: none;
     position: absolute;
     bottom: 75px;
-    left: 349px;
+    left: 87%;
     font-size: 14px;
     font-weight: 300;
     text-align: left;
@@ -257,4 +258,22 @@ span{
 .signUpForm{
     position: relative;   
 }
+
+/*@media only screen and (max-width : 1224px) {
+
+    .wearerConfigWrap {
+        width: 100%;
+        padding-left: 0px;
+    }
+}*/
+
+/*@media only screen and (max-width : 768px) {
+
+    .wrap{
+    width: 100%;
+    max-width: 400px;
+    margin:auto;
+
+    }   
+}*/
 
