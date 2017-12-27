@@ -13,6 +13,7 @@
   font-size: 16px;
   text-align: left;
   cursor: pointer;
+  z-index: 0;
 }
 .dropbtn:after {
   z-index: 100;
@@ -136,6 +137,7 @@
 }
 .calendar .user {
   display: flex;
+  flex-wrap: wrap;
   background-color: #fff;
   font-size: 14px;
   color: #808080;
@@ -192,3 +194,79 @@
   border-radius: 3px;
 }
 .calendar .user .dayevents p {margin-left: 5px;}
+
+.modal-edit{
+  display: flex;
+  padding: 0;
+  height: 500px;
+}
+.modal-edit input{
+  width: 94%;
+  margin-left: 15px;
+}
+.modal-edit .rdt input {display: none;}
+.calendarnone {
+  display: none;
+}
+.modal-edit img {
+  background-color: red;
+  padding: 10px;
+}
+.setdate {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  margin-left: 14px;
+}
+.setdate .rdt {
+  position: absolute;
+  top: 47px;
+  left: 50px;
+}
+.modal-edit .start, .modal-edit .end 
+{
+  display: flex;
+  border-radius: 2px;
+  height: 42px;
+  min-width: 251px;
+  & p {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+}
+.modal-edit .calend {
+    background-color: red;
+    left: 333px;
+}
+.modal-edit .footer{
+  align-self: flex-end;
+}
+
+
+
+@media screen and (max-width: 970px) {
+  .events > div img {display: none;}
+  .calendar .user .user-name{
+    flex-direction: column;
+    justify-content: flex-start;
+    & > div:last-child {
+      margin-top: 10px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+    }
+  }
+  .calendar .user .dayevents p{margin-left: 0;}
+  .calendar .user .dayevents {padding-top: 3px;}
+  .calendar .user .events {
+  }
+}
+@media screen and (max-width: 829px) {
+  .reminders .group {
+    padding: 3px 14px;
+  }
+  .switch-wearers {
+    flex-direction: column;
+    align-items: center;
+  }
+}

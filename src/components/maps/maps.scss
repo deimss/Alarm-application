@@ -9,6 +9,9 @@
 	text-transform: capitalize;
 	font-family: 'DINPro-Regular';
 }
+.map > :last-child{
+	height: 600px;
+}
 [title^="Click"] {
 	display:none;	
 }

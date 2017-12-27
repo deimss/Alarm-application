@@ -2,25 +2,126 @@ import React, { Component } from 'react';
 import './reminder.scss';
 import edit from '../assets/icons/pensil.png';
 import axios from 'axios';
-import {master} from "../login/loginForm.js"
+import {master} from "../login/loginForm.js";
+import ReactDOM from 'react-dom';
+import Calendar from 'react-datetime';
+import calendarimg from '../assets/icons/today.svg'
+
+var month = new Array();
+month[0] = "JAN";
+month[1] = "FEB";
+month[2] = "MAR";
+month[3] = "APR";
+month[4] = "MAY";
+month[5] = "JUN";
+month[6] = "JUL";
+month[7] = "AUG";
+month[8] = "SEP";
+month[9] = "OCT";
+month[10] = "NOV";
+month[11] = "DEC";
 
 let arrayofid = [];
-function UserName(props){
+class UserName extends React.Component{
+	constructor(props){
+    super(props);
+    this.state = {
+		isModalOpen: true
+	}
+  }
+  tooglemodal(){
+    	this.setState(state => ({isModalOpen: !state.isModalOpen}))
+  	}
+  render(){
 	return (
 		<div className="user-name" >
-			<div><img src={props.url} alt=""/><p>{props.firstname}<br/>{props.lastname}</p></div>	
-			<div><img className="edit" src={edit} alt="" /></div>
+			<div><img src={this.props.url} alt=""/><p>{this.props.firstname}<br/>{this.props.lastname}</p></div>	
+			<div><img className="edit" src={edit} alt="" onClick={this.tooglemodal.bind(this)}/></div>
+			{this.state.isModalOpen && ReactDOM.createPortal(<AddReminder item={this.props.item} name={this.props.firstname} onClose={this.tooglemodal.bind(this)}/>, document.getElementById("portal"))}
 		</div>
 	)
 }
-const Event = (props) => {
-	return (
-		<div className="dayevents" style={{backgroundColor: props.color}}>
-			<img src="http://www.iconarchive.com/download/i82455/medicalwp/medical/Pills-blue.ico" alt="" />
-			<p>{props.title}<br/>{props.time}</p>		
-		</div>
-	)
+};
+class AddReminder extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    	reminder: "",
+    	openstart: "calendarnone",
+    	openend: "calendarnone"
+    }
+    this.onchangeday = this.onchangeday.bind(this);
+    this.changeclassstart = this.changeclassstart.bind(this);
+    this.changeclasend = this.changeclasend.bind(this);
+  }
+  setReminder(){
+  	this.setState({reminder: this.refs.reminder})
+  }
+  changeclassstart(){
+  	if(this.state.openstart == "calendarnone"){
+  		this.setState({openstart: ""})
+  	}else {
+  		this.setState({openstart: "calendarnone"})
+  	}
+  }
+  changeclasend(){
+  	if(this.state.openend == "calendarnone"){
+  		this.setState({openend: ""})
+  	}else {
+  		this.setState({openend: "calendarnone"})
+  	}
+  }
+  onchangeday(day, type){
+  	console.log(type);
+  	this.setState({day: day.getDate(), month: day.getMonth(), year: day.getFullYear()});
+  }
+  render() {
+    return (
+      <div className="backdrop">
+        <div className="modal-edit">
+        <p>Add reminder to {this.props.name}</p>
+          {this.props.children}
+        <div className="edit-reminder">  
+        	<p>Reminder</p>
+        	<input ref="reminder" onChange={this.setReminder.bind(this)}/>
+        </div>
+        <div className="setdate">
+        	<div className="start">
+        		<p>{month[this.state.month]} {this.state.day} {this.state.year}</p>
+        		<img onClick={this.changeclassstart} src={calendarimg}/>
+        		
+        	</div>
+        		<Calendar className={'calstart ' + this.state.openstart} type="start" onchangeday={this.onchangeday}/>
+        	<div className="end">
+        		<p>{month[this.state.month]} {this.state.day} {this.state.year}</p>
+        		<img onClick={this.changeclasend} src={calendarimg}/>
+        	</div>
+        		<Calendar className={'calend ' + this.state.openend} type="end" onchangeday={this.onchangeday}/>
+        </div>
+	          <div className="footer">
+            <button onClick={this.props.onClose}>
+              cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
+
+class Event extends React.Component{
+	constructor(props){
+		super(props);
+	}
+	render(){
+		return (
+			<div className="dayevents" style={{backgroundColor: this.props.color}}>
+				<img src="http://www.iconarchive.com/download/i82455/medicalwp/medical/Pills-blue.ico" alt="" />
+				<p>{this.props.title}<br/>{this.props.time}</p>		
+			</div>
+		)
+	}
+};
 class Createwearer extends React.Component{
 	constructor(props){
 		super(props);
@@ -72,7 +173,7 @@ class Createwearer extends React.Component{
 				color = "#ececec"; break;
 			}
 			return (
-			<Event time={time} color={color} title={item.title}/>
+			<Event time={time} color={color} item={item} title={item.title}/>
 		) 
 		}
 	}
@@ -126,10 +227,11 @@ class Createwearer extends React.Component{
 		this.state.filteredreminders.map(this.createevent);
 	}
 	render(){
+		//console.log(this.props)
 		if(this.state.done){
 			return (
 				<div className="user">
-					<UserName lastname={this.props.lastname} url={this.props.url} firstname={this.props.firstname}/>
+					<UserName lastname={this.props.lastname} url={this.props.url} id={this.props.id} firstname={this.props.firstname}/>
 					<div className="events" >
 						{this.state.monday}
 					</div>
