@@ -208,7 +208,40 @@
 .calendarnone {
   display: none;
 }
-
+.modal-edit img {
+  background-color: red;
+  padding: 10px;
+}
+.setdate {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  margin-left: 14px;
+}
+.setdate .rdt {
+  position: absolute;
+  top: 47px;
+  left: 50px;
+}
+.modal-edit .start, .modal-edit .end 
+{
+  display: flex;
+  border-radius: 2px;
+  height: 42px;
+  min-width: 251px;
+  & p {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+}
+.modal-edit .calend {
+    background-color: red;
+    left: 333px;
+}
+.modal-edit .footer{
+  align-self: flex-end;
+}
 
 
 

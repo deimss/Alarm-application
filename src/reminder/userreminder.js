@@ -5,6 +5,7 @@ import axios from 'axios';
 import {master} from "../login/loginForm.js";
 import ReactDOM from 'react-dom';
 import Calendar from 'react-datetime';
+import calendarimg from '../assets/icons/today.svg'
 
 var month = new Array();
 month[0] = "JAN";
@@ -25,7 +26,7 @@ class UserName extends React.Component{
 	constructor(props){
     super(props);
     this.state = {
-		isModalOpen: false
+		isModalOpen: true
 	}
   }
   tooglemodal(){
@@ -46,22 +47,32 @@ class AddReminder extends React.Component {
     super(props);
     this.state = {
     	reminder: "",
-    	open: "calendarnone"
+    	openstart: "calendarnone",
+    	openend: "calendarnone"
     }
     this.onchangeday = this.onchangeday.bind(this);
+    this.changeclassstart = this.changeclassstart.bind(this);
+    this.changeclasend = this.changeclasend.bind(this);
   }
   setReminder(){
   	this.setState({reminder: this.refs.reminder})
   }
-  changeclass(){
-  	if(this.state.open == "calendarnone"){
-  		this.setState({open: ""})
+  changeclassstart(){
+  	if(this.state.openstart == "calendarnone"){
+  		this.setState({openstart: ""})
   	}else {
-  		this.setState({open: "calendarnone"})
+  		this.setState({openstart: "calendarnone"})
   	}
   }
-  onchangeday(day){
-  	console.log("day", day.getDate(), month[day.getMonth()], day.getFullYear());
+  changeclasend(){
+  	if(this.state.openend == "calendarnone"){
+  		this.setState({openend: ""})
+  	}else {
+  		this.setState({openend: "calendarnone"})
+  	}
+  }
+  onchangeday(day, type){
+  	console.log(type);
   	this.setState({day: day.getDate(), month: day.getMonth(), year: day.getFullYear()});
   }
   render() {
@@ -76,13 +87,16 @@ class AddReminder extends React.Component {
         </div>
         <div className="setdate">
         	<div className="start">
-        	<button onClick={this.changeclass.bind(this)}>O</button>
         		<p>{month[this.state.month]} {this.state.day} {this.state.year}</p>
-        		<Calendar className={this.state.open} onchangeday={this.onchangeday}/>
-        	</div>
-        	<div className="end">
+        		<img onClick={this.changeclassstart} src={calendarimg}/>
         		
         	</div>
+        		<Calendar className={'calstart ' + this.state.openstart} type="start" onchangeday={this.onchangeday}/>
+        	<div className="end">
+        		<p>{month[this.state.month]} {this.state.day} {this.state.year}</p>
+        		<img onClick={this.changeclasend} src={calendarimg}/>
+        	</div>
+        		<Calendar className={'calend ' + this.state.openend} type="end" onchangeday={this.onchangeday}/>
         </div>
 	          <div className="footer">
             <button onClick={this.props.onClose}>
