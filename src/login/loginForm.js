@@ -2,14 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
-export const master = {
-  
-    // client: 'ejbYpLdnX25AFGFq6TepKQ',
-    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
-    // uid: 'deimssssss19482@gmail.com'
-    
-    client: 'W2LR1QjeEjWU-EQ3PCY6Ew',
-    accesstoken: 'sNQQCQKnpQ2lU0SH95Q8TQ',
+export const master = {    
+    client: 'Rvk-I9n7t1IlwQ-XarcNaA',
+    accesstoken: 'VmjYtkan10p3EqK5o-L97A',
     uid: 'boretskairuna23@gmail.com'
 }
 
