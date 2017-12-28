@@ -154,7 +154,7 @@ getUrlVars() {
     return (
 
       <div>
-        {this.state.isRegistrationed ? <Redirect master={master} to={{
+        {this.state.isRegistrationed ? <Redirect to={{
         pathname: '/masterpage'
       }}/> : <div className="sign_Page">
       <header>
