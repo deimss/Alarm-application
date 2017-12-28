@@ -94,7 +94,7 @@ getUrlVars() {
     this.setState({isSendData: true});
     event.preventDefault();
     axios({
-            method: 'post',
+            method: 'put',
             url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/password',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
             'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
