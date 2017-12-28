@@ -90,9 +90,6 @@ getUrlVars() {
       uid: this.getUrlVars()["uid"].replace("%40","@")
 
     }
-    const accesstoken = this.getUrlVars()["token"];
-    const client = this.getUrlVars()["client_id"];
-    const uid = this.getUrlVars()["uid"];
     console.log('Master obj',master);
     this.setState({isSendData: true});
     event.preventDefault();
@@ -100,7 +97,7 @@ getUrlVars() {
             method: 'post',
             url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/password',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-            'uid': this.state, 'client': this.state.client, 'access-token': this.state.accesstoken},
+            'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
             data: {
                 password: this.state.password1,
                 password_confirmation: this.state.password2
@@ -108,6 +105,12 @@ getUrlVars() {
 }).then(response => {
     console.log(response);
     if(response.status === 200){
+      sessionStorage.setItem('client', master.client);
+      sessionStorage.setItem('accesstoken', master.accesstoken);
+      sessionStorage.setItem('uid', master.uid);
+      master.accesstoken = master.accesstoken;
+      master.client =  master.client;
+      master.uid = master.uid;
       this.setState({
         isRegistrationed: true
       })
@@ -149,8 +152,11 @@ getUrlVars() {
     // })
 
     return (
+
       <div>
-      <div className="sign_Page">
+        {this.state.isRegistrationed ? <Redirect master={master} to={{
+        pathname: '/masterpage'
+      }}/> : <div className="sign_Page">
       <header>
         <div className="header__logo">
         <img src={logo} alt=""/>
@@ -194,7 +200,8 @@ getUrlVars() {
             </div>}
         </form>
         </div>
-      </div>
+      </div>}
+      
     </div>
     );
   }
