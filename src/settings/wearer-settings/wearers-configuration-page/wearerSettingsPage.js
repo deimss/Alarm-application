@@ -21,7 +21,6 @@ import {
 import {Test} from '../../../actions/test'
 import EmptyCarer from './carers-data/emptyCarer.js';
 import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
-import {master} from "../../../login/loginForm.js"
 import LogIn from '../../../login/login';
 
 class SettingsPage extends React.Component{ 
@@ -79,6 +78,11 @@ class SettingsPage extends React.Component{
 
 
 componentWillMount() {
+  const master = {
+    accesstoken: sessionStorage.getItem("accesstoken"),
+    client: sessionStorage.getItem("client"),
+    uid: sessionStorage.getItem("uid")
+  }
   if( master.accesstoken !== null && master.uid !== null && master.client !== null){
   this.setState({
     accesstoken: master.accesstoken,
@@ -89,7 +93,6 @@ componentWillMount() {
 } 
 
 componentDidMount(){
-  
   this.getWearers();
   this.getCarers();
 }
@@ -741,7 +744,7 @@ deleteMember(group, wearerId){
     return (
       <div>{this.state.redirectToLogin ?  <Redirect to={{
         pathname: '/'
-      }}/> : this.state.redirectToLogin=== false ? <div>
+      }}/> : this.state.redirectToLogin === false ? <div>
       <Header redirectToLogin = {this.redirectToLogin} />
       <div>
           <div className="contentWrap">

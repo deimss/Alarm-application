@@ -21,15 +21,31 @@ class Login extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            forgetPasswordClicked: false
+            forgetPasswordClicked: false,
+            resendEmailClicked: false
         }
         this.toogleEmailInp = this.toogleEmailInp.bind(this);
+        this.toogleResendEmailInp = this.toogleResendEmailInp.bind(this);
+        this.toogleBackToLogin = this.toogleBackToLogin.bind(this);
     }
 
     toogleEmailInp(){
         this.setState({
             forgetPasswordClicked: !this.state.forgetPasswordClicked
         })
+    }
+
+    toogleResendEmailInp(){
+        this.setState({
+            resendEmailClicked: !this.state.resendEmailClicked
+        })
+    }
+
+    toogleBackToLogin(){
+        this.setState({
+            resendEmailClicked: false,
+            forgetPasswordClicked: false
+        })  
     }
 
     render(){
@@ -41,14 +57,13 @@ class Login extends React.Component{
         <span> wristo </span>
         </div>
     </header>
-    {this.state.forgetPasswordClicked ? <div className="wrap">
-    <p id="heading">Reset</p>
-        <Email toogleEmailInp ={this.toogleEmailInp}/></div> : <div className="wrap">
+    {this.state.forgetPasswordClicked || this.state.resendEmailClicked ? <div className="wrap">
+        <Email toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp} toogleBackToLogin={this.toogleBackToLogin} stateforgetPasswordClicked={this.state.forgetPasswordClicked} stateresendEmailClicked={this.state.resendEmailClicked} /></div> : <div className="wrap">
         <div>
         <p id="heading">Log in</p>
         </div>
         
-        <LogInForm toogleEmailInp ={this.toogleEmailInp}/>
+        <LogInForm toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp}/>
 
         <div className="sign">
             <p>Don't have an account? 
@@ -63,5 +78,3 @@ class Login extends React.Component{
 }
 
 export default Login;
-
-// <a href="../html/Sign_up_page_Responsive.html"> Create account</a>

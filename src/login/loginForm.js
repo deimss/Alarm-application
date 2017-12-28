@@ -85,9 +85,13 @@ class LogInForm extends React.Component {
 }).then(response => {
     console.log('loginForm response headers', response.headers['access-token'],response.headers.client,response.headers.uid);
   if(response.status === 200){
-    master.client = response.headers.client ;
+    sessionStorage.setItem('client', response.headers.client);
+    sessionStorage.setItem('accesstoken', response.headers['access-token']);
+    sessionStorage.setItem('uid', response.headers.uid);
     master.accesstoken = response.headers['access-token'];
+    master.client = response.headers.client;
     master.uid = response.headers.uid;
+
     this.setState({
       isAuthenticated: true,
       accesstoken: response.headers['access-token'],
@@ -147,13 +151,13 @@ class LogInForm extends React.Component {
               </svg>
               <span> Invalid login or password. Please try again. </span>
           </div>}
-          <p id="forgotPass" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
+          <p id="forgotPass1" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
+          <p id="forgotPass2" onClick={() => this.props.toogleResendEmailInp()}><a href="#"> Recend confirmation email</a></p>
           
           <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
           
       </form> 
-      }
-        
+      }       
       </div>
     );
   }

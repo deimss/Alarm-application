@@ -22,14 +22,9 @@ export const master = {
 class Email extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handlefirstNameInput = this.handlefirstNameInput.bind(this);
-    this.handleLastNameInput = this.handleLastNameInput.bind(this);
     this.handleEmailInput = this.handleEmailInput.bind(this);
-    this.handlePassInput = this.handlePassInput.bind(this);
     this.saveInput = this.saveInput.bind(this);
-    this.sendData = this.sendData.bind(this);
-    this.handleTooglePass = this.handleTooglePass.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
     this.onOpenModal =this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
     this.state = {
@@ -42,109 +37,17 @@ class Email extends React.Component {
       passwordType: 'password',
       isSendData: false,
       testError: false,
-      isRegistrationed: false,
+      isSendMail: false,
       open: false
-      //divStyle: null
-
-      //{outline: 5px solid #b52f54;}
     };
   }
 
-// var classnames = classNames(
-//   'foo', 
-//   'bar'
-//   );
-   
-onOpenModal(){
-  this.setState({ open: true });
-};
-
-onCloseModal(){
-  this.setState({ open: false });
-};
-
-handleTooglePass(event){
-  event.preventDefault();
-  let isShowed = this.state.isShowed;
-  let target = event.target;
-  const name = target.name;
-  let textValue = target.textValue;
-  
-    if (isShowed) {
-      console.log('false');
-      console.log(textValue);
-      this.setState ({isShowed: false});
-      event.target.textValue =  "Show";
-      this.setState ({passwordType: 'password'});
-    } 
-
-    else {
-      console.log('true');
-      console.log(event.target.textValue);
-      this.setState({isShowed: true});
-      event.target.textValue = "Hide";
-      this.setState ({passwordType: 'text'});
-    }
-
-    this.setState({textValue : event.target.textValue});
-    return this.state.textValue;
-
+  onOpenModal(){
+    this.setState({ open: true });
   };
 
-handlefirstNameInput(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({isSendData: false});
-    this.setState({
-      [name]: value
-    });
-
-    let firstNameFilter = /^([A-Za-z]){2,30}$/;
-    let firstNameInput = this.state.firstName;
-    if (!firstNameFilter.test(firstNameInput)) {
-        this.setState({firstNameError: true});
-        // this.setState(divStyle: {
-        //         outlineWidth: 5,
-        //         outlineStyle: 'solid',
-        //         outlineColor: '#b52f54' 
-        // });
-    //     inputStyle= {
-    //             outlineWidth: 5,
-    //             outlineStyle: 'solid',
-    //             outlineColor: '#b52f54' 
-    //     };
-    //console.log(this.state.divStyle);
-    }
-    else {
-        this.setState({firstNameError: false});
-    }
-  };
-
-handleLastNameInput(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({isSendData: false});
-    this.setState({
-      [name]: value
-    });
-
-    let lastNameFilter = /^([A-Za-z]){2,30}$/;
-    let lastNameInput = this.state.lastName;
-    if (!lastNameFilter.test(lastNameInput)) {
-        this.setState({lastNameError: true});
-        // this.setState(divStyle: {
-        //         outlineWidth: 5,
-        //         outlineStyle: 'solid',
-        //         outlineColor: '#b52f54' 
-        // });
-        
-    }
-    else {
-        this.setState({lastNameError: false});
-        //target.styles={outline: 5px solid #b52f54};
-    }
+  onCloseModal(){
+    this.setState({ open: false });
   };
 
   handleEmailInput(event) {
@@ -166,47 +69,6 @@ handleLastNameInput(event) {
     }
   };
 
-  handlePassInput(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({isSendData: false});
-    this.setState({
-      [name]: value
-    });
-
-    let passFilter = /^([A-Za-z\d$@$!%*?&\S]){8,16}$/;
-    let passInput = this.state.password;
-    if (!passFilter.test(passInput)) {
-        this.setState({passError: true});
-    }
-    else {
-        this.setState({passError: false});
-    }
-  };
-
-  
-
-// style={{marginRight: spacing + 'em'}}
-
-//   handleInputStyle(event){
-//       this.setState(divStyle: {
-//       outlineWidth: 5,
-//       outlineStyle: 'solid',
-//       outlineColor: '#b52f54'
-
-
-//       // 'outline-width': '5px',
-//       // 'outline-style': 'solid',
-//       // 'outline-color': '#b52f54'
-// }); 
-//       return this.state.divStyle;
-
-//   }
-
-  
-
-
   saveInput(event) {
     const target = event.target;
     const value = target.value;
@@ -226,26 +88,44 @@ handleLastNameInput(event) {
       console.log("password success");
     };
  };
-
+ 
   
-  
-  sendData(event){
+ sendEmail(event){
     this.setState({isSendData: true});
     event.preventDefault();
-    axios({
-            method: 'post',
-            url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_up',
-            data: {
-              user: {
-                first_name: this.state.firstName,
-                last_name: this.state.lastName,
-                email: this.state.email,
-                password: this.state.password,
-                password_confirmation: this.state.password
-              }
-            }
-
-}).then(response => {
+    if(this.props.stateforgetPasswordClicked){
+      axios({
+        method: 'post',
+        url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/password',
+        data: {
+            email: this.state.email,       
+          }
+    }).then(response => {
+    console.log(response);
+    if(response.status === 200){
+      this.setState({
+        open: true,
+        isSendMail: true
+      })
+    }else {
+      this.setState({
+        emailError: true
+      })
+    }
+    //this.setState({isSendData: true});
+    })
+    .catch(function (error) {
+    console.log(error);
+    //this.setState({isSendData: true});
+    });
+    }else {
+      axios({
+        method: 'post',
+        url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_up',
+        data: {
+            email: this.state.email,       
+          }
+    }).then(response => {
     console.log(response);
     if(response.status === 200){
       this.setState({
@@ -257,20 +137,13 @@ handleLastNameInput(event) {
       })
     }
     //this.setState({isSendData: true});
-  })
-  .catch(function (error) {
+    })
+    .catch(function (error) {
     console.log(error);
     //this.setState({isSendData: true});
-  });
+    }); 
+    }  
 };
-
-// testFunction(e) {
-//   console.log(e.target.value)
-//   console.log(this.refs.test.value)
-//   this.setState({
-//     testError: true
-//   })
-// }
 
 
   render() {
@@ -291,14 +164,11 @@ handleLastNameInput(event) {
       'inputField': (this.state.passError) || (this.state.password == null && this.state.isSendData)
     });
 
-    // const testClass = classNames({
-    //   'test': true,
-    //   'test-error': this.state.testError
-    // })
-
     return (
       <div>
           <form className="signUpForm">
+          <div className="wrap">{this.props.stateforgetPasswordClicked ? <p id="headers-update-password">Reset password</p> : <p id="headers-update-password">Confirm email</p>}
+          </div>
             <p>Enter your Email <span>*</span>
             </p>
             <input className={emailStyle} classnames="email" name="email" type="text" placeholder="nancy.mcqueen@mail.com" onBlur={this.handleEmailInput} onChange={this.saveInput}/>
@@ -309,12 +179,13 @@ handleLastNameInput(event) {
                 </svg>
                 <span> Please provide a valid email address </span>
             </div>}            
-            <input className="submit" type="button" value="Send a mail" onClick={this.onOpenModal}/>
+            <input className="submit" type="button" value="Send a mail" onClick={this.sendEmail}/>
             <div className="sign">
               <p>
-              <a className='hoverForReset' onClick ={() => this.props.toogleEmailInp()}> Go back to log in</a>
+              <a className='hoverForReset' onClick ={() => this.props.toogleBackToLogin()}> Go back to log in</a>
               <Modal open={open} onClose={this.onCloseModal} little>
-          <h2>Check your email, please!</h2>
+          <h2>Check your mailbox, please!</h2>
+          
         </Modal>
               </p>
             </div>

@@ -23,9 +23,9 @@ class Header extends React.Component{
     }
 
     changeDropdown(){
-    master.client = null ;
-    master.accesstoken = null;
-    master.uid = null;
+    // master.client = null ;
+    // master.accesstoken = null;
+    // master.uid = null;
     this.setState({
         isDropDown: !this.state.isDropDown
     })

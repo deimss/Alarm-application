@@ -131,7 +131,7 @@ form p {
     font-weight: 500;
 }
 
-p#forgotPass a{
+p#forgotPass1 a, p#forgotPass2 a{
     text-decoration: none;
     font-size: 14px;
     font-weight: 300;
@@ -160,7 +160,13 @@ input::placeholder {
 }
 
 
-#forgotPass{
+#forgotPass1{
+    text-align: right;
+    margin-top: 22px;
+    margin-bottom: 0;
+}
+
+#forgotPass2{
     text-align: right;
     margin-top: 8px;
     margin-bottom: 0;

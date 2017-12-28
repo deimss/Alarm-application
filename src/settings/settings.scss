@@ -783,3 +783,31 @@ html{
   color :white;
   font-family: DINPro-medium;
 }
+
+.errorPasswordConfirm {
+  position: absolute;
+  right: 115px;
+  padding-top: 5px;
+  font-size: 14px;
+  color: #b52f54;
+  span{
+    font-family: DINPro-Medium;
+    }
+}
+
+#headers-update-password{
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: DINPro-Medium;
+}
+.headers-update-password{
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: DINPro-Medium;
+}
