@@ -2,10 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+<<<<<<< HEAD
 export const master = {    
     client: 'Rvk-I9n7t1IlwQ-XarcNaA',
     accesstoken: 'VmjYtkan10p3EqK5o-L97A',
     uid: 'boretskairuna23@gmail.com'
+=======
+export const master = {
+  
+    // client: 'ejbYpLdnX25AFGFq6TepKQ',
+    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
+    // uid: 'deimssssss19482@gmail.com'
+    
+
+    // client: 'WPTypISPfhT1paSsuUAbGg',
+    // accesstoken: '3-YHysTcGNYbaTwnErwUIA',
+    // uid: 'dmytro.pogoretsky@gmail.com'
+
+    // client: 'W2LR1QjeEjWU-EQ3PCY6Ew',
+    // accesstoken: 'sNQQCQKnpQ2lU0SH95Q8TQ',
+    // uid: 'boretskairuna23@gmail.com'
+
+>>>>>>> ca5df32a17608033602511517851515e3bec1ac3
 }
 
 

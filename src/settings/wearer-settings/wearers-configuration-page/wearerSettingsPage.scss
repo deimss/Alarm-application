@@ -4,11 +4,11 @@
 	flex-direction: row;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-	width:99%;
+	width:97%;
 }
 
 .wearerConfigWrap {
-	width: 72%;
+	width: 74%;
 }
 
 /*@media only screen and (max-device-width : 1024px) and (-webkit-min-device-pixel-ratio : 2) {
@@ -20,8 +20,22 @@
 
 @media only screen and (max-width : 1224px) {
 /* Styles */
-.wearerConfigWrap {
-	width: 100%;
-	padding-left: 0px;
+	.wearerConfigWrap {
+		width: 100%;
+		padding-left: 0px;
+	}
 }
+
+@media only screen and (max-width : 768px) {
+/* Styles */
+	.settings_header {
+		flex-direction: column;
+	}
+}
+
+@media only screen and (max-width : 768px) {
+/* Styles */
+	.settings_header {
+		flex-direction: column;
+	}
 }

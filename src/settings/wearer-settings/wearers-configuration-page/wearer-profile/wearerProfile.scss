@@ -69,8 +69,18 @@
 }
 
 .wearerProfile__info__table td {
-	min-width: 200px;
+	/*min-width: 200px;*/
+	min-width: 100px;
+	width: 200px;
 }
 .wearerProfile__info__table td:last-child {
-	min-width: 200px;
+	/*min-width: 200px;*/
+	min-width: 100px;
+}
+
+@media only screen and (max-width : 420px) {
+
+    .wearerProfile__info {
+        flex-direction: column;
+    }
 }
