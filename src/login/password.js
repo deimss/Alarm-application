@@ -87,7 +87,8 @@ getUrlVars() {
     const master = {
       accesstoken: this.getUrlVars()["token"],
       client: this.getUrlVars()["client_id"],
-      uid: this.getUrlVars()["uid"]
+      uid: this.getUrlVars()["uid"].replace("%40","@")
+
     }
     const accesstoken = this.getUrlVars()["token"];
     const client = this.getUrlVars()["client_id"];
