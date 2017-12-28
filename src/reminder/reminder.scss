@@ -197,50 +197,103 @@
 
 .modal-edit{
   display: flex;
+  padding: 20px;
+}
+.modal-edit :first-child{padding-left: 0;}
+.modal-edit .edit-reminder p {
   padding: 0;
-  height: 500px;
 }
-.modal-edit input{
-  width: 94%;
-  margin-left: 15px;
-}
+
 .modal-edit .rdt input {display: none;}
 .calendarnone {
   display: none;
 }
 .modal-edit img {
-  background-color: red;
+  background-color: #F2F2F2;
   padding: 10px;
+  border: 1px solid #F2F2F2;
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+}
+.modal-edit .addtime img {
+  padding: 7px;
+  margin-left: 10px;
+  background-color: #fff;
+  border-left: 1px solid #F2F2F2;
+  border-radius: 3px;
 }
 .setdate {
   margin-top: 20px;
   position: relative;
   display: flex;
-  margin-left: 14px;
 }
 .setdate .rdt {
   position: absolute;
+  background-color: #F2F2F2;
+  border-radius: 3px;
+  z-index: 9999999;
   top: 47px;
-  left: 50px;
+  left: 80px;
 }
 .modal-edit .start, .modal-edit .end 
 {
   display: flex;
   border-radius: 2px;
   height: 42px;
-  min-width: 251px;
+  min-width: 245px;
   & p {
+    font-family: 'DINPro-Regular';
     width: 70%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border-radius: 3px 0 0 3px;
+    border: 1px solid #F2F2F2;
   }
 }
 .modal-edit .calend {
-    background-color: red;
     left: 333px;
 }
+.modal-edit .addtime > :nth-child(n){
+  margin-bottom: 5px;
+}
+.addtime {
+  width: 98%;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.addtime > div{display: flex;}
+.modal-edit .addtime p{
+  padding: 8px;
+  margin-right: 10px;
+  border-radius: 3px;
+  border: 1px solid #F2F2F2;
+}
+.modal-edit .addtime input{
+  width: 120px;
+  padding: 12px 5px;
+}
 .modal-edit .footer{
+  margin-top: 30px;
   align-self: flex-end;
+}
+.modal-edit .combobox{
+  width: 70%;
+  &button{
+    border-radius: 3px;
+  }
+}
+.reminder-type{
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.modal-edit .combobox button{height: 40px; padding-left: 5px;}
+.modal-edit .dropdown-content{
+  & li{
+    padding: 5px;
+  }
+}
+.modal-edit .reminder-type p:hover .dropdown-content{
+  display: block;
 }
 
 
