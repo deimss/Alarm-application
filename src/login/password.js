@@ -84,8 +84,15 @@ getUrlVars() {
   
   
   sendData(event){
-    let accesstoken = this.getUrlVars()["client_id"];
-    console.log(accesstoken);
+    const master = {
+      accesstoken: this.getUrlVars()["token"],
+      client: this.getUrlVars()["client_id"],
+      uid: this.getUrlVars()["uid"]
+    }
+    const accesstoken = this.getUrlVars()["token"];
+    const client = this.getUrlVars()["client_id"];
+    const uid = this.getUrlVars()["uid"];
+    console.log('Master obj',master);
     this.setState({isSendData: true});
     event.preventDefault();
     axios({
