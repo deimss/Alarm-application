@@ -51,6 +51,7 @@ class SettingsPage extends React.Component{
     this.state = {
       // wearerId: null,
       activeWearerId: null,
+      
       createdWearer: null,
       wearerData: [{'id': null, 'full_name': null, 'gender': null, 'age': null, 'heart_rate': null, 'weight':null, 'image': {'url': null}}],
       wearerGroupData: null,
@@ -86,8 +87,11 @@ componentWillMount() {
 
 handleAddWearerButton(){
 
-  this.setState({addNewWearerClicked: true});
-  this.setState({wearerAdded: false});
+  this.setState({
+    addNewWearerClicked: true,
+    wearerAdded: false
+  })
+
 }
 
 getGroups(wearerId){
@@ -142,7 +146,7 @@ addWearer(event){
         }
       }
     }).then((response) => {
-      debugger
+      
       console.log('addWearer response', response);
               this.setState({addNewWearerClicked: false});
               
