@@ -9,7 +9,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import {master} from "../../../login/loginForm.js"
-// {logoImg}
+import axios from 'axios';
 
 class Header extends React.Component{ 
     constructor(props){
@@ -32,10 +32,32 @@ class Header extends React.Component{
     }
 
     logout(){
-     // this.props.redirectToLogin();
-        this.setState({
-            isLogout: true 
-        })
+        const master = {
+            accesstoken: sessionStorage.getItem("accesstoken"),
+            client: sessionStorage.getItem("client"),
+            uid: sessionStorage.getItem("uid")}
+        axios({
+            method: 'delete',
+            url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_out`,
+            headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+            'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      
+          }).then(() => {
+            sessionStorage.removeItem('accesstoken');
+            sessionStorage.removeItem('client');
+            sessionStorage.removeItem('uid');
+            this.setState({
+                isLogout: true 
+            })
+                   }
+                   
+      ).catch((error) => { 
+              console.log(error);
+            //  this.setState({error: true})
+              })
+        
+      
+
     }   
 
     render(){

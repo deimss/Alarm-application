@@ -264,20 +264,12 @@ getWearers(event){
 //ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
 //ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
 
-      }).catch((error) => { 
-         console.log('getWearers error ====> ', error);
-         if(error.response.status === 401)
-        this.setState({
-          redirectToLogin: true
-        })
-
-        // if (error.response.status === 404){
-        //     this.setState({error: true})
-        // } 
-        // else this.setState({wearersLoaded: true})
-
-
-  });
+      },error => { 
+        if(error.response.status === 401)
+       this.setState({
+         redirectToLogin: true
+       })
+ })
 };
 
 updateWearer(event){
@@ -578,7 +570,7 @@ addCarer(event){
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': this.state, 'client': this.state.client, 'access-token': this.state.accesstoken},
+      'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       data: {
         "carer": {
           "first_name": event.first_name,

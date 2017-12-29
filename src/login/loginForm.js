@@ -11,9 +11,9 @@ import {
 //import MasterPage from '../../components/masterPage/masterpage';
 
 export const master = {
-    client: null,
-    accesstoken: null,
-    uid: null
+    client: sessionStorage.getItem("client"),
+    accesstoken: sessionStorage.getItem("accesstoken"),
+    uid: sessionStorage.getItem("uid")
 }
 
 
@@ -40,8 +40,18 @@ class LogInForm extends React.Component {
       accesstoken: null, 
       client: null,
       uid: null,
-      isAuthenticated: false
+      isAuthenticated: false,
+      redirectToMaster: false
    };
+  }
+
+  componentWillMount(){
+    console.log('MASTERrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',master)
+    if(sessionStorage.getItem("client") !== null && sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null ){
+      this.setState({
+        redirectToMaster: true
+      })
+    }
   }
 
   saveInput(event) {
@@ -88,10 +98,6 @@ class LogInForm extends React.Component {
     sessionStorage.setItem('client', response.headers.client);
     sessionStorage.setItem('accesstoken', response.headers['access-token']);
     sessionStorage.setItem('uid', response.headers.uid);
-    master.accesstoken = response.headers['access-token'];
-    master.client = response.headers.client;
-    master.uid = response.headers.uid;
-
     this.setState({
       isAuthenticated: true,
       accesstoken: response.headers['access-token'],
@@ -136,7 +142,7 @@ class LogInForm extends React.Component {
 
     return (
       <div>
-        {this.state.isAuthenticated ? <Redirect master={master} to={{
+        {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{
         pathname: '/masterpage'
       }}/> :  <form className="signInForm">
       <p>Email</p>

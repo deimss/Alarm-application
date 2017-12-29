@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import './reminder.scss';
 import edit from '../assets/icons/pensil.png';
 import axios from 'axios';
-import {master} from "../login/loginForm.js"
+
+const master = {
+	client: sessionStorage.getItem("client"),
+	accesstoken: sessionStorage.getItem("accesstoken"),
+	uid: sessionStorage.getItem("uid")
+}
 
 let arrayofid = [];
 function UserName(props){
@@ -98,7 +103,7 @@ class Createwearer extends React.Component{
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.groupid + '/wearers/' + this.state.idid + '/reminders',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-     	 'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+     	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({reminders:  response.data});
