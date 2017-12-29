@@ -7,21 +7,6 @@ export const master = {
     client: '3KufwpmTQzCXSUaeaZgDhg',
     accesstoken: '3JwD4O_YpOQgm4UhFadmKg',
     uid: 'boretskairuna23@gmail.com'
-
-
-  
-    // client: 'ejbYpLdnX25AFGFq6TepKQ',
-    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
-    // uid: 'deimssssss19482@gmail.com'
-    
-
-    // client: 'WPTypISPfhT1paSsuUAbGg',
-    // accesstoken: '3-YHysTcGNYbaTwnErwUIA',
-    // uid: 'dmytro.pogoretsky@gmail.com'
-
-
-
-
 }
 
 

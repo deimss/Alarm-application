@@ -73,7 +73,8 @@ input {
     color:#b52f54;
     padding-top: 7px;
     padding-left: 17px; 
-    font-family: DINPro; 
+    /*font-family: DINPro; */
+    font-family: DINPro-Regular;
     font-size: 1.55rem; 
     font-weight: 700; 
     text-transform: uppercase; 
@@ -145,7 +146,8 @@ input {
     input {
       border: solid #EAEAEA;
       border-width: thin; 
-      font-family: DINPro;
+      /*font-family: DINPro;*/
+      font-family: DINPro-Regular;
       font-size: 15px;
       color: #5A5A5A;
       box-sizing: border-box;
@@ -171,7 +173,8 @@ input {
       border-bottom: 1px solid #EAEAEA;
       list-style-type: none;
       color: #5A5A5A;
-      font-family: DINPro;
+      /*font-family: DINPro;*/
+      font-family: DINPro-Regular;
     }
     .image-list-container {
       padding: 0 17px;
@@ -206,6 +209,7 @@ input {
 /*wearer-profile-wrapper*/
 
 .wearer-profile-wrapper {
+  font-family: DINPro-Regular;
   display: flex;
   /*margin: 22px 20px 0 0;*/
   box-shadow: 2px 2px 4px #EAEAEA, -2px 2px 4px #EAEAEA;
@@ -286,7 +290,8 @@ input {
     input[type='text']{
       border: solid #EAEAEA;
       border-width: thin; 
-      font-family: DINPro;
+      /*font-family: DINPro;*/
+      font-family: DINPro-Regular;
       font-size: 15px;
       color: #5A5A5A;
       box-sizing: border-box;
@@ -300,7 +305,8 @@ input {
       padding-bottom: 13px;
       span {
         color: #5A5A5A;
-        font-family: DINPro;
+        /*font-family: DINPro;*/
+        font-family: DINPro-Regular;
         font-size: 15px;
         padding: 0 107px 0 0;
       }
@@ -322,9 +328,13 @@ input {
       padding-bottom: 13px;
       display: flex;
       flex-direction: row;
+      label{
+          font-size: 15px;
+      }
       span {
         color: #5A5A5A;
-        font-family: DINPro;
+        /*font-family: DINPro;*/
+        font-family: DINPro-Regular;
         font-size: 15px;
         /*padding: 0 200px 0 0;*/
       }
@@ -404,12 +414,14 @@ input {
     }
     label {
       color: #5A5A5A;
-      font-family: DINPro;
+      /*font-family: DINPro;*/
+      font-family: DINPro-Regular;
     }
     input[type='text']{
       border: solid #EAEAEA;
       border-width: thin; 
-      font-family: DINPro;
+      /*font-family: DINPro;*/
+      font-family: DINPro-Regular;
       font-size: 15px;
       color: #5A5A5A;
       box-sizing: border-box;
@@ -491,7 +503,8 @@ input {
           padding-left: 4px;
           color: white;
           background-color: #B52F54;
-          font-family: DINPro;
+          /*font-family: DINPro;*/
+          font-family: DINPro-Regular;
           font-size: 15px;
 
         }
@@ -610,7 +623,8 @@ input {
     align-items: center;
     justify-content: center;
     font-size: 15px;
-    font-family: DINPro;
+    /*font-family: DINPro;*/
+    font-family: DINPro-Regular;
     width: 166px;
     border-radius: 3px;
     margin-top: 16px;
@@ -780,4 +794,112 @@ input {
 .input-range__label-container {
   color :white;
   font-family: DINPro-medium;
+}
+
+
+@media only screen and (min-width: 600px) and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1023px)  {
+  
+  .wearer-profile-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .wearer-profile-wrapper .profile-button{
+    width: auto;
+    margin-bottom: 10px;
+  }
+
+}
+
+@media only screen and (max-width: 599px) {
+  
+  .wearer-profile-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .wearer-profile-wrapper .profile-button {
+    width: auto;
+    margin-bottom: 10px;
+  }
+
+.profile-full-name{
+  display: flex;
+  flex-direction: column;
+
+    span {
+    margin-bottom: 8px;
+  }
+}
+
+.profile-gender{
+  display: flex;
+  flex-direction: column;
+
+    span {
+    margin-bottom: 8px;
+  }
+}
+
+.profile-age-weight>div{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-age-weight label{
+  margin-bottom: 8px;
+}
+
+.wrap-profile-heart-rate{
+  display: flex;
+  flex-direction: column;
+
+    label {
+    margin-bottom: 8px;
+  }
+
+}
+
+.profile-heart-rate{
+  display: flex;
+  flex-direction: column;
+}
+
+.wearer-profile-wrapper .wearer-profile2 .range-timeline {
+  padding-left: 0;
+  margin-top: 62px;
+}
+
+.wearer-profile-wrapper .wearer-profile2 .profile-heart-rate .input-range-slider {
+  padding-left: 0;
+  padding-top: 20px;
+}
+
+.wearer-profile-wrapper .wearer-profile1 .edit-wearer-profile-group{
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 8px;
+  }
+}
+
+.wearer-profile-wrapper .wearer-profile2 .profile-heart-rate label:first-child {
+  margin-bottom: 10px;
+}
+
+.wearer-profile-wrapper .wearer-profile1 .edit-wearer-profile-group ul{
+  margin-left: 0;
+}
+
+.wearer-profile-wrapper .wearer-profile1 .edit-wearer-profile-group ul li{
+  width: 200px;
+} 
+
+.wearer-profile-wrapper .wearer-profile1{
+  min-width: 200px;
+  width: 100%;
+}
 }
