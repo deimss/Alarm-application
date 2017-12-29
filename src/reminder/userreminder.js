@@ -5,8 +5,9 @@ import axios from 'axios';
 import {master} from "../login/loginForm.js";
 import ReactDOM from 'react-dom';
 import Calendar from 'react-datetime';
-import calendarimg from '../assets/icons/today.svg'
-import addbtn from '../assets/icons/add.svg'
+import calendarimg from '../assets/icons/today.svg';
+import addbtn from '../assets/icons/add.svg';
+import delet from '../assets/icons/delete.svg';
 
 var month = new Array();
 month[0] = "JAN";
@@ -131,6 +132,10 @@ class AddReminder extends React.Component {
 	    });
   	}
   }
+  clearfields(){
+  	this.refs.reminder.value = "";
+  	this.setState({daystart: "", monthstart: "", yearstart: "", dayend: "", monthend: "", yearend: "", alerts: [], type: ""})
+  }
   render() {
   	let alert = this.state.alerts.map(this.createalert.bind(this));
     return (
@@ -173,12 +178,17 @@ class AddReminder extends React.Component {
 			</div>
         </div>
 	    <div className="footer">
-            <button onClick={this.props.onClose}>
-              cancel
-            </button>
-            <button onClick={this.addreminder.bind(this)}>
-              save
-            </button>
+		    <div className="clearfields">
+	            <img src={delet} onClick={this.clearfields.bind(this)} />
+	        </div>
+            <div>
+	            <button onClick={this.props.onClose}>
+	              cancel
+	            </button>
+	            <button onClick={this.addreminder.bind(this)}>
+	              save
+	            </button>
+            </div>
         </div>
         </div>
       </div>

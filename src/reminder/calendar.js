@@ -25,7 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-var d = new Date(2017, 11, 4);
+var d = new Date();
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
