@@ -86,9 +86,9 @@ class AddReminder extends React.Component {
   }
   onchangeday(day, type){
   	if(type === "start"){
-  		this.setState({daystart: day.getDate(), monthstart: day.getMonth(), yearstart: day.getFullYear()});
+  		this.setState({openstart: "calendarnone",daystart: day.getDate(), monthstart: day.getMonth(), yearstart: day.getFullYear()});
   	}else{
-  		this.setState({dayend: day.getDate(), monthend: day.getMonth(), yearend: day.getFullYear()});
+  		this.setState({openend: "calendarnone", dayend: day.getDate(), monthend: day.getMonth(), yearend: day.getFullYear()});
   	}
   }
   alerttime(){
@@ -204,7 +204,7 @@ class Event extends React.Component{
 		return (
 			<div className="dayevents" style={{backgroundColor: this.props.color}}>
 				<img src="http://www.iconarchive.com/download/i82455/medicalwp/medical/Pills-blue.ico" alt="" />
-				<p>{this.props.title}<br/>{this.props.time}</p>		
+				<p>{this.props.title}<br/>{this.props.time}</p>	
 			</div>
 		)
 	}
