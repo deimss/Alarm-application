@@ -1,7 +1,8 @@
 .add-group {
-	height: 72px;
+	height: auto;
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 }
 .add-group > div:hover{
 	cursor: pointer;
@@ -18,7 +19,7 @@
 }
 .add-group > div{
 	min-width: 80px;
-	border-bottom: 10px solid #F5F5F5;
+	//border-bottom: 11px solid #F5F5F5;
 	text-align: center;
 	margin-top: 14px;
 	margin-bottom: 7px;
@@ -42,7 +43,7 @@
 	text-transform: capitalize;
 	font-size: 16px;
 	font-family: 'DINPro-Regular';
-	margin-top: 17px;
+	margin-top: 9px;
 	list-style: none;
 	display: none;
 	flex-direction: column;

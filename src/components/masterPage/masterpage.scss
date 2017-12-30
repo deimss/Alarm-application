@@ -2,7 +2,7 @@
 
 .right-bar{
 	width: 30%;
-	margin-top: 42px;
+	margin-top: 55px;
 	margin-right: 10px;
 }
 
@@ -187,8 +187,17 @@
 		}
      }
 }
-@media screen and (max-width: 485px) {
-	.add-group > div {
-		padding: 3px 14px;
+@media screen and (max-width: 550px) {
+	.right-bar{
+		flex-direction: column;
+		padding: 10px;
+		& > div {
+			width: 100%;
+		}
 	}
 }
+/*@media screen and (max-width: 485px) {
+	.add-group > div {
+		//padding: 3px 14px;
+	}
+}*/

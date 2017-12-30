@@ -49,7 +49,8 @@ class Calendar extends React.Component{
             week: "",
             arrayofweek: [],
             reminders: [],
-            search: []
+            search: [],
+            check: ""
         }
   	}
     setweek(str){
@@ -138,11 +139,13 @@ class Calendar extends React.Component{
         this.setState({wearershow: nextProps.wearershow});
         this.state.wearers = nextProps.wearers;
         this.state.reminders = nextProps.search;
+        this.state.event = nextProps.event;
     }
     shouldComponentUpdate(nextProps, nextState){
-        if(nextProps.wearers == this.state.wearers){ 
-            return true;
-        } else return false;
+       if(nextProps.rerender == true){
+        return true;
+       }
+       return false;
     }
 	render(){
     	return (<div className="calendar">
@@ -153,7 +156,7 @@ class Calendar extends React.Component{
     		</div>
                 <Weeks weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
-                    <UserEvents  wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
+                    <UserEvents event={this.state.event} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>
             </div>
         )

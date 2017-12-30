@@ -223,7 +223,8 @@ class Createwearer extends React.Component{
 			friday: [],
 			saturday: [],
 			sunday: [],
-			number: 0
+			number: 0,
+			event: ""
 		}
 	}
 	createevent(item){
@@ -276,6 +277,7 @@ class Createwearer extends React.Component{
 			sunday: []
 		})
 		this.state.wearershow = nextProps.wearershow;
+		this.state.event = nextProps.event;
 		this.setState({filteredreminders: []});
 		this.state.idid = nextProps.id;
 		this.getReminders();
@@ -318,7 +320,10 @@ class Createwearer extends React.Component{
 		this.state.filteredreminders = [];
 		this.state.filteredreminders = reminders.filter(item => {
 			let date = new Date(item.start_date);
-			if(date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
+			if(this.state.event == "" && date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
+				&& date.getMonth() >= this.props.weekarray[0].month && date.getMonth() <= this.props.weekarray[6].month){
+				return item;	
+			} else if(this.state.event == item.title && date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
 				&& date.getMonth() >= this.props.weekarray[0].month && date.getMonth() <= this.props.weekarray[6].month){
 				return item;	
 			}
@@ -369,6 +374,7 @@ export default class UserEvents extends React.Component{
 		this.state.weekarray = nextProps.weekarray;
 		this.state.wearershow = nextProps.wearershow;
 		this.state.id = nextProps.id;
+		this.state.event = nextProps.event;
 		if(!nextProps.wearers) 
 			return false
 		else if(nextProps.wearershow === "all users" || nextProps.wearershow === 0){
@@ -387,7 +393,7 @@ export default class UserEvents extends React.Component{
 		this.setState({filter: arrayofid.map(this.createwearer.bind(this))})
 	}
 	createwearer(item){
-		return <Createwearer wearershow={this.state.wearershow} id={item.id} url={item.image.url} groupid={this.state.id}  firstname={item.full_name} weekarray={this.state.weekarray}/>
+		return <Createwearer event={this.state.event} wearershow={this.state.wearershow} id={item.id} url={item.image.url} groupid={this.state.id}  firstname={item.full_name} weekarray={this.state.weekarray}/>
 	}
 	render(){
 		return (

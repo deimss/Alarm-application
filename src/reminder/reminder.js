@@ -20,7 +20,9 @@ class Reminder extends React.Component {
   		groupid: 0,
   		wearershow: "all users",
   		search: 0,
-  		filteredreminders: []
+  		filteredreminders: [],
+  		eventfilter: "",
+  		rerender: true
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
@@ -28,8 +30,8 @@ class Reminder extends React.Component {
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
   	this.createreminder = this.createreminder.bind(this);
+  	this.ch = this.ch.bind(this);
 }
-
 
 addGroup(item){
 	let color = "#f5f5f5";
@@ -102,17 +104,18 @@ getReminders(){
 	    });
 }
 findreminder(){
+	this.setState({rerender: false});
 	let find, rem;
-	find = this.refs.reminder.value;
+	this.state.eventfilter = find = this.refs.reminder.value;
 	rem = this.state.reminders.filter(item => {
 		return item.title.toLowerCase().indexOf(find.toLowerCase()) !== -1;})
 	this.setState({filteredreminders: rem});
 }
 createreminder(item){
-	return <li key={Math.floor(Math.random() * (10 - 1 + 1)) + 1} onClick={this.ch.bind(this)}>{item.title}</li>
+	return <li key={item.id} onClick={() => this.ch(item)}>{item.title}</li>
 }
 ch(e){
-	console.log("hello", e);
+	this.setState({eventfilter: e.title, rerender: true});
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -120,7 +123,10 @@ render(){
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
-	if(this.state.filteredreminders) createreminders = this.state.filteredreminders.map(this.createreminder)
+	if(this.state.filteredreminders){
+		createreminders = this.state.filteredreminders.map(this.createreminder);
+		createreminders.unshift(<li key={999} onClick={() => this.ch({title: ""})}>All Reminders</li>)
+	}
 	return( 
 		<div className="reminders">
 		<Header />
@@ -137,7 +143,7 @@ render(){
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
-						  <input placeholder="Search" className="input" ref="reminder" onChange={this.findreminder.bind(this)}/>
+						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter} onChange={this.findreminder.bind(this)}/>
 						  <ul className="reminderslist">
 						  {createreminders}
 						  </ul>
@@ -146,7 +152,8 @@ render(){
 			</div>
 
 			<div className="reminders-table">
-				<Calendar wearers={this.state.wearers} search={this.state.filteredreminders} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
+				<Calendar rerender={this.state.rerender} event={this.state.eventfilter} wearers={this.state.wearers} 
+				id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
 			</div>
 		</div>
 	)
