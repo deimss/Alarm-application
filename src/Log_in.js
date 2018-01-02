@@ -45,7 +45,6 @@ class LogIn extends React.Component {
       self.setState({
         emailError: false,
       });
-      
       console.log("Sucsses");
     })
     .catch(function (error) {

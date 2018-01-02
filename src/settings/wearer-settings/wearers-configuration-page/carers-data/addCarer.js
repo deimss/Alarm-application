@@ -99,7 +99,7 @@ class AddCarer extends React.Component{
                 </tr>
               </thead>
               <tbody>
-                  <tr key={0  }>
+                  <tr key={0}>
                     <td><input type='text' value={this.state.first_name} onChange={(event)=>this.handleInputChange('first_name', event)}/></td>
                     <td><input type='text' value={this.state.last_name}  onChange={(event)=>this.handleInputChange('last_name',event)}/></td>
                     <td><input type='text' value={this.state.email}      onChange={(event)=>this.handleInputChange('email',event)}/></td>

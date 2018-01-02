@@ -102,8 +102,12 @@ componentDidMount(){
 
 
 handleAddWearerButton(){
-  this.setState({addNewWearerClicked: true});
-  this.setState({wearerAdded: false});
+
+  this.setState({
+    addNewWearerClicked: true,
+    wearerAdded: false
+  })
+
 }
 
 getGroups(wearerId){
@@ -158,7 +162,7 @@ addWearer(event){
         }
       }
     }).then((response) => {
-      debugger
+      
       console.log('addWearer response', response);
               this.setState({addNewWearerClicked: false});
               
@@ -201,12 +205,7 @@ addWearer(event){
 
 
                
-                // console.log('addWearer wearer', wearer );
-                // console.log('addWearer event', event );
-                // console.log('addWearer response.data', response.data );
-                // console.log('addWearer wearerArray', wearerArray );
 
-                
 
 }).catch((error) => { 
 
@@ -217,7 +216,7 @@ addWearer(event){
 };
 
 getWearers(event){
-  console.log('STATE WEARER MASTER', this.state.accesstoken)
+
   axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
@@ -229,6 +228,7 @@ getWearers(event){
               this.setState({
                 wearerDeviceLoaded: true,
                 wearersLoaded: true,
+
                 })
             };
             
@@ -324,9 +324,7 @@ updateWearer(event){
               // let wearerIndex = this.state.wearerData.find(i => i.id === resp.data.id);
               // // wearerArray[wearerIndex] = resp.data;
               // Object.assign(wearerArray[wearerIndex], resp.data)
-              // console.log('updateWearer event', event );
-              // console.log('updateWearer resp.data', resp.data );
-              // console.log('updateWearer wearerArray', wearerArray );
+
               // console.log('updateWearer wearerArray[wearerIndex]', wearerArray[wearerIndex] );
               this.setState({wearerData: wearerArray});
              
@@ -407,7 +405,7 @@ deleteWearerDevices(event){
 };
 
 addWearerDevices(event){
- 
+
 let wearerID;
       if (event.id !== null){
         wearerID = event.id
@@ -734,75 +732,85 @@ deleteMember(group, wearerId){
 // wearerId = {this.state.wearerId}
 
     return (
+
       <div>{this.state.redirectToLogin ?  <Redirect to={{
         pathname: '/'
       }}/> : this.state.redirectToLogin === false ? <div>
       <Header redirectToLogin = {this.redirectToLogin} />
       <div>
-          <div className="contentWrap">
-              {
-                this.state.error ? <WearerError />
-                :
-                this.state.wearersLoaded ?
-                <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} activeWearerId = {this.state.activeWearerId} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
-                :
-                <WearersLoading/> 
-              }
+      <div className="contentWrap">
+                  {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.wearersLoaded ?
+                    <SettingsNavbar getGroups = {this.getGroups} wearersData = {this.state.wearerData} handleWearerData={this.handleWearerData} handleAddWearerButton={this.handleAddWearerButton} getWearers = {this.getWearers} getWearerDevice={this.getWearerDevice} activeWearerId = {this.state.activeWearerId} resetWearerEdit = {this.resetWearerEdit} wearerAdded = {this.state.wearerAdded}/>
+                    :
+                    <WearersLoading/> 
+                  }
+
+                
+
+              <div className="wearerConfigWrap">
+                    <p className="wearerConfigWrap__name">Configuration Page</p>
+                    <p className="wearerConfigWrap__description">Manage information about wristo</p>
+                    {
+                    this.state.error ? <WearerError />
+                    :
+
+                    this.state.wearersLoaded ?
+                    
+                    this.state.addNewWearerClicked ?
+                      <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
+                      :
+                      this.state.wearersEditing ? 
+                      <EditWearerProfile addWearer = {this.addWearer}  deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
+                      :
+                      <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
+                    
+                    :
+                    <WearersLoading/> 
+                    }
+
+                  
+                  {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.wearerDeviceLoaded ?
+
+                    <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearerId} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
+                    :
+                    <WearersLoading/>
+                  }
+                  
+                  {
+                    this.state.error ? <WearerError />
+                    :
+                    this.state.carersLoaded ?
+                    
+                    <Carers updateCarer = {this.updateCarer} carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer} addNewWearerClicked = {this.state.addNewWearerClicked}/>
+                    :
+                    <WearersLoading/>                 
+                  }
+
+
+
+              </div>
 
             
-
-          <div className="wearerConfigWrap">
-                <p className="wearerConfigWrap__name">Configuration Page</p>
-                <p className="wearerConfigWrap__description">Manage information about wristo</p>
-                {
-                this.state.error ? <WearerError />
-                :
-
-                this.state.wearersLoaded ?
-                
-                this.state.addNewWearerClicked ?
-                  <AddWearer data = {this.state.newWearer} discardWearerChanges = {this.discardWearerChanges} addWearer = {this.addWearer} />
-                  :
-                  this.state.wearersEditing ? 
-                  <EditWearerProfile addWearer = {this.addWearer}  deleteMember = {this.deleteMember} wearerGroupData = {this.state.wearerGroupData} data = {wearersDataForChildren} discardWearerChanges = {this.discardWearerChanges} updateWearer = {this.updateWearer} getWearers = {this.getWearers}/> 
-                  :
-                  <WearerProfile wearerGroupData = {this.state.wearerGroupData} getGroups = {this.getGroups} wearersData = {wearersDataForChildren}  enableWearerEdit = {this.enableWearerEdit}/>
-                
-                :
-                <WearersLoading/> 
-                }
-
-              
-              {
-                this.state.error ? <WearerError />
-                :
-                this.state.wearerDeviceLoaded ?
-
-                <WristoConfiguration addNewWearerClicked={this.state.addNewWearerClicked} firstIdWearer = {this.state.firstIdWearer} getWearerDevice = {this.getWearerDevice} updateWearerDevices ={this.updateWearerDevices} deleteWearerDevices = {this.deleteWearerDevices} addWearerDevices={this.addWearerDevices} wearerID = {this.state.activeWearerId} wearerDeviceData = {this.state.wearerDevice} error = {this.state.error} />
-                :
-                <WearersLoading/>
-              }
-              
-              {
-                this.state.error ? <WearerError />
-                :
-                this.state.carersLoaded ?
-                
-                <Carers updateCarer = {this.updateCarer} carers = {this.state.carers} error = {this.state.error} deleteCarer = {this.deleteCarer} addCarer = {this.addCarer} addNewWearerClicked = {this.state.addNewWearerClicked}/>
-                :
-                <WearersLoading/>                 
-              }
+            </div>
 
 
-
-          </div>
-
-        
-        </div>
        </div> 
     </div> : <WearersLoading/> }
           
-        </div>
+  </div>
+          
+          
+          
+          
+          
+
+
         );
     }
 }

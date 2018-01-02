@@ -7,6 +7,7 @@ import email from '../../assets/icons/email.svg';
 import deleteelem from '../../assets/icons/delete.svg'
 import {ImageRound} from '../otherComponents/images';
 import axios from 'axios';
+import {master} from "../../login/loginForm.js"
 
 
 class List extends React.Component {

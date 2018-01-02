@@ -28,6 +28,7 @@ class Reminder extends React.Component {
   		groupid: 0,
   		wearershow: "all users",
   		search: 0,
+			eventfilter: "",
 			filteredreminders: [],
 			redirectToLogin: null,
       accesstoken: null,
@@ -40,8 +41,9 @@ class Reminder extends React.Component {
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
   	this.createreminder = this.createreminder.bind(this);
-		this.chooseevent = this.chooseevent.bind(this);
-	  this.redirectToLogin = this.redirectToLogin.bind(this);
+		//this.chooseevent = this.chooseevent.bind(this);
+		this.redirectToLogin = this.redirectToLogin.bind(this);
+		this.ch = this.ch.bind(this);
 }
 
 
@@ -169,11 +171,9 @@ findreminder(){
 	this.setState({filteredreminders: rem});
 }
 createreminder(item){
-	return <li onMouseOver={(e) => this.chooseevent}>{item.title}</li>
+	return <li key={item.id} onClick={() => this.ch(item)}>{item.title}</li>
 }
-chooseevent(e){
-	//console.log("hello");
-}
+
 
 redirectToLogin() {          
 	if( this.state.client == null && this.state.accesstoken == null && this.state.uid == null){
@@ -182,6 +182,10 @@ redirectToLogin() {
 		})
 	}
 	};
+ch(e){
+	console.log(e.title)
+	this.setState({eventfilter: e.title, rerender: true});
+}
 
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -218,15 +222,16 @@ render(){
 				</div>
 	
 				<div className="reminders-table">
-					<Calendar wearers={this.state.wearers} search={this.state.filteredreminders} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
+					<Calendar rerender={this.state.rerender} event={this.state.eventfilter} wearers={this.state.wearers} 
+				id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
 				</div>
 			</div> :
 			<WearersLoading/> 
-		} 
-
-		</div>
+		}
+		</div> 
 	)
 }
 }
+
 
 export default Reminder;

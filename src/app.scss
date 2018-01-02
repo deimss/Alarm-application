@@ -11,7 +11,7 @@
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/carers.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/emptyCarer.scss';
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/addCarer.scss';
-//@import './components/groups/groups.scss';
+@import './components/groups/groups.scss';
 
 @font-face {
 font-family: DINPro-Medium;
@@ -21,6 +21,9 @@ src: url(./assets/fonts/DINPro-Medium_13936.ttf);
 @font-face {
 font-family: DINPro-Regular;
 src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
+}
+#portal{
+  z-index: 99999999;
 }
 * {
   margin: 0;
@@ -115,13 +118,19 @@ body {
     border: none;
   }
   .container input[type="text"],input[type="password"],input[type="email"] {
-    width: 400px;
+    width: 100%;
     height: 40px;
     border-radius: 4px;
     background-color: #ffffff;
     border: solid 1px #ececec;
     padding:12px 16px;
     box-sizing: border-box;
+  }
+
+    .container input[type="password"]{
+    
+    padding-right:15%;
+
   }
 
   .Email {
