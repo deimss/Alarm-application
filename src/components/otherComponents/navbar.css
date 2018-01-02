@@ -1,0 +1,82 @@
+/* -------nav--bar--------------------- */
+.navBar > div {padding: 0 10px}
+
+a{text-decoration: none; color: #565656;}
+
+.navBar{
+	height: 60px;
+	background-color: #d2d2d2;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	max-height: 70px;
+	align-items: center;
+}
+
+.navBar img{
+	height: 38px;
+}
+.navBar div:first-child{
+	margin-right: auto;
+	width: 185px;
+}
+.navBar .logo{
+	margin: 0;
+}
+.navBar .logo p{
+	font-size: 26px;
+}
+.navBar div:last-child{
+	margin-left: auto;
+	width: 185px;;
+}
+.navigation ul li:hover{
+	background-color: #a1a1a1;
+}
+.navigation ul{
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+.navigation ul img{
+	height: 21px;
+	float: left;
+	margin-right: 3px;
+}
+.navigation ul li{
+	width: 110px;
+	margin-left: -5px;
+	margin-right: 5px;
+	padding: 0px 10px;
+}
+.navigation a{
+	text-align: center;
+	font-family: 'DINPro-Medium';
+	font-size: 14px;
+	text-transform: uppercase;
+	display: flex;
+	padding: 19.5px 5px;
+	justify-content: center;
+}
+.user img{
+	border-radius: 50%;
+	float: right;
+	cursor: pointer;
+	height: 33px;
+}
+
+.navigation ul li:nth-child(3){	position: relative;}
+.navigation #not{display: block;}
+#not{
+	display: none;
+	background-color: #b52f54;
+	border-radius: 50%;
+	height: 10px;
+	left: 13px;
+	width: 10px;
+	top: 20px;
+	position: absolute;
+}

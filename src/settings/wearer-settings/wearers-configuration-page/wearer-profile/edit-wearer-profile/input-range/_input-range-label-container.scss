@@ -1,0 +1,35 @@
+.input-range__label-container {
+  font-family: DINPro;
+  left: -50%;
+  position: relative;
+  padding: 0 3px;
+  color: white;
+  background-color: #B52F54;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #B52F54;
+  border-radius: 4px;
+  .input-range__label--max & {
+    left: 50%;
+  }
+}
+.input-range__label--max .input-range__label-container {
+  display: none;
+}
+.input-range__label--value {
+  top: -2rem;
+}
+
+.input-range__label--min .input-range__label-container {
+  display: none;
+}
+
+.input-range__track {
+  background: #eeeeee;
+  border-radius: 0.1rem;
+  cursor: pointer;
+  display: block;
+  height: 0.2rem;
+  position: relative;
+  transition: left 0.3s ease-out, width 0.3s ease-out;
+}

@@ -1,0 +1,22 @@
+.list-fruit-container {
+margin: auto;
+  width: 500px;
+  background-color: rgb(101, 101, 163);
+  margin-top: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  td {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+  }
+  .name-list-item{
+    width: 100px;
+  }
+  form {
+    margin: 15px;
+  }
+}
