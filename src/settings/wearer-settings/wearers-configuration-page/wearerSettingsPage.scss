@@ -1,0 +1,35 @@
+.contentWrap{
+	margin: 28px 18px ;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	width:97%;
+}
+
+.wearerConfigWrap {
+	width: 74%;
+}
+
+/*@media only screen and (max-device-width : 1024px) and (-webkit-min-device-pixel-ratio : 2) {
+
+	.wearers-list-wrap {
+		flex-wrap: nowrap;
+	}
+}*/
+
+@media only screen and (max-width : 1224px) {
+/* Styles */
+	.wearerConfigWrap {
+		width: 100%;
+		padding-left: 0px;
+	}
+}
+
+/*@media only screen and (max-width : 768px) {
+
+	.settings_header {
+		flex-direction: column;
+	}
+}*/
+

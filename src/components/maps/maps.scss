@@ -1,0 +1,20 @@
+.map .header{
+	display: flex;
+	justify-content: space-between;
+	color: #fff;
+	font-size: 20px;
+	background-color: #b52f54;
+	align-items: center;
+	padding: 12px;
+	text-transform: capitalize;
+	font-family: 'DINPro-Regular';
+}
+.map > :last-child{
+	height: 600px;
+}
+[title^="Click"] {
+	display:none;	
+}
+[class="gm-style"] > div:nth-child(2){
+	display: none;
+}

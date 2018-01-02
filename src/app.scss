@@ -1,0 +1,242 @@
+@import './settings/settings.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-configuration-page/wearerConfiguration.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-profile/wearerProfile.scss';
+@import './settings/wearer-settings/header/header.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-navbar/navbar.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.scss';
+@import './settings/wearer-settings/Sign_in_up_Responsive.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wristo-group-configuration/wristoGroupConfiguration.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wristo-group-configuration/emptyWristo.scss';
+@import './settings/wearer-settings/wearers-configuration-page/wearer-profile/addWearer.scss';
+@import './settings/wearer-settings/wearers-configuration-page/carers-data/carers.scss';
+@import './settings/wearer-settings/wearers-configuration-page/carers-data/emptyCarer.scss';
+@import './settings/wearer-settings/wearers-configuration-page/carers-data/addCarer.scss';
+@import './components/groups/groups.scss';
+
+@font-face {
+font-family: DINPro-Medium;
+src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
+}
+
+@font-face {
+font-family: DINPro-Regular;
+src: url(./assets/fonts/DINPro-Regular_13937.ttf); 
+}
+#portal{
+  z-index: 99999999;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: DINPro-Regular;
+}
+
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(./assets/fonts/HelveticaNeue.ttf); 
+  }
+
+a {
+  text-decoration-line: none;
+}
+.active {
+  background-color: #C0C0C0;
+}
+body {
+    font-family: DINPro;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+    background-color: #f5f5f5;
+}
+.container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+ .logo-container {
+   margin-top: 32px; 
+   display: flex;
+   justify-content: center;
+   padding-bottom: 153px;
+ }
+ .logo-container span {
+  display: block;
+  color: #b52f54;
+  font-family: DINPro;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 9.5px;
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+  align-self: center;
+}
+
+.singup-logo-container {
+  margin-top: 32px; 
+  display: flex;
+  justify-content: center;
+  padding-bottom: 85px;
+}
+.singup-logo-container span {
+  display: block;
+ color: #b52f54;
+ font-family: DINPro;
+ font-size: 18px;
+ font-weight: bold;
+ padding-left: 9.5px;
+ text-transform: uppercase; 
+ letter-spacing: 1px;
+ align-self: center;
+}
+
+ .Log-in {
+    font-family: "DINPro-Medium";
+    font-size: 72px;
+    font-weight: 500;
+    line-height: 1.33;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+    padding-bottom: 24px;
+  }
+
+  .container [type="submit"] {
+    width: 400px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #b52f54;
+    color: #ffffff;
+    font-family: DINPro;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+  }
+  .container input[type="text"],input[type="password"],input[type="email"] {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #ececec;
+    padding:12px 16px;
+    box-sizing: border-box;
+  }
+
+    .container input[type="password"]{
+    
+    padding-right:15%;
+
+  }
+
+  .Email {
+    text-align: left;
+    color: #000000;
+    padding-bottom: 8px;
+  }
+
+  .Password {
+    text-align: left;
+    color: #000000;
+    padding-bottom: 8px;
+    padding-top: 16px;
+  }
+
+  .Dont-have-an-accoun {
+    font-family: DINProReg;
+    text-align: center;
+    color: #000000;
+    padding-top: 24px;
+  }
+
+  .Forgot-pas {
+    font-family: DINProReg;
+    text-align: right;
+    padding-bottom: 24px;
+    padding-top: 8px;
+  }
+
+ .pink {
+   color: #b52f54;
+ }
+
+ .Sign-up {
+  width: 240px;
+  height: 96px;
+  font-family: DINPro;
+  font-size: 72px;
+  font-weight: 500;
+  line-height: 1.33;
+  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.5);
+  padding-bottom: 21px;
+}
+
+.logo2 {
+    width: 125px;
+    padding-bottom: 85px;
+    margin: 32px auto 0 auto; 
+}
+.p-pad {
+  padding-bottom: 8px;
+}
+
+.ipField {
+  padding-bottom: 16px;
+  position: relative;
+}
+
+[value="Create account"] {
+  margin-top:8px;
+}
+
+.buttonShowHide {
+  font-family: DINPro;
+  width: 35px;
+  height: 16px;
+  border: none;
+  position: absolute;
+  bottom: 28px;
+  right: 16px;
+  z-index: 4;
+  background-color: white;
+
+}
+
+.pos {
+  display: block;
+  position: relative;
+}
+
+.error-password {
+  color: #b52f54;
+  margin-bottom: 15px;
+
+  
+}
+
+.error-password *{
+  vertical-align: middle;
+  
+}
+
+.error-password span{
+  padding-left: 7px; 
+}
+
+.error-email, .error-email-password {
+  color: #b52f54;
+  margin-bottom: 15px; 
+}
+
+.error-email-password {
+  padding-top: 7px;
+}
+
+.error-email *, .error-email-password *{
+  vertical-align: middle;
+  
+}
+
+.error-email span, .error-email-password span{
+  padding-left: 7px; 
+}
