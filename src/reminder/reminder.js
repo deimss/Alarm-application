@@ -20,9 +20,13 @@ class Reminder extends React.Component {
   		groupid: 0,
   		wearershow: "all users",
   		search: 0,
+<<<<<<< HEAD
   		filteredreminders: [],
   		eventfilter: "",
   		rerender: true
+=======
+  		filteredreminders: []
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
@@ -30,9 +34,15 @@ class Reminder extends React.Component {
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
   	this.createreminder = this.createreminder.bind(this);
+<<<<<<< HEAD
   	this.ch = this.ch.bind(this);
 }
 
+=======
+}
+
+
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 addGroup(item){
 	let color = "#f5f5f5";
 	if(item.id == this.state.groupid) color = "#d2d2d2"; 
@@ -104,18 +114,30 @@ getReminders(){
 	    });
 }
 findreminder(){
+<<<<<<< HEAD
 	this.setState({rerender: false});
 	let find, rem;
 	this.state.eventfilter = find = this.refs.reminder.value;
+=======
+	let find, rem;
+	find = this.refs.reminder.value;
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 	rem = this.state.reminders.filter(item => {
 		return item.title.toLowerCase().indexOf(find.toLowerCase()) !== -1;})
 	this.setState({filteredreminders: rem});
 }
 createreminder(item){
+<<<<<<< HEAD
 	return <li key={item.id} onClick={() => this.ch(item)}>{item.title}</li>
 }
 ch(e){
 	this.setState({eventfilter: e.title, rerender: true});
+=======
+	return <li key={Math.floor(Math.random() * (10 - 1 + 1)) + 1} onClick={this.ch.bind(this)}>{item.title}</li>
+}
+ch(e){
+	console.log("hello", e);
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -123,10 +145,14 @@ render(){
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
+<<<<<<< HEAD
 	if(this.state.filteredreminders){
 		createreminders = this.state.filteredreminders.map(this.createreminder);
 		createreminders.unshift(<li key={999} onClick={() => this.ch({title: ""})}>All Reminders</li>)
 	}
+=======
+	if(this.state.filteredreminders) createreminders = this.state.filteredreminders.map(this.createreminder)
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 	return( 
 		<div className="reminders">
 		<Header />
@@ -143,7 +169,11 @@ render(){
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
+<<<<<<< HEAD
 						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter} onChange={this.findreminder.bind(this)}/>
+=======
+						  <input placeholder="Search" className="input" ref="reminder" onChange={this.findreminder.bind(this)}/>
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 						  <ul className="reminderslist">
 						  {createreminders}
 						  </ul>
@@ -152,8 +182,12 @@ render(){
 			</div>
 
 			<div className="reminders-table">
+<<<<<<< HEAD
 				<Calendar rerender={this.state.rerender} event={this.state.eventfilter} wearers={this.state.wearers} 
 				id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
+=======
+				<Calendar wearers={this.state.wearers} search={this.state.filteredreminders} id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 			</div>
 		</div>
 	)

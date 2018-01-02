@@ -3,6 +3,7 @@ import './groups.scss';
 import group from '../../assets/icons/group.svg'
 import adduser from '../../assets/icons/add.svg'
 
+<<<<<<< HEAD
 
 /*this.refs.drop.style.display = 'none';
 this.refs.drop.style.display = 'none';
@@ -18,6 +19,14 @@ class DropDownMenu extends React.Component{
 			<li onClick={() =>{this.props.onListClick("delete", this.props.item)}}>delete</li>
 		</ul>
 }
+=======
+const DropDownMenu = (props) => {
+	return <ul className="dropdown">
+		<li onClick={() => props.onListClick("rename", props.item)}>rename</li>
+		<li onClick={() => props.onListClick("duplicate", props.item)}>duplicate</li>
+		<li onClick={() => props.onListClick("delete", props.item)}>delete</li>
+	</ul>
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 
 export default class AddGroup extends React.Component{

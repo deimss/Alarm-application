@@ -3,10 +3,29 @@ import axios from 'axios';
 import classNames from 'classnames';
 
 
+<<<<<<< HEAD
 export const master = {    
     client: '3KufwpmTQzCXSUaeaZgDhg',
     accesstoken: '3JwD4O_YpOQgm4UhFadmKg',
     uid: 'boretskairuna23@gmail.com'
+=======
+export const master = {
+  
+    // client: 'ejbYpLdnX25AFGFq6TepKQ',
+    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
+    // uid: 'deimssssss19482@gmail.com'
+    
+
+    client: 'WPTypISPfhT1paSsuUAbGg',
+    accesstoken: '3-YHysTcGNYbaTwnErwUIA',
+    uid: 'dmytro.pogoretsky@gmail.com'
+
+    // client: 'W2LR1QjeEjWU-EQ3PCY6Ew',
+    // accesstoken: 'sNQQCQKnpQ2lU0SH95Q8TQ',
+    // uid: 'boretskairuna23@gmail.com'
+
+
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 
 

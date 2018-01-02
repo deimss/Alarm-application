@@ -2,7 +2,11 @@
 
 .right-bar{
 	width: 30%;
+<<<<<<< HEAD
 	margin-top: 45px;
+=======
+	margin-top: 42px;
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 	margin-right: 10px;
 }
 
@@ -187,6 +191,7 @@
 		}
      }
 }
+<<<<<<< HEAD
 @media screen and (max-width: 550px) {
 	.right-bar{
 		flex-direction: column;
@@ -201,3 +206,10 @@
 		//padding: 3px 14px;
 	}
 }*/
+=======
+@media screen and (max-width: 485px) {
+	.add-group > div {
+		padding: 3px 14px;
+	}
+}
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee

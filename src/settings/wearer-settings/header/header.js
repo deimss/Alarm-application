@@ -18,8 +18,13 @@ class Header extends React.Component{
                 <img src={logo} alt=""/> 
                 <span> wristo </span>
             </div>
+<<<<<<< HEAD
              <input type="checkbox" id="nav" className="hidden"/>
             <label htmlFor="nav" className="nav-open"><i></i><i></i><i></i></label>
+=======
+             <input type="checkbox" id="nav" class="hidden"/>
+            <label for="nav" class="nav-open"><i></i><i></i><i></i></label>
+>>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
             <div className="settings_header__menu">
                 <NavLink to="/" className="settings_header__menu__item" exact>
                     <svg className="settings_header__menu__item__icon" fill="#FFFFFF" height="29.5" viewBox="0 0 24 24" width="29.5" xmlns="http://www.w3.org/2000/svg">
