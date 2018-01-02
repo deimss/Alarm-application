@@ -25,7 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-var d = new Date();
+var d = new Date(2018, 0,1);
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
@@ -154,10 +154,12 @@ class Calendar extends React.Component{
     				<Par firstday={this.state.firstday} lastday={this.state.lastday} />
     			<span onClick={this.nextWeek.bind(this)}>&#62;</span>
     		</div>
+            <div>
                 <Weeks weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
                     <UserEvents event={this.state.event} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>
+            </div>
             </div>
         )
 	}

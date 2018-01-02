@@ -3,15 +3,19 @@ import './groups.scss';
 import group from '../../assets/icons/group.svg'
 import adduser from '../../assets/icons/add.svg'
 
+
+/*this.refs.drop.style.display = 'none';
+this.refs.drop.style.display = 'none';
+this.refs.drop.style.display = 'none';*/
 class DropDownMenu extends React.Component{
 	constructor(props){
 		super(props);
 	}
 	render(){
 		return <ul className="dropdown" ref="drop">
-			<li onClick={() =>{this.refs.drop.style.display = 'none';this.props.onListClick("rename", this.props.item)}}>rename</li>
-			<li onClick={() =>{this.refs.drop.style.display = 'none';this.props.onListClick("duplicate", this.props.item)}}>duplicate</li>
-			<li onClick={() =>{this.refs.drop.style.display = 'none';this.props.onListClick("delete", this.props.item)}}>delete</li>
+			<li onClick={() =>{this.props.onListClick("rename", this.props.item)}}>rename</li>
+			<li onClick={() =>{this.props.onListClick("duplicate", this.props.item)}}>duplicate</li>
+			<li onClick={() =>{this.props.onListClick("delete", this.props.item)}}>delete</li>
 		</ul>
 }
 }

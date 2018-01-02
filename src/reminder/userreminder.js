@@ -8,6 +8,9 @@ import Calendar from 'react-datetime';
 import calendarimg from '../assets/icons/today.svg';
 import addbtn from '../assets/icons/add.svg';
 import delet from '../assets/icons/delete.svg';
+import social from '../assets/icons/group.svg';
+
+
 
 var month = new Array();
 month[0] = "JAN";
@@ -23,7 +26,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-let rerender = false;
+let rerenderAdd = false;
 let arrayofid = [];
 class UserName extends React.Component{
 	constructor(props){
@@ -36,9 +39,9 @@ class UserName extends React.Component{
   }
   tooglemodal(){
     this.setState(state => ({isModalOpen: !state.isModalOpen}))
-    if(rerender == true) {
+    if(rerenderAdd == true) {
     	this.props.onChange();
-    	rerender = false;
+    	rerenderAdd = false;
     }
   }
 
@@ -107,7 +110,6 @@ class AddReminder extends React.Component {
   	let date;
   	for(let i = 0; i < this.state.alerts.length; i++){
 		date = `${this.state.yearstart}` + "-" + `${this.state.monthstart+1}` + "-" + `${this.state.daystart}`+"T"+this.state.alerts[i];
-  		console.log(date);
   		axios({
 	      method: 'post',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.props.gid+'/wearers/'+this.props.wid+'/reminders',
@@ -124,7 +126,7 @@ class AddReminder extends React.Component {
 			}
 	   	}).then(resp => {
 	   		if((i + 1) == this.state.alerts.length){
-  				rerender = true;
+  				rerenderAdd = true;
   				this.props.onClose();
   		}
 	   	}).catch((error) => { 
@@ -196,14 +198,43 @@ class AddReminder extends React.Component {
   }
 }
 
+class Edit extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  render() {
+  	console.log("props", this.props)
+    return (
+      <div className="backdrop">
+        <div className="modal-edit">
+        <p>Hello</p>
+        </div>
+      </div>
+    );
+  }
+}
+
 class Event extends React.Component{
 	constructor(props){
 		super(props);
+		this.tooglemodal = this.tooglemodal.bind(this);
+		this.state = {
+		isModal: false,
+		alerts: "",
+		type: ""
 	}
+	}
+	tooglemodal(){
+	    this.setState(state => ({isModal: !state.isModal}))
+	  }
 	render(){
+		let icon;
+		this.props.icon == "s" ? icon = "http://www.youngdementiasupport.london/wp-content/themes/yod/images/icon-groups.svg" 
+		: icon = "http://www.iconsplace.com/icons/preview/blue/pill-256.png"
 		return (
-			<div className="dayevents" style={{backgroundColor: this.props.color}}>
-				<img src="http://www.iconarchive.com/download/i82455/medicalwp/medical/Pills-blue.ico" alt="" />
+			<div className="dayevents" style={{backgroundColor: this.props.color}} onClick={this.tooglemodal.bind(this)}>
+				{this.state.isModal && ReactDOM.createPortal(<Edit onlol={this.tooglemodal}/>, document.getElementById("portal"))}
+				<img src={icon} alt="" />
 				<p>{this.props.title}<br/>{this.props.time}</p>	
 			</div>
 		)
@@ -229,7 +260,7 @@ class Createwearer extends React.Component{
 	}
 	createevent(item){
 		var date = new Date(item.start_date);
-		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color;
+		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color, icon;
 		if(hours < 10) hours = '0' + hours;
 		if(minutes < 10) minutes = '0' + minutes;
 		var time = `${hours}:${minutes}`;
@@ -254,14 +285,16 @@ class Createwearer extends React.Component{
 			switch (category) 
 			{
 			case "social": 
-				color = "#E3F0F9"; break;
-			case "medical": 
+				icon = "s";
 				color = "#FFF0D0"; break;
+			case "medical": 
+				icon = "m";
+				color = "#E3F0F9"; break;
 			default: 
-				color = "#ececec"; break;
+				color = "#000"; break;
 			}
 			return (
-			<Event time={time} color={color} item={item} title={item.title}/>
+			<Event time={time} color={color} item={item} title={item.title} icon={icon}/>
 		) 
 		}
 	}
