@@ -20,9 +20,16 @@ constructor(props) {
       liIsClicked : false,
       wearersBuffer: [],
       addWearerButtonClicked: false,
-      search: ""
+      search: "",
+      localActiveWearerId: this.props.activeWearerId
     };
   };
+
+  // shouldComponentUpdate(){
+  //   if (this.props.activeWearerId !== null || this.props.wearersData[0].id !== null) {
+  //     return true;
+  //   }
+  // }
 
 // woman --> https://image.flaticon.com/icons/svg/145/145847.svg
 // man ----> https://image.flaticon.com/icons/svg/145/145842.svg
@@ -36,7 +43,11 @@ constructor(props) {
       this.setState({search: event.target.value.substr(0,20)})
   };
       
- 
+ // componentDidUpdate(nextProps){
+ //    this.setState({
+ //      localActiveWearerId: nextProps.activeWearerId 
+ //    });
+ // }
 
  render(){
   console.log('NAVBAR this.props.wearersData', this.props.wearersData);
@@ -58,12 +69,12 @@ constructor(props) {
             namesList = filteredWearers.map((wearer) => {
 
               console.log("NAVBAR filteredWearers", filteredWearers);
- 
+ // this.state.addWearerButtonClicked && !this.props.wearersEditing && this.props.activeWearerId === this.state.localActiveWearerId ||
 
            let wearerElementStyle = classNames({
               'wearers__user': true,
-              'selWearer':  this.props.wearerAdded && this.props.activeWearerId === wearer.id ||  !this.state.addWearerButtonClicked && this.props.activeWearerId === wearer.id || this.state.liIsClicked && this.props.activeWearerId === wearer.id,
-              'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
+              'selWearer':  this.props.wearerAdded && this.props.activeWearerId === wearer.id ||  !this.props.addNewWearerClicked && this.props.activeWearerId === wearer.id || this.state.liIsClicked && this.props.activeWearerId === wearer.id,
+              'defWearer': !this.state.addWearerButtonClicked && !this.state.liIsClicked && !this.props.addNewWearerClicked && this.props.wearersData[0].id === wearer.id || !this.props.addNewWearerClicked && this.props.activeWearerId === null && this.props.wearersData[0].id === wearer.id
             });
 
 

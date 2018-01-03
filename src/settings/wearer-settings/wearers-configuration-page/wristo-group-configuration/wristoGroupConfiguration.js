@@ -228,7 +228,7 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
                 </tbody>
             </table>
           </div>
-          : this.state.wearerID === this.props.firstIdWearer ? <EmptyTable /> :  <EmptyWristo changeStateAddNewWristo = {this.changeStateAddNewWristo} /> 
+          : (this.state.wearerID === null && this.props.firstIdWearer === null) ? <EmptyTable /> : <EmptyWristo changeStateAddNewWristo = {this.changeStateAddNewWristo} /> 
           } 
         </div>
         )

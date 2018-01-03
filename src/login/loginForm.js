@@ -9,7 +9,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-//import MasterPage from '../../components/masterPage/masterpage';
 
 export const master = {
     client: sessionStorage.getItem("client"),

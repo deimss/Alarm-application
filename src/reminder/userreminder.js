@@ -11,7 +11,6 @@ import social from '../assets/icons/group.svg';
 import crB from '../assets/icons/crB.svg';
 import crY from '../assets/icons/crY.svg';
 
-// 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")
 
 var month = new Array();
 month[0] = "JAN";

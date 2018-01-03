@@ -15,7 +15,7 @@ import {
   withRouter
 } from 'react-router-dom';
 import WearersLoading from '../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
-
+import Modal from "react-responsive-modal";
 /*commit in other*/
 let reminders = [];
 
@@ -33,6 +33,9 @@ class Reminder extends React.Component {
   		eventfilter: "",
 			rerender: true,
 			redirectToLogin: null,
+			accesstoken: null,
+      uid: null,
+      client: null
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
@@ -42,6 +45,16 @@ class Reminder extends React.Component {
 		this.createreminder = this.createreminder.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
   	this.ch = this.ch.bind(this);
+}
+
+componentWillMount(){
+  if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
+		this.setState({
+			client: sessionStorage.getItem("client"),
+			accesstoken: sessionStorage.getItem("accesstoken"),
+			uid: sessionStorage.getItem("uid"),
+		})  
+		} 
 }
 
 addGroup(item){
