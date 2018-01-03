@@ -74,7 +74,7 @@ constructor(props) {
            let wearerElementStyle = classNames({
               'wearers__user': true,
               'selWearer':  this.props.wearerAdded && this.props.activeWearerId === wearer.id ||  !this.props.addNewWearerClicked && this.props.activeWearerId === wearer.id || this.state.liIsClicked && this.props.activeWearerId === wearer.id,
-              'defWearer': (this.props.wearersData[0].id === wearer.id && !this.state.addWearerButtonClicked && !this.state.liIsClicked) 
+              'defWearer': !this.state.addWearerButtonClicked && !this.state.liIsClicked && !this.props.addNewWearerClicked && this.props.wearersData[0].id === wearer.id || !this.props.addNewWearerClicked && this.props.activeWearerId === null && this.props.wearersData[0].id === wearer.id
             });
 
 
