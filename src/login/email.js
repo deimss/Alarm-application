@@ -12,11 +12,11 @@ import {
 import Modal from "react-responsive-modal";
 
 
-export const master = {
-    client: null,
-    accesstoken: null,
-    uid: null
-}
+// export const master = {
+//     client: null,
+//     accesstoken: null,
+//     uid: null
+// }
 
 
 class Email extends React.Component {
@@ -116,12 +116,15 @@ class Email extends React.Component {
     })
     .catch(function (error) {
     console.log(error);
+    this.setState({
+      emailError: true
+    })
     //this.setState({isSendData: true});
     });
     }else {
       axios({
         method: 'post',
-        url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_up',
+        url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/confirmation',
         data: {
             email: this.state.email,       
           }
@@ -129,18 +132,20 @@ class Email extends React.Component {
     console.log(response);
     if(response.status === 200){
       this.setState({
-        isRegistrationed: true
+        open: true,
+        isSendMail: true
       })
     }else {
       this.setState({
-        isRegistrationed: false
+        emailError: true
       })
     }
-    //this.setState({isSendData: true});
     })
     .catch(function (error) {
     console.log(error);
-    //this.setState({isSendData: true});
+    this.setState({
+      emailError: true
+    })
     }); 
     }  
 };

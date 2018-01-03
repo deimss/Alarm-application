@@ -15,7 +15,7 @@ import {
   withRouter
 } from 'react-router-dom';
 import WearersLoading from '../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
-
+import Modal from "react-responsive-modal";
 /*commit in other*/
 let reminders = [];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
-
+import Modal from "react-responsive-modal";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,6 +21,8 @@ class SignUpForm extends React.Component {
     this.saveInput = this.saveInput.bind(this);
     this.sendData = this.sendData.bind(this);
     this.handleTooglePass = this.handleTooglePass.bind(this);
+    this.onOpenModal =this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
     
     this.state = {
       firstNameError: false,
@@ -32,18 +34,19 @@ class SignUpForm extends React.Component {
       passwordType: 'password',
       isSendData: false,
       testError: false,
-      isRegistrationed: false
-      //divStyle: null
-
-      //{outline: 5px solid #b52f54;}
+      isRegistrationed: false,
+      isSendMail: false,
+      open: false
     };
   }
 
-// var classnames = classNames(
-//   'foo', 
-//   'bar'
-//   );
-   
+onOpenModal(){
+  this.setState({ open: true });
+};
+
+onCloseModal(){
+  this.setState({ open: false });
+};
 
 handleTooglePass(event){
   event.preventDefault();
@@ -86,17 +89,7 @@ handlefirstNameInput(event) {
     let firstNameInput = this.state.firstName;
     if (!firstNameFilter.test(firstNameInput)) {
         this.setState({firstNameError: true});
-        // this.setState(divStyle: {
-        //         outlineWidth: 5,
-        //         outlineStyle: 'solid',
-        //         outlineColor: '#b52f54' 
-        // });
-    //     inputStyle= {
-    //             outlineWidth: 5,
-    //             outlineStyle: 'solid',
-    //             outlineColor: '#b52f54' 
-    //     };
-    //console.log(this.state.divStyle);
+
     }
     else {
         this.setState({firstNameError: false});
@@ -167,28 +160,6 @@ handleLastNameInput(event) {
     }
   };
 
-  
-
-// style={{marginRight: spacing + 'em'}}
-
-//   handleInputStyle(event){
-//       this.setState(divStyle: {
-//       outlineWidth: 5,
-//       outlineStyle: 'solid',
-//       outlineColor: '#b52f54'
-
-
-//       // 'outline-width': '5px',
-//       // 'outline-style': 'solid',
-//       // 'outline-color': '#b52f54'
-// }); 
-//       return this.state.divStyle;
-
-//   }
-
-  
-
-
   saveInput(event) {
     const target = event.target;
     const value = target.value;
@@ -231,18 +202,21 @@ handleLastNameInput(event) {
     console.log(response);
     if(response.status === 200){
       this.setState({
-        isRegistrationed: true
+        //isRegistrationed: true,
+        open: true,
+        isSendMail: true
       })
     }else {
       this.setState({
-        isRegistrationed: false
+       //isRegistrationed: false,
+        open: false
       })
     }
     //this.setState({isSendData: true});
   })
-  .catch(function (error) {
+  .catch(error => {
     console.log(error);
-    //this.setState({isSendData: true});
+    this.setState({ emailError: true});
   });
 };
 
@@ -256,6 +230,8 @@ handleLastNameInput(event) {
 
 
   render() {
+
+    const { open } = this.state;
 
     let firstNameStyle = classNames({
       'inputField': (this.state.firstNameError) || (this.state.firstName == null && this.state.isSendData) 
@@ -334,8 +310,13 @@ handleLastNameInput(event) {
             <button className="showPass" name="showPass" onClick={this.handleTooglePass}>{this.state.textValue}</button>
 
             <input className="submit" type="button" value="Create account" onClick={this.sendData}/>
+
         </form>}
+        <Modal open={open} onClose={this.onCloseModal} little>
+            <h2>Check your mailbox, please!</h2>        
+          </Modal>
     </div>
+
     );
   }
 }
