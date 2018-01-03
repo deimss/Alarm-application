@@ -45,34 +45,7 @@ class Carers extends React.Component{
 
       let currentCarer = this.state.carersData.find(element=> element.id === id);
 
-      //let newData = {};
-
-      // let newData = {};
-      // this.state.carersData.forEach(element=> {
-      //   if(element.id === id) {
-      //     let elementIndex = 
-      //     newData = {
-      //       id: id,
-      //       first_name: this.state.carersData.first_name,
-      //       last_name: this.state.carersData.last_name,
-      //       email: this.state.carersData.email,
-      //       password: this.state.carersData.password
-      //     }
-      //   }
-      // })
-      
-      console.log('Carers currentCarer', currentCarer);
       this.props.updateCarer(currentCarer);
-
-
-
-      // this.setState({ 
-      //   isEdit: !this.state.isEdit,
-      //   idElArray: null,
-      //   editButton: !this.state.editButton,
-      //   toogleButton: !this.state.toogleButton,
-
-      //   })
     }
 
     setCarersData(){
@@ -84,7 +57,7 @@ class Carers extends React.Component{
         arr.push(Object.assign({}, element));
       })
       this.setState({carersData: arr});
-      console.log("componentWillMount this.state.carersData", this.state.carersData); 
+
     };
 
     componentWillMount(){
@@ -117,8 +90,6 @@ class Carers extends React.Component{
 
       newCarersData[currentElement][dataKey] = event.target.value;
 
-      console.log('Carers newCarersData', newCarersData);
-
       this.setState({carersData: newCarersData});
 
  
@@ -136,33 +107,26 @@ class Carers extends React.Component{
 
     handleEditCarer(event){
 
-      console.log('handleEditCarer');
-
       this.setState({currentCarerId: event});
-
-      //this.setState({disabled: !this.state.disabled} )
 
       this.setState({disabled: false});
       this.setState({rowEdited: true});
 
-      console.log('handleEditCarer event', event);
       this.setCarersData();
     };
 
     
 
     handleDiscardChange(event){
-       console.log('handleDiscardChange');
+
        this.setState({rowEdited: false});
        this.setState({disabled: true});
-
        this.setCarersData();
 
 
     };
 
     handleDiscardNewCarer(){
-       console.log('handleDiscardNewCarer');
        this.setState({addCarerClicked: false});
 
     };
@@ -174,8 +138,6 @@ class Carers extends React.Component{
 
     render(){
 
-      console.log('CARERS THIS.PROPS.CARERS', this.props.carers);
-
       let carersBuffer = this.state.rowEdited ? this.state.carersData : this.props.carers;
 
       let rowKey = 0;
@@ -186,7 +148,7 @@ class Carers extends React.Component{
 
       if(this.props.carers.length !== 0){
 
-        let full_name = `${dataElement.first_name} ${dataElement.last_name}`
+      let full_name = `${dataElement.first_name} ${dataElement.last_name}`
 
       let disableCarer = true;
       let editRow = false;
