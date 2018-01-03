@@ -16,13 +16,13 @@ import MasterPage from './components/masterPage/masterpage';
 import SettingsPage from './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.js'
 
 ReactDOM.render(
-  <HashRouter >
+  <HashRouter>
     <div>
       <Route path="/settings" component={SettingsPage}/>
       <Route path="/reminders" component={Reminder}/>
       <Route exact path="/" component={MasterPage} />
     </div>
-  </HashRouter >,
+  </HashRouter>,
   document.getElementById('root')
 ); 
 
