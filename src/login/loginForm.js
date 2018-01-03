@@ -160,7 +160,7 @@ class LogInForm extends React.Component {
           <p id="forgotPass1" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
           <p id="forgotPass2" onClick={() => this.props.toogleResendEmailInp()}><a href="#"> Recend confirmation email</a></p>
           
-          <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
+          <input className="submit" type="submit" value="Sign in" onClick={this.sendData}/>
           
       </form> 
       }       

@@ -307,9 +307,9 @@ handleLastNameInput(event) {
                 <span> The password must be between 8 and 16 characters </span>
             </div>}
 
-            <button className="showPass" name="showPass" onClick={this.handleTooglePass}>{this.state.textValue}</button>
+            <button className="showPass" name="showPass" type="button" onClick={this.handleTooglePass}>{this.state.textValue}</button>
 
-            <input className="submit" type="button" value="Create account" onClick={this.sendData}/>
+            <input className="submit" type="submit" value="Create account" onClick={this.sendData}/>
 
         </form>}
         <Modal open={open} onClose={this.onCloseModal} little>
