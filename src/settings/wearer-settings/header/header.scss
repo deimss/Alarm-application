@@ -3,7 +3,6 @@
     padding: 0px;
     margin: 0px;
 }
-
 html, body{
     background-color: #F5F5F5;
     font-family: DINPro-Regular;
@@ -11,7 +10,6 @@ html, body{
 .settings_container{
     width: 100%;
     height: 100%;
-
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .settings_header{
@@ -111,7 +109,6 @@ html, body{
     width: 35px;
     height: 35px;
     border-radius: 35px;
-
     background-size: contain;
     background-position: top;
     background-size: 130%;
@@ -150,7 +147,6 @@ html, body{
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
-
 .hidden{
   display: none;
 }
@@ -241,4 +237,3 @@ html, body{
         padding: 3px 14px;
     }
 }
-

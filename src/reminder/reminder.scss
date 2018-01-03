@@ -255,7 +255,7 @@
   }
 }
 .modal-edit .calend {
-    left: 333px;
+    left: 329px;
 }
 .modal-edit .addtime > :nth-child(n){
   margin-bottom: 5px;
@@ -345,7 +345,7 @@
   .calendar > div:last-child{
     display: flex;
     & .change-week {
-      width: 20%;
+      width: 25%;
       flex-direction: column;
       & > div {
         width: 100%;
@@ -358,7 +358,7 @@
   }
   .calendar .user-week {
     overflow: scroll;
-    width: 80%;
+    width: 75%;
     &::-webkit-scrollbar { 
       display: none; 
     }
@@ -368,7 +368,7 @@
   }
   .calendar .user-week > div > .user{
     display: flex;
-    min-width: 50%;
+    min-width: 100%;
     flex-direction: column;
     & .events {
       min-width: 100%;
@@ -381,6 +381,28 @@
   }
 }
 @media screen and (max-width: 512px) {
+  .modal-edit .setdate {
+    flex-direction: column;
+    & > div {
+      margin-bottom: 5px;
+    }
+    & .calend{
+      top: 90px;
+    }
+    & .start, .end {
+      flex-direction: row-reverse;
+      & img {
+        border-right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      & p {
+        border-radius: 0 3px 3px 0;
+      }
+    }
+  }
+  .modal-edit :first-child{padding-top: 0;}
+  .setdate .rdt{left: 2px;}
+  .modal-edit .start p, .modal-edit .end p{width: 90%;}
   .user-image {display: none;}
   .switch-wearers > div:nth-of-type(2){
     margin-right: 0;
