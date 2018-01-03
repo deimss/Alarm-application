@@ -1,31 +1,8 @@
+
 import React, { Component } from 'react';
 import './reminder.scss';
 import edit from '../assets/icons/pensil.png';
 import axios from 'axios';
-
-
-const master = {
-	client: sessionStorage.getItem("client"),
-	accesstoken: sessionStorage.getItem("accesstoken"),
-	uid: sessionStorage.getItem("uid")
-}
-
-// function UserName(props){
-// 	return (
-// 		<div className="user-name" >
-// 			<div><img src={props.url} alt=""/><p>{props.firstname}<br/>{props.lastname}</p></div>	
-// 			<div><img className="edit" src={edit} alt="" /></div>
-// 		</div>
-// 	)
-// }
-// const Event = (props) => {
-// 	return (
-// 		<div className="dayevents" style={{backgroundColor: props.color}}>
-// 			<img src="http://www.iconarchive.com/download/i82455/medicalwp/medical/Pills-blue.ico" alt="" />
-// 			<p>{props.title}<br/>{props.time}</p>		
-// 		</div>
-// 	)
-// }
 import ReactDOM from 'react-dom';
 import Calendar from 'react-datetime';
 import calendarimg from '../assets/icons/today.svg';
@@ -33,7 +10,7 @@ import addbtn from '../assets/icons/add.svg';
 import delet from '../assets/icons/delete.svg';
 import social from '../assets/icons/group.svg';
 
-
+// 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")
 
 var month = new Array();
 month[0] = "JAN";
@@ -49,7 +26,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-let rerender = false;
+let rerenderAdd = false;
 let arrayofid = [];
 class UserName extends React.Component{
 	constructor(props){
@@ -62,9 +39,9 @@ class UserName extends React.Component{
   }
   tooglemodal(){
     this.setState(state => ({isModalOpen: !state.isModalOpen}))
-    if(rerender == true) {
+    if(rerenderAdd == true) {
     	this.props.onChange();
-    	rerender = false;
+    	rerenderAdd = false;
     }
   }
 
@@ -149,7 +126,7 @@ class AddReminder extends React.Component {
 			}
 	   	}).then(resp => {
 	   		if((i + 1) == this.state.alerts.length){
-  				rerender = true;
+  				rerenderAdd = true;
   				this.props.onClose();
   		}
 	   	}).catch((error) => { 
@@ -226,6 +203,7 @@ class Edit extends React.Component {
     super(props);
   }
   render() {
+  	console.log("props", this.props)
     return (
       <div className="backdrop">
         <div className="modal-edit">
@@ -278,7 +256,6 @@ class Createwearer extends React.Component{
 			sunday: [],
 			number: 0,
 			event: ""
-
 		}
 	}
 	createevent(item){
@@ -288,6 +265,7 @@ class Createwearer extends React.Component{
 		if(minutes < 10) minutes = '0' + minutes;
 		var time = `${hours}:${minutes}`;
 		var category = item.category;
+		//debugger;
 		if(day == 1 && this.props.weekarray[0].day == date.getDate() && this.props.id == item.wearer_id){
 			this.state.monday.push(returnevent())
 		}else if(day == 2 && this.props.weekarray[1].day == date.getDate() && this.props.id == item.wearer_id){
@@ -317,10 +295,9 @@ class Createwearer extends React.Component{
 			}
 			return (
 			<Event time={time} color={color} item={item} title={item.title} icon={icon}/>
-				)
-			}
+		) 
 		}
-	
+	}
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			done: false,
@@ -361,7 +338,7 @@ class Createwearer extends React.Component{
 	   		this.setState({reminders:  response.data});
 	    }).then(response => {
 	    	this.filterReminders(this.state.reminders);
-				this.setState({done: true});
+	    	this.setState({done: true});
 	    }).catch((error) => { 
 	        console.log(error);
 	    });
@@ -386,7 +363,6 @@ class Createwearer extends React.Component{
 		})
 		this.state.filteredreminders.map(this.createevent);
 	}
-	
 	render(){
 		if(this.state.done){
 			return (
@@ -453,6 +429,7 @@ export default class UserEvents extends React.Component{
 		return <Createwearer event={this.state.event} wearershow={this.state.wearershow} id={item.id} url={item.image.url} groupid={this.state.id}  firstname={item.full_name} weekarray={this.state.weekarray}/>
 	}
 	render(){
+		console.log(this.props)
 		return (
 			<div>
 				{this.state.filter}
