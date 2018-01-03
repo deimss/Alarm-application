@@ -114,7 +114,7 @@ class Email extends React.Component {
     }
     //this.setState({isSendData: true});
     })
-    .catch(function (error) {
+    .catch(error => {
     console.log(error);
     this.setState({
       emailError: true
@@ -141,7 +141,7 @@ class Email extends React.Component {
       })
     }
     })
-    .catch(function (error) {
+    .catch(error =>{
     console.log(error);
     this.setState({
       emailError: true
