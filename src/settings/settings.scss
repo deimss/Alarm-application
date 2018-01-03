@@ -842,6 +842,21 @@ input {
 }
 
 @media only screen and (max-width: 599px) {
+
+  .input-range{
+    width: 272px;
+  }
+  .wearer-profile-wrapper .wearer-profile2 .range-timeline li {
+    margin-left: -0.5%;
+  }
+
+  .wearer-profile-wrapper .wearer-profile2 .profile-heart-rate .input-range__track{
+    width: 272px;
+  }
+
+  .wearer-profile-wrapper .wearer-profile1 input[type='text'], .wearer-profile-wrapper .wearer-profile2 input[type='text'] {
+    width: 272px;
+  }
   
   .wearer-profile-wrapper {
     flex-direction: column;
