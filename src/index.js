@@ -18,7 +18,7 @@ import MasterPage from './components/masterPage/masterpage';
 import SettingsPage from './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.js'
 
 ReactDOM.render(
-  <HashRouter >
+  <HashRouter>
     <div>
       <Route path="/resetpassword" component={ResetPassword}/>
       <Route path="/signup" component={SignUp}/>
@@ -27,7 +27,7 @@ ReactDOM.render(
       <Route path="/reminders" component={Reminder}/>
       <Route exact path="/" component={LogIn} />
     </div>
-  </HashRouter >,
+  </HashRouter>,
   document.getElementById('root')
 ); 
 
