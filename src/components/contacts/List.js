@@ -8,7 +8,7 @@ import deleteelem from '../../assets/icons/delete.svg'
 import {ImageRound} from '../otherComponents/images';
 import axios from 'axios';
 import {master} from "../../login/loginForm.js"
-
+import logo from '../../settings/default_avatar.png'
 
 class List extends React.Component {
  constructor(props, context) {
@@ -37,7 +37,7 @@ class List extends React.Component {
 
   createTasks(item) {
     return (
-      <li key={item.id}><div><ImageRound url={item.image.url} /><p>{item.full_name}</p></div> <div> 
+      <li key={item.id}><div><ImageRound url={item.image.url || logo } /><p>{item.full_name}</p></div> <div> 
     <img alt="" src={email}/><img alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
   }
   tooglemodal(){
