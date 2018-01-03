@@ -6,7 +6,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-//import Navbar from '../otherComponents/navBar';
 import Contacts from '../contacts/contacts';
 import MapContainer from '../maps/google-map';
 import AddGroup from '../groups/addGroup';
@@ -16,13 +15,13 @@ import Notifications from '../notifications/notifications'
 import List from '../contacts/List';
 import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
-//import {master} from "../../login/loginForm.js";
 import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
 class MasterPage extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
+			isModal: false,
 			showmodal: false, 
 			todelete: "", 
 			confirm: false, 
@@ -73,6 +72,7 @@ componentDidMount(){
 }
 
 listClick(action, item){
+	this.state.isModal = !this.state.isModal;
 	if(action == "rename"){
 		if(this.state.renamegroup == false) {
 			this.setState({renamegroup: true, todelete: item.id, groupdelete: item.name});
@@ -210,7 +210,7 @@ render(){
 		<Header redirectToLogin = {this.redirectToLogin}/>
 			<div className="contacts-body">
 				<div className="left-bar">
-					<AddGroup active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
+					<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
 					<MapContainer />
 					<div className="terms">
 						<p onClick={() => console.log(this.state)}>About Wristo</p>

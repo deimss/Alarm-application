@@ -10,7 +10,6 @@ import addbtn from '../assets/icons/add.svg';
 import delet from '../assets/icons/delete.svg';
 import social from '../assets/icons/group.svg';
 
-// 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")
 
 var month = new Array();
 month[0] = "JAN";
@@ -203,7 +202,6 @@ class Edit extends React.Component {
     super(props);
   }
   render() {
-  	console.log("props", this.props)
     return (
       <div className="backdrop">
         <div className="modal-edit">
@@ -429,7 +427,6 @@ export default class UserEvents extends React.Component{
 		return <Createwearer event={this.state.event} wearershow={this.state.wearershow} id={item.id} url={item.image.url} groupid={this.state.id}  firstname={item.full_name} weekarray={this.state.weekarray}/>
 	}
 	render(){
-		console.log(this.props)
 		return (
 			<div>
 				{this.state.filter}

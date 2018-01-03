@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './groups.scss';
-import group from '../../assets/icons/group.svg'
-import adduser from '../../assets/icons/add.svg'
+import group from '../../assets/icons/group.svg';
+import adduser from '../../assets/icons/add.svg';
 
 /*this.refs.drop.style.display = 'none';
 this.refs.drop.style.display = 'none';
@@ -9,6 +9,9 @@ this.refs.drop.style.display = 'none';*/
 class DropDownMenu extends React.Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			show: true
+		}
 	}
 	render(){
 		return <ul className="dropdown" ref="drop">
@@ -34,7 +37,7 @@ export default class AddGroup extends React.Component{
 		return <div key={item.id + 1} className={clas} onClick={() => this.props.onGroupClick(item)}>
 			<div className="groupbutton"><img src={group} alt="" />
 			<p>{item.name}</p></div>
-			<DropDownMenu onListClick={this.props.onListClick} item={item}/>
+			<DropDownMenu show={this.props.show} onListClick={this.props.onListClick} item={item}/>
 		</div>
 	}
 	render(){
