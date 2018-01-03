@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import './reminder.scss';
 import edit from '../assets/icons/pensil.png';
@@ -9,6 +8,8 @@ import calendarimg from '../assets/icons/today.svg';
 import addbtn from '../assets/icons/add.svg';
 import delet from '../assets/icons/delete.svg';
 import social from '../assets/icons/group.svg';
+import crB from '../assets/icons/crB.svg';
+import crY from '../assets/icons/crY.svg';
 
 // 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")
 
@@ -212,7 +213,48 @@ class Edit extends React.Component {
     );
   }
 }
-
+class Delete extends React.Component {
+	constructor(props){
+		super(props);
+	}
+	renamegroup(){
+		this.props.onClose("delete");
+	}
+	delete(e){
+		e.preventDefault();
+		axios({
+	      method: 'delete',
+	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.props.gid+'/wearers/'+this.props.wid+'/reminders/'+this.props.item.id,
+	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+     	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
+	      responseType: 'json'
+	   	}).then(response => {
+	   		rerenderAdd = true;
+	   		this.props.onClose();
+	    }).catch((error) => { 
+	        console.log(error);
+	    });
+	}
+  render() {
+    return (
+      <div className="backdrop">
+        <div className="modal-rename">
+        <p>Delete group</p>
+          {this.props.children}
+          <div className="message">Do you realy want to delete reminder {this.props.item.title}.</div>
+          <div className="footer">
+            <button onClick={this.renamegroup.bind(this)}>
+              cancel
+            </button>
+            <button onClick={this.delete.bind(this)}>
+              accept
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 class Event extends React.Component{
 	constructor(props){
 		super(props);
@@ -220,25 +262,35 @@ class Event extends React.Component{
 		this.state = {
 		isModal: false,
 		alerts: "",
-		type: ""
+		type: "", 
+		icon: ""
 	}
 	}
 	tooglemodal(){
 	    this.setState(state => ({isModal: !state.isModal}))
-	  }
+	    if(rerenderAdd == true) {
+	    	this.props.onChange();
+	    	rerenderAdd = false;
+	    }
+	}
 	render(){
-		let icon;
+		let icon, cross = {};
 		this.props.icon == "s" ? icon = "http://www.youngdementiasupport.london/wp-content/themes/yod/images/icon-groups.svg" 
-		: icon = "http://www.iconsplace.com/icons/preview/blue/pill-256.png"
+		: icon = "http://www.iconsplace.com/icons/preview/blue/pill-256.png";
+		this.props.cros == "y" ? this.state.icon = crY : this.state.icon = crB;
 		return (
-			<div className="dayevents" style={{backgroundColor: this.props.color}} onClick={this.tooglemodal.bind(this)}>
-				{this.state.isModal && ReactDOM.createPortal(<Edit onlol={this.tooglemodal}/>, document.getElementById("portal"))}
+			<div className="dayevents" style={{backgroundColor: this.props.color}}>
 				<img src={icon} alt="" />
 				<p>{this.props.title}<br/>{this.props.time}</p>	
+				<img onClick={this.tooglemodal.bind(this)} className="delete-event" src={this.state.icon}/>
+				{this.state.isModal && ReactDOM.createPortal(<Delete wid={this.props.item.wearer_id} gid={this.props.gid} item={this.props.item} name={this.props.firstname} onClose={this.tooglemodal.bind(this)}/>, document.getElementById("portal"))}
 			</div>
 		)
 	}
 };
+
+//http://www.iconninja.com/files/522/978/507/delete-cancel-remove-cross-icon.svg
+//https://image.flaticon.com/icons/png/128/59/59836.png
 class Createwearer extends React.Component{
 	constructor(props){
 		super(props);
@@ -259,41 +311,43 @@ class Createwearer extends React.Component{
 	}
 	createevent(item){
 		var date = new Date(item.start_date);
-		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color, icon;
+		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color, icon, cross;
 		if(hours < 10) hours = '0' + hours;
 		if(minutes < 10) minutes = '0' + minutes;
 		var time = `${hours}:${minutes}`;
 		var category = item.category;
 		//debugger;
 		if(day == 1 && this.props.weekarray[0].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.monday.push(returnevent())
+			this.state.monday.push(returnevent.call(this))
 		}else if(day == 2 && this.props.weekarray[1].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.tuesday.push(returnevent())
+			this.state.tuesday.push(returnevent.call(this))
 		}else if(day == 3 && this.props.weekarray[2].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.wednesday.push(returnevent())
+			this.state.wednesday.push(returnevent.call(this))
 		}else if(day == 4 && this.props.weekarray[3].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.thursday.push(returnevent())
+			this.state.thursday.push(returnevent.call(this))
 		}else if(day == 5 && this.props.weekarray[4].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.friday.push(returnevent())
+			this.state.friday.push(returnevent.call(this))
 		}else if(day == 6 && this.props.weekarray[5].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.saturday.push(returnevent())
+			this.state.saturday.push(returnevent.call(this))
 		}else if(day == 0 && this.props.weekarray[6].day == date.getDate() && this.props.id == item.wearer_id){
-			this.state.sunday.push(returnevent())
+			this.state.sunday.push(returnevent.call(this))
 		}
 		function returnevent(){
 			switch (category) 
 			{
 			case "social": 
 				icon = "s";
+				cross = "y"
 				color = "#FFF0D0"; break;
 			case "medical": 
 				icon = "m";
+				cross = "b"
 				color = "#E3F0F9"; break;
 			default: 
 				color = "#000"; break;
 			}
 			return (
-			<Event time={time} color={color} item={item} title={item.title} icon={icon}/>
+			<Event cros={cross} onChange={this.getReminders} gid={this.props.groupid} time={time} color={color} item={item} title={item.title} icon={icon}/>
 		) 
 		}
 	}

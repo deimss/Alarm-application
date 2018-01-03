@@ -197,9 +197,19 @@
   margin: 5px;
   padding: 5px 10px;
   border-radius: 3px;
+  position: relative;
 }
 .calendar .user .dayevents p {margin-left: 5px;}
-
+.calendar .user img.delete-event {
+  height: 13px;
+  width: 13px;
+  position: absolute;
+  top: -3px;
+  right: 0;
+}
+.calendar .user img.delete-event:hover{
+  background-color: #ccc;
+}
 .modal-edit{
   display: flex;
   padding: 20px;
