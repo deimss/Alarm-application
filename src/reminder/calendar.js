@@ -48,6 +48,7 @@ class Calendar extends React.Component{
   		this.state = {
             week: "",
             arrayofweek: [],
+            reminders: [],
             search: [],
             check: ""
         }
@@ -146,11 +147,6 @@ class Calendar extends React.Component{
        }
        return false;
     }
-    shouldComponentUpdate(nextProps, nextState){
-        if(nextProps.wearers == this.state.wearers){ 
-            return true;
-        } else return false;
-    }
 	render(){
     	return (<div className="calendar">
             <div className="switch-date">
@@ -164,8 +160,9 @@ class Calendar extends React.Component{
                     <UserEvents event={this.state.event} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>
             </div>
-           </div>
+            </div>
         )
 	}
 }
+
 export default Calendar;

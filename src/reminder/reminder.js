@@ -19,6 +19,7 @@ import WearersLoading from '../settings/wearer-settings/wearers-configuration-pa
 /*commit in other*/
 let reminders = [];
 
+
 class Reminder extends React.Component {
   constructor(props){
   	super(props);
@@ -28,24 +29,20 @@ class Reminder extends React.Component {
   		groupid: 0,
   		wearershow: "all users",
   		search: 0,
-			eventfilter: "",
-			filteredreminders: [],
+  		filteredreminders: [],
+  		eventfilter: "",
+			rerender: true,
 			redirectToLogin: null,
-      accesstoken: null,
-      uid: null,
-      client: null
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
   	this.getWearers = this.getWearers.bind(this);
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
-  	this.createreminder = this.createreminder.bind(this);
-		//this.chooseevent = this.chooseevent.bind(this);
+		this.createreminder = this.createreminder.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
-		this.ch = this.ch.bind(this);
+  	this.ch = this.ch.bind(this);
 }
-
 
 addGroup(item){
 	let color = "#f5f5f5";
@@ -72,7 +69,7 @@ getWearers(id){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + id + '/wearers',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
+				'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({wearers: response.data});
@@ -81,16 +78,7 @@ getWearers(id){
 	        console.log(error);
 	    });
 }
-componentWillMount(){
-	if( master.accesstoken !== null && master.uid !== null && master.client !== null){
-		this.setState({
-			accesstoken: master.accesstoken,
-			uid: master.uid,
-			client: master.client
-		})  
-		} 
 
-}
 componentDidMount(){
 	axios({
 		method: 'get',
@@ -127,18 +115,13 @@ componentDidMount(){
 				})
 		}
 		this.setState({error: true})
-
-
 	}).then(response => {
-
 		this.getReminders()
 	}, error => { 
 		this.setState({error: true})
 	});
-
 		if(this.state.groupid) this.getReminders();
 }
-
 getReminders(){
 		axios({
 	      method: 'get',
@@ -147,25 +130,15 @@ getReminders(){
      	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
-				if(response.status == 200){
-					this.setState({
-						redirectToLogin: false
-					})
-				}
 	   		this.state.reminders = response.data;
-	    }, error => { 
-				console.log("error", error);
-				if(error.response.status === 401){
-					this.setState({
-						redirectToLogin: true
-					})
-			}
-		})
+	    }).catch((error) => { 
+	        console.log("error", error);
+	    });
 }
-
 findreminder(){
+	this.setState({rerender: false});
 	let find, rem;
-	find = this.refs.reminder.value;
+	this.state.eventfilter = find = this.refs.reminder.value;
 	rem = this.state.reminders.filter(item => {
 		return item.title.toLowerCase().indexOf(find.toLowerCase()) !== -1;})
 	this.setState({filteredreminders: rem});
@@ -173,7 +146,9 @@ findreminder(){
 createreminder(item){
 	return <li key={item.id} onClick={() => this.ch(item)}>{item.title}</li>
 }
-
+ch(e){
+	this.setState({eventfilter: e.title, rerender: true});
+}
 
 redirectToLogin() {          
 	if( this.state.client == null && this.state.accesstoken == null && this.state.uid == null){
@@ -182,10 +157,6 @@ redirectToLogin() {
 		})
 	}
 	};
-ch(e){
-	console.log(e.title)
-	this.setState({eventfilter: e.title, rerender: true});
-}
 
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -193,45 +164,47 @@ render(){
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
-  	this.state.filteredreminders ? createreminders = this.state.filteredreminders.map(this.createreminder) : createreminders = this.state.reminders.map(this.createreminder)
-	return(
+	if(this.state.filteredreminders){
+		createreminders = this.state.filteredreminders.map(this.createreminder);
+		createreminders.unshift(<li key={999} onClick={() => this.ch({title: ""})}>All Reminders</li>)
+	}
+	return( 
 		<div>{
 			this.state.redirectToLogin ?  <Redirect to={{
 				pathname: '/'
-			}}/> : this.state.redirectToLogin === false ? 		<div className="reminders">
-			<Header redirectToLogin = {this.redirectToLogin} />
-				<div className="switch-wearers">
-					<div className="add-group">
-						{listOfGroups}
+			}}/> : this.state.redirectToLogin === false ?
+		<div className="reminders">
+		<Header redirectToLogin = {this.redirectToLogin}/>
+			<div className="switch-wearers">
+				<div className="add-group">
+					{listOfGroups}
+				</div>
+				<div>
+					<div className="user-image"><img src={userImage}/></div>
+					<div className="combobox">
+						<button className="dropbtn">{this.state.cmbbox}</button>
+						<ul className="dropdown-content">
+						<li key="" onClick={(e) => this.switchwearer({full_name: "all users", id: 0}, e)} >
+						All users</li>{listWearers}</ul>
 					</div>
-					<div>
-						<div className="user-image"><img src={userImage}/></div>
-						<div className="combobox">
-							<button className="dropbtn">{this.state.cmbbox}</button>
-							<ul className="dropdown-content">
-							<li key="" onClick={(e) => this.switchwearer({full_name: "all users", id: 0}, e)} >
-							All users</li>{listWearers}</ul>
-						</div>
-						<div className="search">
-								<input placeholder="Search" className="input" ref="reminder" onChange={this.findreminder.bind(this)}/>
-								<ul className="reminderslist">
-								{createreminders}
-								</ul>
-						</div>
+					<div className="search">
+						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter} onChange={this.findreminder.bind(this)}/>
+						  <ul className="reminderslist">
+						  {createreminders}
+						  </ul>
 					</div>
 				</div>
-	
-				<div className="reminders-table">
-					<Calendar rerender={this.state.rerender} event={this.state.eventfilter} wearers={this.state.wearers} 
+			</div>
+
+			<div className="reminders-table">
+				<Calendar rerender={this.state.rerender} event={this.state.eventfilter} wearers={this.state.wearers} 
 				id={this.state.groupid} wearershow={this.state.wearershow} filter={this.state.search}/>
-				</div>
-			</div> :
+			</div>
+		</div>:
 			<WearersLoading/> 
 		}
 		</div> 
 	)
 }
 }
-
-
 export default Reminder;
