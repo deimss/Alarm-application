@@ -10,6 +10,7 @@ import delet from '../assets/icons/delete.svg';
 import social from '../assets/icons/group.svg';
 import crB from '../assets/icons/crB.svg';
 import crY from '../assets/icons/crY.svg';
+import group from '../assets/icons/grouprem.svg';
 
 
 var month = new Array();
@@ -274,7 +275,7 @@ class Event extends React.Component{
 	}
 	render(){
 		let icon, cross = {};
-		this.props.icon == "s" ? icon = "http://www.youngdementiasupport.london/wp-content/themes/yod/images/icon-groups.svg" 
+		this.props.icon == "s" ? icon = group 
 		: icon = "http://www.iconsplace.com/icons/preview/blue/pill-256.png";
 		this.props.cros == "y" ? this.state.icon = crY : this.state.icon = crB;
 		return (

@@ -327,7 +327,7 @@
 
 
 @media screen and (max-width: 970px) {
-  .events > div img {display: none;}
+  .events > div img:first-of-type{display: none;}
   .calendar .user .user-name{
     flex-direction: column;
     justify-content: flex-start;
