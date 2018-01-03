@@ -46,7 +46,6 @@ class LogInForm extends React.Component {
   }
 
   componentWillMount(){
-    console.log('MASTERrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',master)
     if(sessionStorage.getItem("client") !== null && sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null ){
       this.setState({
         redirectToMaster: true
@@ -61,10 +60,8 @@ class LogInForm extends React.Component {
     this.setState({loginError: false});
     if(name =='email') {
       this.setState({email: value});
-      console.log("email success");
     }else if(name =='password') {
       this.setState({password: value});
-      console.log("password success");
     };
  };
   
@@ -81,7 +78,6 @@ class LogInForm extends React.Component {
     isSendData: true
     
     });
-    console.log('MASTER',master)
     var errorStatus = false;
     event.preventDefault();
     axios({
@@ -93,7 +89,7 @@ class LogInForm extends React.Component {
             }
 
 }).then(response => {
-    console.log('loginForm response headers', response.headers['access-token'],response.headers.client,response.headers.uid);
+    
   if(response.status === 200){
     sessionStorage.setItem('client', response.headers.client);
     sessionStorage.setItem('accesstoken', response.headers['access-token']);
@@ -109,7 +105,6 @@ class LogInForm extends React.Component {
       isAuthenticated: false
     })
   }
-  console.log('MASTER',master)  
   })
   .catch((error) => { 
     this.setState({
@@ -122,9 +117,6 @@ class LogInForm extends React.Component {
 };
 
   render() {
-    console.log('Login this.state.accessToken', this.state.accesstoken);
-    console.log('Login this.state.client', this.state.client);
-    console.log('Login this.state.uid', this.state.uid);
 
     let firstNameStyle = classNames({
       'inputField': (this.state.firstNameError) || (this.state.firstName == null && this.state.isSendData) 
