@@ -10,7 +10,6 @@ import addbtn from '../assets/icons/add.svg';
 import delet from '../assets/icons/delete.svg';
 import social from '../assets/icons/group.svg';
 
-// 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")
 
 var month = new Array();
 month[0] = "JAN";
