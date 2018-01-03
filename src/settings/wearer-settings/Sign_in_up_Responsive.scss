@@ -65,9 +65,8 @@ header{
 .wrap{
     width: 100%;
     max-width: 400px;
-    margin: auto;
+    margin:auto;
     margin-top: 153px;
-    /*margin-top: 10%;*/
 /*    margin-bottom: 328px;*/
 /*    height: 100%;*/
 }
@@ -132,7 +131,7 @@ form p {
     font-weight: 500;
 }
 
-p#forgotPass a{
+p#forgotPass1 a, p#forgotPass2 a{
     text-decoration: none;
     font-size: 14px;
     font-weight: 300;
@@ -161,7 +160,13 @@ input::placeholder {
 }
 
 
-#forgotPass{
+#forgotPass1{
+    text-align: right;
+    margin-top: 22px;
+    margin-bottom: 0;
+}
+
+#forgotPass2{
     text-align: right;
     margin-top: 8px;
     margin-bottom: 0;
@@ -259,21 +264,7 @@ span{
     position: relative;   
 }
 
-/*@media only screen and (max-width : 1224px) {
-
-    .wearerConfigWrap {
-        width: 100%;
-        padding-left: 0px;
-    }
-}*/
-
-/*@media only screen and (max-width : 768px) {
-
-    .wrap{
-    width: 100%;
-    max-width: 400px;
-    margin:auto;
-
-    }   
-}*/
-
+.Modal-013 h2{
+    padding-right: 30px;
+    height: 50px;
+}

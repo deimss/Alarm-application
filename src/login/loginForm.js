@@ -2,30 +2,19 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
+//import MasterPage from '../../components/masterPage/masterpage';
 
-<<<<<<< HEAD
-export const master = {    
-    client: '3KufwpmTQzCXSUaeaZgDhg',
-    accesstoken: '3JwD4O_YpOQgm4UhFadmKg',
-    uid: 'boretskairuna23@gmail.com'
-=======
 export const master = {
-  
-    // client: 'ejbYpLdnX25AFGFq6TepKQ',
-    // accesstoken: 'FgPYMpIca2A9-059GI-aLA',
-    // uid: 'deimssssss19482@gmail.com'
-    
-
-    client: 'WPTypISPfhT1paSsuUAbGg',
-    accesstoken: '3-YHysTcGNYbaTwnErwUIA',
-    uid: 'dmytro.pogoretsky@gmail.com'
-
-    // client: 'W2LR1QjeEjWU-EQ3PCY6Ew',
-    // accesstoken: 'sNQQCQKnpQ2lU0SH95Q8TQ',
-    // uid: 'boretskairuna23@gmail.com'
-
-
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
+    client: sessionStorage.getItem("client"),
+    accesstoken: sessionStorage.getItem("accesstoken"),
+    uid: sessionStorage.getItem("uid")
 }
 
 
@@ -49,10 +38,21 @@ class LogInForm extends React.Component {
       isSendData: false,
       testError: false,
       loginError: false,
-      accessToken: null, 
+      accesstoken: null, 
       client: null,
-      uid: null
+      uid: null,
+      isAuthenticated: false,
+      redirectToMaster: false
    };
+  }
+
+  componentWillMount(){
+    console.log('MASTERrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',master)
+    if(sessionStorage.getItem("client") !== null && sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null ){
+      this.setState({
+        redirectToMaster: true
+      })
+    }
   }
 
   saveInput(event) {
@@ -68,12 +68,21 @@ class LogInForm extends React.Component {
       console.log("password success");
     };
  };
-
   
+ isAuthenticated(){
+   if(this.state.client !== null && this.state.accesstoken !== null  && this.state.uid !== null ){
+     this.setState({isAuthenticated: true})
+   }else {
+    this.setState({isAuthenticated: false})
+   }
+ }
   
   sendData(event){
-
-    this.setState({isSendData: true});
+    this.setState({
+    isSendData: true
+    
+    });
+    console.log('MASTER',master)
     var errorStatus = false;
     event.preventDefault();
     axios({
@@ -85,33 +94,36 @@ class LogInForm extends React.Component {
             }
 
 }).then(response => {
-    console.log('loginForm response headers',response.headers);
+    console.log('loginForm response headers', response.headers['access-token'],response.headers.client,response.headers.uid);
+  if(response.status === 200){
+    sessionStorage.setItem('client', response.headers.client);
+    sessionStorage.setItem('accesstoken', response.headers['access-token']);
+    sessionStorage.setItem('uid', response.headers.uid);
     this.setState({
-      accessToken: response.headers['access-token'], 
-      client: response.headers.client,
-      uid: response.headers.uid
+      isAuthenticated: true,
+      accesstoken: response.headers['access-token'],
+      uid: response.headers.uid,
+      client: response.headers.client
     })
-
+  }else {
+    this.setState({
+      isAuthenticated: false
+    })
+  }
+  console.log('MASTER',master)  
   })
   .catch((error) => { 
-    this.setState({loginError: true});
+    this.setState({
+      loginError: true,
+      isAuthenticated: false
+    });
     console.log(error);
-    //this.setState({loginError: true});
-    //console.log(this.state.loginError);
-    //errorStatus = error;
-    //setTimeout(this.setState({loginError: true}),1000);
+
   });
-//console.log(this.state.loginError);
 };
 
-
-
-
-
-
   render() {
-
-    console.log('Login this.state.accessToken', this.state.accessToken);
+    console.log('Login this.state.accessToken', this.state.accesstoken);
     console.log('Login this.state.client', this.state.client);
     console.log('Login this.state.uid', this.state.uid);
 
@@ -129,27 +141,31 @@ class LogInForm extends React.Component {
       'inputField': (this.state.passError) || (this.state.password == null && this.state.isSendData)
     });
 
-
     return (
-        <form className="signInForm">
-        <p>Email</p>
-        <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
-        
-        <p>Password</p>
-            <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onChange={this.saveInput} />
-            {this.state.loginError && <div className="login-error">
-                <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0V0z" fill="none"/>
-                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-                </svg>
-                <span> Invalid login or password. Please try again. </span>
-            </div>}
-            <p id="forgotPass"><a href="#"> Forgot password?</a></p>
-            
-            <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
-            
-        </form>
-
+      <div>
+        {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{
+        pathname: '/masterpage'
+      }}/> :  <form className="signInForm">
+      <p>Email</p>
+      <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
+      
+      <p>Password</p>
+          <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="Enter your password" onChange={this.saveInput} />
+          {this.state.loginError && <div className="login-error">
+              <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+              </svg>
+              <span> Invalid login or password. Please try again. </span>
+          </div>}
+          <p id="forgotPass1" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
+          <p id="forgotPass2" onClick={() => this.props.toogleResendEmailInp()}><a href="#"> Recend confirmation email</a></p>
+          
+          <input className="submit" type="button" value="Sign in" onClick={this.sendData}/>
+          
+      </form> 
+      }       
+      </div>
     );
   }
 }

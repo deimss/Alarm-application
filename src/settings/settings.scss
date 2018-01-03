@@ -25,6 +25,9 @@ input {
   background: white;
 }
 
+// html{
+//   width: auto;
+// }
 
 
  /*Start: Style navbar section */
@@ -797,6 +800,34 @@ input {
 }
 
 
+.errorPasswordConfirm {
+  position: absolute;
+  right: 115px;
+  padding-top: 5px;
+  font-size: 14px;
+  color: #b52f54;
+  span{
+    font-family: DINPro-Medium;
+    }
+}
+
+#headers-update-password{
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: DINPro-Medium;
+}
+.headers-update-password{
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: DINPro-Medium;
+
+
 @media only screen and (min-width: 600px) and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1023px)  {
   
@@ -902,4 +933,5 @@ input {
   min-width: 200px;
   width: 100%;
 }
-}
+
+}}

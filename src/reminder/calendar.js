@@ -25,11 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-<<<<<<< HEAD
-var d = new Date(2018, 0,1);
-=======
-var d = new Date(2017, 11, 4);
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
+var d = new Date();
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
@@ -52,13 +48,8 @@ class Calendar extends React.Component{
   		this.state = {
             week: "",
             arrayofweek: [],
-            reminders: [],
-<<<<<<< HEAD
             search: [],
             check: ""
-=======
-            search: []
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
         }
   	}
     setweek(str){
@@ -147,7 +138,6 @@ class Calendar extends React.Component{
         this.setState({wearershow: nextProps.wearershow});
         this.state.wearers = nextProps.wearers;
         this.state.reminders = nextProps.search;
-<<<<<<< HEAD
         this.state.event = nextProps.event;
     }
     shouldComponentUpdate(nextProps, nextState){
@@ -155,13 +145,11 @@ class Calendar extends React.Component{
         return true;
        }
        return false;
-=======
     }
     shouldComponentUpdate(nextProps, nextState){
         if(nextProps.wearers == this.state.wearers){ 
             return true;
         } else return false;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
     }
 	render(){
     	return (<div className="calendar">
@@ -170,23 +158,14 @@ class Calendar extends React.Component{
     				<Par firstday={this.state.firstday} lastday={this.state.lastday} />
     			<span onClick={this.nextWeek.bind(this)}>&#62;</span>
     		</div>
-<<<<<<< HEAD
             <div>
                 <Weeks weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
                     <UserEvents event={this.state.event} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>
             </div>
-            </div>
-=======
-                <Weeks weekarray={this.state.arrayofweek}/>
-                <div className="user-week">
-                    <UserEvents  wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
-                </div>
-            </div>
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
+           </div>
         )
 	}
 }
-
 export default Calendar;

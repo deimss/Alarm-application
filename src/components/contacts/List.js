@@ -78,7 +78,7 @@ class Delete extends React.Component {
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${this.props.id}/wearers`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
       responseType: 'json',
       data: {
         "wearer_id": id,
@@ -108,7 +108,7 @@ class Delete extends React.Component {
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
       responseType: 'json'
     }).then(response => {
       this.filterwearers(response.data);

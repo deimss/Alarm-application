@@ -1,14 +1,8 @@
 .add-group {
-<<<<<<< HEAD
 	height: auto;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-=======
-	height: 72px;
-	display: flex;
-	align-items: center;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 .add-group > div:hover{
 	cursor: pointer;
@@ -17,10 +11,6 @@
 .add-group > div:hover .dropdown{
 	display: flex;
 	opacity: 0.99;
-<<<<<<< HEAD
-=======
-	transition: opacity .4s ease-in-out;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 .hover{
   background-color: red;
@@ -28,11 +18,7 @@
 }
 .add-group > div{
 	min-width: 80px;
-<<<<<<< HEAD
 	//border-bottom: 11px solid #F5F5F5;
-=======
-	border-bottom: 10px solid #F5F5F5;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 	text-align: center;
 	margin-top: 14px;
 	margin-bottom: 7px;
@@ -56,11 +42,7 @@
 	text-transform: capitalize;
 	font-size: 16px;
 	font-family: 'DINPro-Regular';
-<<<<<<< HEAD
 	margin-top: 9px;
-=======
-	margin-top: 17px;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 	list-style: none;
 	display: none;
 	flex-direction: column;

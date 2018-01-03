@@ -2,6 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
+
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +31,8 @@ class SignUpForm extends React.Component {
       textValue:'Show',
       passwordType: 'password',
       isSendData: false,
-      testError: false
+      testError: false,
+      isRegistrationed: false
       //divStyle: null
 
       //{outline: 5px solid #b52f54;}
@@ -218,8 +227,17 @@ handleLastNameInput(event) {
               }
             }
 
-}).then(function (response) {
+}).then(response => {
     console.log(response);
+    if(response.status === 200){
+      this.setState({
+        isRegistrationed: true
+      })
+    }else {
+      this.setState({
+        isRegistrationed: false
+      })
+    }
     //this.setState({isSendData: true});
   })
   .catch(function (error) {
@@ -259,6 +277,10 @@ handleLastNameInput(event) {
     // })
 
     return (
+      <div>
+      {this.state.isRegistrationed ? <Redirect to={{
+        pathname: '/'
+      }}/> :
         <form className="signUpForm">
             <p>First name <span>*</span>
             </p>
@@ -312,8 +334,8 @@ handleLastNameInput(event) {
             <button className="showPass" name="showPass" onClick={this.handleTooglePass}>{this.state.textValue}</button>
 
             <input className="submit" type="button" value="Create account" onClick={this.sendData}/>
-        </form>
-
+        </form>}
+    </div>
     );
   }
 }

@@ -1,5 +1,11 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
 //import Navbar from '../otherComponents/navBar';
 import Contacts from '../contacts/contacts';
 import MapContainer from '../maps/google-map';
@@ -10,7 +16,8 @@ import Notifications from '../notifications/notifications'
 import List from '../contacts/List';
 import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
-import {master} from "../../login/loginForm.js";
+//import {master} from "../../login/loginForm.js";
+import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
 class MasterPage extends React.Component{
 	constructor(props){
@@ -27,7 +34,11 @@ class MasterPage extends React.Component{
 			deleteGroup: false,
 			duplicateGroup: false,
 			newGroup: false,
-			toedit: ""
+			toedit: "",
+			redirectToLogin: null,
+      accesstoken: null,
+      uid: null,
+      client: null
 		};
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
@@ -35,15 +46,32 @@ class MasterPage extends React.Component{
 		this.getGroups = this.getGroups.bind(this);
 		this.onGroupClick = this.onGroupClick.bind(this);
 		this.listClick = this.listClick.bind(this);
+		this.redirectToLogin = this.redirectToLogin.bind(this);
 		//this.renamegroup = this.renamegroup.bind(this);
 	}
 
 // componentWillMount(){
 // 	//if(fakeAuth.isAuthenticated == false)browserHistory.push('/login');
 // }
-componentWillMount() { 
-	this.getGroups();
+componentWillMount() {
+	// const master = {
+  //   accesstoken: sessionStorage.getItem("accesstoken"),
+  //   client: sessionStorage.getItem("client"),
+  //   uid: sessionStorage.getItem("uid")
+  // }
+  if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
+		this.setState({
+			client: sessionStorage.getItem("client"),
+			accesstoken: sessionStorage.getItem("accesstoken"),
+			uid: sessionStorage.getItem("uid"),
+		})  
+		} 
 };
+
+componentDidMount(){
+	this.getGroups();
+}
+
 listClick(action, item){
 	if(action == "rename"){
 		if(this.state.renamegroup == false) {
@@ -76,7 +104,7 @@ getWearers(id){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + id + '/wearers',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-      	 'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+      	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({axiosData: response.data}); 
@@ -89,16 +117,25 @@ getGroups(){
 	      method: 'get',
 	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
 	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-     'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+     'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
+			if(response.status == 200){
+					this.setState({
+						redirectToLogin: false
+					})
+				}
 	   		this.setState({groups:  response.data});
 	   		this.state.group = response.data[0].id;
 	   		this.state.groupname = response.data[0].name;
 	   		this.getWearers(response.data[0].id);
-	    }).catch((error) => { 
-	        console.log(error);
-	    });
+	    },error => { 
+				console.log(error);
+				if(error.response.status === 401)
+				this.setState({
+					redirectToLogin: true
+				})
+		})
 }
 onchangestate(item){
 	if(this.state.showmodal == false) {
@@ -117,7 +154,7 @@ deleteListItem(){
 		 	method: 'delete',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.state.group + '/wearers/' + this.state.todelete,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json',
 	 	}).then(res => {
 	 		this.getWearers(this.state.group);		
@@ -128,13 +165,15 @@ deleteListItem(){
 	// const filteredUsers = this.state.axiosData.filter(user => user.id != this.state.todelete);
 	// this.setState({ confirm: true, axiosData: filteredUsers });
 }
-// renamegroup(name){
-// 	for(let i = 0; i < this.state.groups.length; i++){
-// 		if(this.state.group == this.state.groups[i].id){
-// 			this.state.groups[i].name = name;
-// 		}
-// 	}
-// }
+
+redirectToLogin() {          
+	if( this.state.client == null && this.state.accesstoken == null && this.state.uid == null){
+		this.setState({
+			redirectToLogin: true
+		})
+	}
+	};
+
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
 	if(this.state.showmodal === true){
@@ -163,8 +202,12 @@ render(){
 		newGroup = null;
 	}
 
-	return <div className="masterpage">
-		<Header />
+	return (
+	<div>{
+		this.state.redirectToLogin ?  <Redirect to={{
+			pathname: '/'
+		}}/> : this.state.redirectToLogin === false ? <div className="masterpage">
+		<Header redirectToLogin = {this.redirectToLogin}/>
 			<div className="contacts-body">
 				<div className="left-bar">
 					<AddGroup active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
@@ -185,6 +228,9 @@ render(){
 			{newGroup}
 			{deleteGroup}
 	</div>
+    : <WearersLoading/> 	}
+	
+	</div>)
 }
 }
 
@@ -241,7 +287,7 @@ class RenameGroup extends React.Component {
 		 	method: 'put',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {
@@ -288,7 +334,7 @@ class Delete extends React.Component {
 		 	method: 'delete',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json'
 		}).then(res => {
 			console.log("success  !!")
@@ -335,7 +381,7 @@ class Duplicate extends React.Component {
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.newGroup+'/wearers ',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json',
 		    data: 
 		    {
@@ -353,7 +399,7 @@ class Duplicate extends React.Component {
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json',
 		    data: {"name": this.props.todelete}
 		}).then(response => {
@@ -365,7 +411,7 @@ class Duplicate extends React.Component {
 		    method: 'get',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id + '/wearers',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	      	'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	      	'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json'
 		   	}).then(response => {
 		   		this.makecopy(response.data)
@@ -419,7 +465,7 @@ class NewGroup extends React.Component {
 		 	method: 'post',
 		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/',
 		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': master.uid, 'client': master.client, 'access-token': master.accesstoken},
+	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 		    responseType: 'json',
 		    data: {"name": this.state.newname}
 	 	}).then(res => {

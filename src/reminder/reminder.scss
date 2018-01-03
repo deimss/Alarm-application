@@ -84,25 +84,17 @@
   list-style: none;
   display: none;
   width: 100%;
-<<<<<<< HEAD
   max-height: 200px;
   overflow: scroll;
-=======
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
   position: absolute;
   background-color: #fff;
   z-index: 1;
 }
-<<<<<<< HEAD
 .reminderslist:hover {display: block;}
 .reminderslist li:hover {background-color: #f1f1f1}
 .reminderslist::-webkit-scrollbar { 
   display: none; 
 }
-=======
-.reminderslist li:hover {background-color: #f1f1f1}
-
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 .reminderslist li {
   color: black;
   padding: 12px 16px;
@@ -194,11 +186,7 @@
 .calendar .user .events {
   min-height: 47px;
   width: 12.5%;
-<<<<<<< HEAD
   max-height: 130px;
-=======
-  max-height: 161px;
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
 .calendar .user .dayevents img{margin-top: 4px;}
 .calendar .user .dayevents {
@@ -312,7 +300,6 @@
 .modal-edit .reminder-type p:hover .dropdown-content{
   display: block;
 }
-<<<<<<< HEAD
 .backdrop .modal-edit .footer{padding: 0;}
 .modal-edit .footer:first-child{margin-left: 0;}
 .backdrop .modal-edit .footer{
@@ -326,8 +313,6 @@
     border-radius: 3px;
   }
 }
-=======
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 
 
 
@@ -355,7 +340,6 @@
     flex-direction: column;
     align-items: center;
   }
-<<<<<<< HEAD
 }
 @media screen and (max-width: 700px) {
   .calendar > div:last-child{
@@ -415,6 +399,4 @@
   .calendar > div:last-child .change-week > div{
     height: 46px;
   }
-=======
->>>>>>> 4f4fed2ff77c8c3421fadf54d38e9c60a63cb5ee
 }
