@@ -309,7 +309,7 @@ input {
         /*font-family: DINPro;*/
         font-family: DINPro-Regular;
         font-size: 15px;
-        padding: 0 107px 0 0;
+        padding: 0 95px 0 0;
       }
     }
 
@@ -340,7 +340,7 @@ input {
         /*padding: 0 200px 0 0;*/
       }
       ul {
-        margin-left: 136px;
+        margin-left: 122px;
         list-style: none;
         background: white;
         /*display: flex;
@@ -439,21 +439,21 @@ input {
         padding-top: 10px;
         label {
           font-size: 15px;
-          padding-right: 147px;
+          padding-right: 139px;
         }
       }
       div:last-child {
         padding-top: 5px;
           label {
             font-size: 15px;
-            padding-right: 128px;
+            padding-right: 118px;
           }
       }
     }
     .range-timeline{
       display: block;
       list-style: none;
-      padding-left: 175px;
+      padding-left: 165px;
       li {
         width: 14.7px;
         float: left;
@@ -499,7 +499,7 @@ input {
       
       label:first-child {
         font-size: 15px;
-        padding-right: 80px;
+        padding-right: 63px;
         span {
           padding-left: 4px;
           color: white;
@@ -827,8 +827,7 @@ input {
 
 }
 
-@media only screen and (min-width: 600px) and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1023px)  {
+@media only screen and (max-width: 920px)  {
   
   .wearer-profile-wrapper {
     flex-direction: column;
@@ -870,6 +869,11 @@ input {
     span {
     margin-bottom: 8px;
   }
+
+}
+
+.wearer-profile-wrapper .wearer-profile1 .profile-gender .gender-position{
+  padding: 0 0 0 20px;
 }
 
 .profile-age-weight>div{
