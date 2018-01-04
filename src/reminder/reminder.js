@@ -24,10 +24,10 @@ class Reminder extends React.Component {
   constructor(props){
   	super(props);
   	this.state = {
-  		cmbbox: "all users",
+  		cmbbox: "All users",
   		groups: [],
   		groupid: 0,
-  		wearershow: "all users",
+  		wearershow: "All users",
   		search: 0,
   		filteredreminders: [],
   		eventfilter: "",
@@ -42,8 +42,9 @@ class Reminder extends React.Component {
   	this.getWearers = this.getWearers.bind(this);
   	this.switchwearer = this.switchwearer.bind(this);
   	this.getReminders = this.getReminders.bind(this);
-		this.createreminder = this.createreminder.bind(this);
-		this.redirectToLogin = this.redirectToLogin.bind(this);
+  	this.clearsame = this.clearsame.bind(this);
+	this.createreminder = this.createreminder.bind(this);
+	this.redirectToLogin = this.redirectToLogin.bind(this);
   	this.ch = this.ch.bind(this);
 }
 
@@ -172,6 +173,23 @@ redirectToLogin() {
 		})
 	}
 	};
+clearsame(){
+	let filter = [], is = false, iterator = 1;
+	for(let i = 0; i < this.state.filteredreminders.length; i++){
+		for(let j = 0; j < filter.length; j++){
+			if(filter[j] == undefined){
+				is = false
+			} else {
+					filter[j].title == this.state.filteredreminders[i].title ? is = true : is = false
+			}
+		}
+		if(!is){
+			filter[iterator++] = this.state.filteredreminders[i];
+			is = false;
+		}
+	}
+	return filter;
+}
 
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
@@ -179,8 +197,9 @@ render(){
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
   		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
   	});
+  	let clearsamereminders = this.clearsame();
 	if(this.state.filteredreminders){
-		createreminders = this.state.filteredreminders.map(this.createreminder);
+		createreminders = clearsamereminders.map(this.createreminder);
 		createreminders.unshift(<li key={999} onClick={() => this.ch({title: ""})}>All Reminders</li>)
 	}
 	return( 
@@ -199,7 +218,7 @@ render(){
 					<div className="combobox">
 						<button className="dropbtn">{this.state.cmbbox}</button>
 						<ul className="dropdown-content">
-						<li key="" onClick={(e) => this.switchwearer({full_name: "all users", id: 0}, e)} >
+						<li key="" onClick={(e) => this.switchwearer({full_name: "All users", id: 0}, e)} >
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">

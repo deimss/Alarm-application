@@ -463,12 +463,12 @@ export default class UserEvents extends React.Component{
 		this.state.event = nextProps.event;
 		if(!nextProps.wearers) 
 			return false
-		else if(nextProps.wearershow === "all users" || nextProps.wearershow === 0){
+		else if(nextProps.wearershow === "All users" || nextProps.wearershow === 0){
 			arrayofid = [];
 			for(let i = 0; i < nextProps.wearers.length; i++){
 				arrayofid[i] = nextProps.wearers[i]
 			}
-		} else if(nextProps.wearershow !== "all users"){
+		} else if(nextProps.wearershow !== "All users"){
 			arrayofid = [];
 			for(let i = 0; i < nextProps.wearers.length; i++){
 				if(nextProps.wearers[i].id == nextProps.wearershow) {

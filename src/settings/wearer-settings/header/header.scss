@@ -170,7 +170,7 @@ html, body{
   transform: translateY(-6px) rotate(90deg);
 }
 #nav:checked ~ .settings_header__menu {
-  z-index: 9990;
+  z-index: 100;
   opacity: 1;
 }
 
