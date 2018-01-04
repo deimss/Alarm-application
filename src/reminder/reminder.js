@@ -58,9 +58,11 @@ componentWillMount(){
 }
 
 addGroup(item){
-	let color = "#f5f5f5";
-	if(item.id == this.state.groupid) color = "#d2d2d2"; 
-	return <div className="group" style={{backgroundColor: color}} onClick={() => this.onGroupClick(item.id)}>
+	let clas;
+	if(item.id == this.state.groupid) {
+			clas = "active group"
+		} else clas = "group"
+	return <div className={clas} onClick={() => this.onGroupClick(item.id)}>
 			<div className="groupbutton"><img src={group} alt="" />
 			<p>{item.name}</p></div>
 		</div>

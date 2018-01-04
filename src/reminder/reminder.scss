@@ -216,7 +216,7 @@
 }
 .modal-edit :first-child{padding-left: 0;}
 .modal-edit .edit-reminder p {
-  padding: 0;
+  padding: 10px;
 }
 
 .modal-edit .rdt input {display: none;}
@@ -248,8 +248,25 @@
   border-radius: 3px;
   z-index: 9999999;
   top: 47px;
-  left: 80px;
+  left: 25px;
 }
+.setdate .rdtDays table tbody tr td{
+  cursor: pointer;
+  padding: 5px;
+}
+.setdate .rdtDays table thead tr:first-of-type{
+  height: 30px;
+  & .rdtPrev, .rdtNext{
+    cursor: pointer;
+    &:hover{
+      background-color: #f9f9f9;
+    }
+  }
+}
+.setdate .rdtNew,.setdate .rdtOld{
+  opacity: 0.4;
+}
+.setdate tfoot{display: none;}
 .modal-edit .start, .modal-edit .end 
 {
   display: flex;
@@ -265,7 +282,7 @@
   }
 }
 .modal-edit .calend {
-    left: 329px;
+    left: 270px;
 }
 .modal-edit .addtime > :nth-child(n){
   margin-bottom: 5px;

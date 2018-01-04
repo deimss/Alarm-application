@@ -414,7 +414,7 @@ class Createwearer extends React.Component{
 				return item;	
 			}
 		})
-		this.state.filteredreminders.map(this.createevent);
+		this.state.filteredreminders.forEach(this.createevent);
 	}
 	render(){
 		if(this.state.done){

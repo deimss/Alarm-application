@@ -36,12 +36,11 @@ render(){
 	if(content === "wearer" && data !== "none"){
 		button = <List reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data !== "none" && content === "carer"){
-		button = <List reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
+		button = <List reloadwearers={this.props.reloadwearers} carer="carer" group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.carers} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data == "none" || data == []){
 		button = <EbsentCarers />
 	}
 	return (
-		
 			<div className="contacts-container">
 	 			<HeaderTwoBtn header="Contacts"/>
 	 			<div className="chooseUser">
