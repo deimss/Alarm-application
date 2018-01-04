@@ -166,7 +166,7 @@ class AddReminder extends React.Component {
         <div className="addtime">
        		{alert}
         	<div>
-        		<input ref="addtime" id="time" type="time" />
+        		<input ref="addtime" id="time" type="time"/>
         		<img src={addbtn} onClick={this.alerttime}/>
         	</div>
         </div>

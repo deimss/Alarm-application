@@ -214,10 +214,7 @@
   display: flex;
   padding: 20px;
 }
-.modal-edit :first-child{padding-left: 0;}
-.modal-edit .edit-reminder p {
-  padding: 10px;
-}
+.modal-edit :first-child{padding-left: 0; padding-top: 0;}
 
 .modal-edit .rdt input {display: none;}
 .calendarnone {
