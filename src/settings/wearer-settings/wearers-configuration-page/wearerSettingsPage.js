@@ -112,11 +112,6 @@ handleAddWearerButton(){
 
 getGroups(wearerId){
 
-  // console.log('GETGROUPS');
-  // Test.a(wearerId).then(resp => {
-  //   this.setState({wearerGroupData: resp.data})
-  // })
-
   axios({
       method: 'get',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${wearerId}/groups`,
@@ -125,7 +120,6 @@ getGroups(wearerId){
       'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
-        console.log('getGroups response', response);
 
         this.setState({wearerGroupData: response.data});
 
@@ -141,8 +135,6 @@ getGroups(wearerId){
 addWearer(event){
   if(event) {
   this.setState({wearerDevice: [] })}
-
-  console.log('addWearer event', event);
 
   axios({
       method: 'post',
@@ -162,17 +154,9 @@ addWearer(event){
         }
       }
     }).then((response) => {
-      
-      console.log('addWearer response', response);
+
               this.setState({addNewWearerClicked: false});
               
-              // this.getWearers(response.data);
-              // if(response.status==201){
-              //     this.setState({wearerAdded: true})
-              // }
-              //this.setState({wearerId: event.id});
-
-
                 let wearerArray = [];
 
                 let wearer = {};
@@ -189,7 +173,6 @@ addWearer(event){
                   
                   Object.assign(wearer, response.data);
                   wearer.image.url = event.image;
-                  // wearer.id = response.data.id;
 
 
                   wearerArray.push(wearer);
@@ -232,12 +215,6 @@ getWearers(event){
                 })
             };
             
-            // let toogledWearerId;
-
-            //     if (event !== undefined) {toogledWearerId = event.id} 
-            //       else if (response.data.length !== 0) {toogledWearerId = response.data[0].id};
-
-            
             if(response.data.length !== 0) {
               this.setState({
                 firstIdWearer: response.data[0].id, 
@@ -260,9 +237,6 @@ getWearers(event){
               this.getWearerDevice(this.state.firstIdWearer);
               this.getGroups(this.state.firstIdWearer);
             }
-
-//ЧОМУ ТУ ВАЖЛИВА ПОСЛІЖОВНІСТЬ ЗАПИСУ СТЕЙТІВ wearerid i axiosdata ?????
-//ЯКЩО ВКАЗАТИ СПОЧАТКУ wearerData то wearerId НЕ ЗАПИШЕТЬСЯ !?!?!?!?!?!?!?!?!?!
 
       },error => { 
         if(error.response.status === 401)
@@ -298,13 +272,6 @@ updateWearer(event){
               // this.setState({createdWearer: resp.data});
 
               let wearerArray = [];
-              //  this.state.wearerData.forEach(function(element){
-              //   if(element.id === resp.data.id){
-              //    wearerArray.push(Object.assign({}, resp.data));
-              //   }
-              //   else wearerArray.push(Object.assign({}, element));
-              //   });
-
               let wearer = {};
               Object.assign(wearer, event);
               wearer.image = {'url': event.image};
@@ -320,19 +287,7 @@ updateWearer(event){
                 // this.setState({createdWearer: event});
               }
 
-
-              // let wearerIndex = this.state.wearerData.find(i => i.id === resp.data.id);
-              // // wearerArray[wearerIndex] = resp.data;
-              // Object.assign(wearerArray[wearerIndex], resp.data)
-
-              // console.log('updateWearer wearerArray[wearerIndex]', wearerArray[wearerIndex] );
-              this.setState({wearerData: wearerArray});
-             
-// let groupArray = [];
-//      this.props.wearerGroupData.forEach(function(element){
-//         groupArray.push(Object.assign({}, element));
-//       })
-
+              this.setState({wearerData: wearerArray})
 
              }, 
              err => console.log('updateWearer error ', err)
@@ -340,7 +295,6 @@ updateWearer(event){
   };
 
 updateWearerDevices(event){
-  console.log('updateWearerDevices event',event);
     
     let wearerID;
       if (event.id !== null){
@@ -437,7 +391,6 @@ let wearerID;
 
 
 getWearerDevice(wearerId){
-  console.log('getWearerDevice');
   
   axios({
       method: 'get',
@@ -469,7 +422,7 @@ getWearerDevice(wearerId){
 };
 
   getCarers(){
-  console.log('getCarers');
+
   axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
@@ -477,8 +430,6 @@ getWearerDevice(wearerId){
       'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
-
-          console.log('wearerSettingPage get carers response.data', response.data);
 
           if(response.status === 200 || response.data.length !== 0){
               this.setState({
@@ -496,7 +447,6 @@ getWearerDevice(wearerId){
     };
 
 updateCarer(event){
-  console.log('updateCarer event', event);
     axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event.id}`,
@@ -513,44 +463,8 @@ updateCarer(event){
         }
       }
     }).then(response => {
-      console.log('updateCarer response', response);
       
       this.getCarers();
-
-       // let carerArray = [];
-       //        //  this.state.wearerData.forEach(function(element){
-       //        //   if(element.id === resp.data.id){
-       //        //    wearerArray.push(Object.assign({}, resp.data));
-       //        //   }
-       //        //   else wearerArray.push(Object.assign({}, element));
-       //        //   });
-
-       //        let carer = {};
-              
-
-       //        if(response.status===200){
-       //          Object.assign(carer, response.data);
-       //          this.state.carers.forEach(function(element){
-       //          if(element.id === carer.id){
-       //           carerArray.push(Object.assign({}, carer));
-       //          }
-       //          else carerArray.push(Object.assign({}, element));
-       //          });
-
-       //          // this.setState({createdWearer: event});
-       //        }
-
-
-       //        // let wearerIndex = this.state.wearerData.find(i => i.id === resp.data.id);
-       //        // // wearerArray[wearerIndex] = resp.data;
-       //        // Object.assign(wearerArray[wearerIndex], resp.data)
-       //        console.log('updateCarer event', event );
-       //        console.log('updateCarer response.data', response.data );
-       //        console.log('updateCarer carerArray', carerArray );
-       //        // console.log('updateWearer wearerArray[wearerIndex]', wearerArray[wearerIndex] );
-       //        this.setState({carers: carerArray});
-
-
     }
               
      ).catch((error) => { 
@@ -563,7 +477,7 @@ updateCarer(event){
 };
 
 addCarer(event){
-  console.log('addCarer event', event);
+
   axios({
       method: 'post',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers',
@@ -582,13 +496,12 @@ addCarer(event){
       }
     }).then((response) => {
 
-
                 this.getCarers();
               
              }
              
 ).catch((error) => { 
-        console.log('addCarer error.response.status ====> ', error.response.status);
+
         if (error.response.status === 404){
             this.setState({error: true})
         } else this.getCarers();
@@ -598,7 +511,7 @@ addCarer(event){
 
 
 deleteCarer(event){
-  console.log('deleteCarer');
+
   axios({
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/${event}`,
@@ -620,9 +533,6 @@ deleteCarer(event){
 
 deleteMember(group, wearerId){
 
-    console.log('deleteMember group = ', group);
-    console.log('deleteMember wearerId = ', wearerId);
-
     axios({
       method: 'delete',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${group.id}/wearers/${wearerId}`,
@@ -630,8 +540,6 @@ deleteMember(group, wearerId){
       'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
-        console.log('getGroups response', response);
-        console.log('getGroups wearerId', wearerId);
 
         if (response.status === 200){
           let groupArray = [];
@@ -709,27 +617,11 @@ deleteMember(group, wearerId){
           }
           else wearersDataForChildren = activeWearer;
      
-
-
-      console.log('wearerSettingPage this.state.wearerData', this.state.wearerData);
-      console.log('wearerSettingPage this.state.createdWearer', this.state.createdWearer);
-      console.log('wearerSettingPage firstWearer', firstWearer);
-      console.log('wearerSettingPage activeWearer', activeWearer);
-
       }
 
       else {
         wearersDataForChildren = this.state.newWearer
       }
-
-
-      
-       
-
-      
-     
-// wearerId = {this.state.wearerId}
-// wearerId = {this.state.wearerId}
 
     return (
 

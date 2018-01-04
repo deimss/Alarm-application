@@ -8,7 +8,7 @@ import deleteelem from '../../assets/icons/delete.svg'
 import {ImageRound} from '../otherComponents/images';
 import axios from 'axios';
 import {master} from "../../login/loginForm.js"
-
+import logo from '../../settings/default_avatar.png'
 
 class List extends React.Component {
  constructor(props, context) {
@@ -38,14 +38,15 @@ class List extends React.Component {
   createTasks(item) {
     var icon;
     if(item.image == undefined) {
-      icon = "https://pbs.twimg.com/profile_images/695658074607087616/Zz5Oc6DC_400x400.jpg";
+      icon = logo;
       item.full_name = item.first_name;
     } else {
         icon = item.image.url
       }
     return (
-      <li key={item.id}><div><ImageRound url={icon} /><p>{item.full_name}</p></div> <div> 
+      <li key={item.id}><div><ImageRound url={icon || logo }/><p>{item.full_name}</p></div> <div> 
     <img alt="" src={email}/><img style={{display: this.props.carer ? "none" : ""}} alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
+
   }
   tooglemodal(){
     this.setState(state => ({isModalOpen: !state.isModalOpen}))

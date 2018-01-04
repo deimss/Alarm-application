@@ -29,52 +29,18 @@ class WearerProfile extends React.Component{
 
     render(){
 
-      console.log('WEARERPROFILE this.props.wearersData', this.props.wearersData);
-
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
         let wearer = this.state.wearersData;
         let avatar;
-        console.log('WEARAR URL IMAGE', wearer.image)
-// <img src={`${wearer.image}`} alt=''/>
-       // if (wearer.image === null){
-       //  avatar = "https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/48/image.jpeg";
-
-     // }else {
-     //  avatar = wearer.image.url;
-     //  }
-       // console.log('Avataaaer',avatar)
         let wearerGroup = this.props.wearerGroupData;
-
-      //   if (this.props.wearerGroupData !== null){
-      //     groups = wearerGroup.map((group) => {
-
-      //     return (
-      //       <option key={group.id.toString()}> {group.name}
-      //       </option>
-      //     )
-
-          
-      //   });
-      // }
-
-      // groupList = <select>{groups}</select>;
-
-
-        console.log('this.props.wearerGroupData', this.props.wearerGroupData);
 
         if (this.props.wearerGroupData !== null){
           groups = wearerGroup.map((group) => group.name);
 
           groupList = groups.join(', ');
         };
-
-
-        console.log('this.props.wearersData', this.props.wearersData);
-        // console.log('wearerProfile groups', groups)
-
-// disabled = {(this.state.disableEdit) ? "disabled" : ""}
 
         return (
         <div className="wearerProfileWrap">

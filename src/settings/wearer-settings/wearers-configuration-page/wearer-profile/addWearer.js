@@ -119,7 +119,6 @@ class AddWearer extends React.Component {
   }
 
     getFiles(e){
-    // console.log(image)
     let image = e[0].base64;
     this.setState({
       image: image

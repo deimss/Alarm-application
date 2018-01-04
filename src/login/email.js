@@ -114,7 +114,7 @@ class Email extends React.Component {
     }
     //this.setState({isSendData: true});
     })
-    .catch(function (error) {
+    .catch(error => {
     console.log(error);
     this.setState({
       emailError: true
@@ -141,7 +141,7 @@ class Email extends React.Component {
       })
     }
     })
-    .catch(function (error) {
+    .catch(error =>{
     console.log(error);
     this.setState({
       emailError: true
@@ -184,7 +184,7 @@ class Email extends React.Component {
                 </svg>
                 <span> Please provide a valid email address </span>
             </div>}            
-            <input className="submit" type="button" value="Send a mail" onClick={this.sendEmail}/>
+            <input className="submit" type="submit" value="Send a mail" onClick={this.sendEmail}/>
             <div className="sign">
               <p>
               <a className='hoverForReset' onClick ={() => this.props.toogleBackToLogin()}> Go back to log in</a>

@@ -28,8 +28,6 @@ class AddCarer extends React.Component{
 };
 
   handleInputChange(valueKey, event){
-
-      console.log('addCarer handleInputChange event.target.value ', event.target.value);
       
       switch (valueKey) {
         case 'first_name': this.setState({first_name: event.target.value});

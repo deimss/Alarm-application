@@ -25,14 +25,6 @@ constructor(props) {
     };
   };
 
-  // shouldComponentUpdate(){
-  //   if (this.props.activeWearerId !== null || this.props.wearersData[0].id !== null) {
-  //     return true;
-  //   }
-  // }
-
-// woman --> https://image.flaticon.com/icons/svg/145/145847.svg
-// man ----> https://image.flaticon.com/icons/svg/145/145842.svg
 
   handleAddWearerButtonClicked(){
     this.setState({liIsClicked : false}); 
@@ -50,7 +42,6 @@ constructor(props) {
  // }
 
  render(){
-  console.log('NAVBAR this.props.wearersData', this.props.wearersData);
 
         let filteredWearers;
         let namesList = null;
@@ -67,9 +58,6 @@ constructor(props) {
            
 
             namesList = filteredWearers.map((wearer) => {
-
-              console.log("NAVBAR filteredWearers", filteredWearers);
- // this.state.addWearerButtonClicked && !this.props.wearersEditing && this.props.activeWearerId === this.state.localActiveWearerId ||
 
            let wearerElementStyle = classNames({
               'wearers__user': true,

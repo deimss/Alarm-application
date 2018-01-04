@@ -190,7 +190,7 @@ getUrlVars() {
                 <span> The password must be between 8 and 16 characters </span>
             </div>}
           </div>
-            <input className="submit" type="button" value="Submit" onClick={this.sendData}/>
+            <input className="submit" type="submit" value="Submit" onClick={this.sendData}/>
             {!(this.state.password1 === this.state.password2) && <div className="errorPasswordConfirm">
                 <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 0h24v24H0V0z" fill="none"/>

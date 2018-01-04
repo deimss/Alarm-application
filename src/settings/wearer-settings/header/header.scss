@@ -150,6 +150,9 @@ html, body{
 .hidden{
   display: none;
 }
+.settings_header label{
+    display: none;
+}
 #nav:checked + .nav-open {
   transform: rotate(45deg);
 }
@@ -179,6 +182,9 @@ html, body{
 @media screen and (max-width: 735px) {
     .settings_header__logo {
     display: none;
+    }
+    .settings_header label{
+        display: block;
     }
     .settings_header__menu {
         margin-left: 70px;
