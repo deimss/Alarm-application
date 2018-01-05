@@ -16,6 +16,20 @@ class WearerProfile extends React.Component{
   };
 
 
+  // shouldComponentUpdate(nextProps, nextState){
+
+  //   console.log("this.props.wearersData", this.props.wearersData);
+  //   console.log("nextProps.wearersData", nextProps.wearersData);
+
+  //   console.log('nextState', nextState);
+    
+
+  //   if(this.state.wearersData === nextProps.wearersData){
+  //     return false
+  //   }
+  //   else return true
+  // }
+
   componentWillReceiveProps(nextProps){
    // debugger
    // if(nextProps.wearersData){this.props.wearersData = nextProps.wearersData}
@@ -29,6 +43,8 @@ class WearerProfile extends React.Component{
 
     render(){
 
+      console.log('wearerProfile wearersData', this.props.wearersData);
+
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
@@ -36,7 +52,7 @@ class WearerProfile extends React.Component{
         let avatar;
         let wearerGroup = this.props.wearerGroupData;
 
-        if (this.props.wearerGroupData !== null){
+        if (this.props.wearerGroupData.length !== 0){
           groups = wearerGroup.map((group) => group.name);
 
           groupList = groups.join(', ');
@@ -55,7 +71,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={this.state.wearersData.image.url} alt='' width="196" height="216"/>
+              <img src={this.state.wearersData.image.url} className="avatar-edit" alt='' width="196" height="216"/>
             </div>
             
             <div className="wearerProfile__info__table">

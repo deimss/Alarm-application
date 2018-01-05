@@ -67,7 +67,7 @@ class AddCarer extends React.Component{
           'password_confirmation': this.state.password
         };
         this.props.addCarer(newCarer);
-        this.props.handleDiscardNewCarer();
+        // this.props.handleDiscardNewCarer();
       }
 
     render(){
@@ -91,7 +91,6 @@ class AddCarer extends React.Component{
                   <th>FIRST NAME</th>
                   <th>LAST NAME</th>
                   <th>EMAIL</th>
-                  <th>AGE</th>
                   <th>PASSWORD</th>
                   <th>ACTIONS</th>
                 </tr>
@@ -101,7 +100,6 @@ class AddCarer extends React.Component{
                     <td><input className='edit-input' type='text' value={this.state.first_name} onChange={(event)=>this.handleInputChange('first_name', event)}/></td>
                     <td><input className='edit-input' type='text' value={this.state.last_name}  onChange={(event)=>this.handleInputChange('last_name',event)}/></td>
                     <td><input className='edit-input' type='text' value={this.state.email}      onChange={(event)=>this.handleInputChange('email',event)}/></td>
-                    <td><input className='edit-input' type='text' value={this.state.age}        onChange={(event)=>this.handleInputChange('age',event)}/></td>
                     <td><input className='edit-input' type='text' value={this.state.password}   onChange={(event)=>this.handleInputChange('password',event)}/></td>
                     <td>
                       <div className='profile-button'>
@@ -130,3 +128,6 @@ class AddCarer extends React.Component{
 
 
 export default AddCarer;
+
+// <td><input type='text' value={this.state.age}        onChange={(event)=>this.handleInputChange('age',event)}/></td>
+                  // <th>AGE</th>

@@ -15,15 +15,34 @@ class AddWearer extends React.Component {
       malechecked:'',
       famelechecked:'',
       files: [],
-      image: ''
+      image: '',
+      changesNotApplied: false
   };
 
   this.handleChangeField = this.handleChangeField.bind(this);
   this.handleChangeRadioButton = this.handleChangeRadioButton.bind(this);
   this.setData = this.setData.bind(this);
+  this.discardChanges = this.discardChanges.bind(this);
+  this.applyChanges = this.applyChanges.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {   
+    applyChanges(){
+      this.setState({
+        changesNotApplied: false
+      })
+    }
+
+
+    discardChanges(){
+      this.setState({
+        changesNotApplied: true
+      })
+    }
+
+
+  componentWillReceiveProps(nextProps) { 
+
+  if(this.state.changesNotApplied === true){  
     if(nextProps.data.gender =='male'){
         this.setState({
           value: nextProps.data.heart_rate,
@@ -46,6 +65,7 @@ class AddWearer extends React.Component {
           malechecked: ''
        })
     }
+  }
 
   }
 
@@ -193,11 +213,11 @@ class AddWearer extends React.Component {
             </div>
         </div>           
         <div className='profile-button'>
-            <button className="delete-setting-button" onClick={()=> this.props.discardWearerChanges()}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+            <button className="delete-setting-button" onClick={()=> {this.props.discardWearerChanges(); this.discardChanges()}}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
           </svg></button>
-            <button className="save-setting-button" onClick={()=>{this.setData(); this.props.discardWearerChanges()}}><svg fill="white" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+            <button className="save-setting-button" onClick={()=>{this.setData(); this.applyChanges() }}><svg fill="white" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none"/>
               <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
           </svg></button>

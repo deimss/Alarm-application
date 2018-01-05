@@ -36,9 +36,17 @@ class List extends React.Component {
   }
 
   createTasks(item) {
+    var icon;
+    if(item.image == undefined) {
+      icon = logo;
+      item.full_name = item.first_name;
+    } else {
+        icon = item.image.url
+      }
     return (
-      <li key={item.id}><div><ImageRound url={item.image.url || logo } /><p>{item.full_name}</p></div> <div> 
-    <img alt="" src={email}/><img alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
+      <li key={item.id}><div><ImageRound url={icon || logo }/><p>{item.full_name}</p></div> <div> 
+    <img alt="" src={email}/><img style={{display: this.props.carer ? "none" : ""}} alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
+
   }
   tooglemodal(){
     this.setState(state => ({isModalOpen: !state.isModalOpen}))
@@ -53,7 +61,7 @@ class List extends React.Component {
         <ul className="theList">
           {listItems}
         </ul>
-        <div className="button" onClick={this.tooglemodal.bind(this)}><img src={addimg} /><p>Add Wearer to Group</p></div>
+        <div style={{display: !this.props.carer ? "flex" : "none"}} className="button" onClick={this.tooglemodal.bind(this)}><img src={addimg} /><p>Add Wearer to Group</p></div>
       </div>
     );
   }

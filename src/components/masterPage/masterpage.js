@@ -29,6 +29,7 @@ class MasterPage extends React.Component{
 			usertodeletename: "",
 			groups: [],
 			wearers: [],
+			carers: [],
 			renamegroup: false,
 			deleteGroup: false,
 			duplicateGroup: false,
@@ -42,6 +43,7 @@ class MasterPage extends React.Component{
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
 		this.getWearers = this.getWearers.bind(this);
+		this.getCarers = this.getCarers.bind(this);
 		this.getGroups = this.getGroups.bind(this);
 		this.onGroupClick = this.onGroupClick.bind(this);
 		this.listClick = this.listClick.bind(this);
@@ -107,7 +109,21 @@ getWearers(id){
       	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
 	      responseType: 'json'
 	   	}).then(response => {
-	   		this.setState({axiosData: response.data}); 
+
+	   		this.setState({wearers: response.data}); 
+	    }).catch((error) => { 
+	        console.log(error);
+	    });
+}
+getCarers(id){
+	axios({
+	      method: 'get',
+	      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/carers/',
+	      headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+      	 'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
+	      responseType: 'json'
+	   	}).then(response => {
+	   		this.setState({carers: response.data}); 
 	    }).catch((error) => { 
 	        console.log(error);
 	    });
@@ -129,6 +145,7 @@ getGroups(){
 	   		this.state.group = response.data[0].id;
 	   		this.state.groupname = response.data[0].name;
 	   		this.getWearers(response.data[0].id);
+	   		this.getCarers(response.data[0].id);
 	    },error => { 
 				console.log(error);
 				if(error.response.status === 401)
@@ -218,7 +235,7 @@ render(){
 					</div>
 				</div>
 				<div className="right-bar">
-					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.axiosData} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
+					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
 					<Notifications />
 				</div>
 			</div>

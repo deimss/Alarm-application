@@ -10,7 +10,7 @@
 }
 .add-group > div:hover .dropdown{
 	display: flex;
-	opacity: 0.99;
+	opacity: 0.93;
 }
 .hover{
   background-color: red;
@@ -34,7 +34,7 @@
 .masterpage .dropdown {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	position: absolute;
-	z-index: 1000;
+	z-index: 10;
 	margin-left: -14px;
 	padding: 20px 0;
 	width: 140px;
@@ -49,7 +49,7 @@
 }
 .masterpage .dropdown:hover{cursor: default;}
 .masterpage .dropdown li{
-	color: #a1a1a1;
+	color: #000;
 	width: 100%;
 	display: flex;
 	padding: 10px 0 10px 10px;

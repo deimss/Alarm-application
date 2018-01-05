@@ -166,7 +166,7 @@ class AddReminder extends React.Component {
         <div className="addtime">
        		{alert}
         	<div>
-        		<input ref="addtime" id="time" type="time" />
+        		<input ref="addtime" id="time" type="time"/>
         		<img src={addbtn} onClick={this.alerttime}/>
         	</div>
         </div>
@@ -414,7 +414,7 @@ class Createwearer extends React.Component{
 				return item;	
 			}
 		})
-		this.state.filteredreminders.map(this.createevent);
+		this.state.filteredreminders.forEach(this.createevent);
 	}
 	render(){
 		if(this.state.done){
@@ -463,12 +463,12 @@ export default class UserEvents extends React.Component{
 		this.state.event = nextProps.event;
 		if(!nextProps.wearers) 
 			return false
-		else if(nextProps.wearershow === "all users" || nextProps.wearershow === 0){
+		else if(nextProps.wearershow === "All users" || nextProps.wearershow === 0){
 			arrayofid = [];
 			for(let i = 0; i < nextProps.wearers.length; i++){
 				arrayofid[i] = nextProps.wearers[i]
 			}
-		} else if(nextProps.wearershow !== "all users"){
+		} else if(nextProps.wearershow !== "All users"){
 			arrayofid = [];
 			for(let i = 0; i < nextProps.wearers.length; i++){
 				if(nextProps.wearers[i].id == nextProps.wearershow) {

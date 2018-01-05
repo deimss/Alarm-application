@@ -28,6 +28,7 @@ class SignUpForm extends React.Component {
       firstNameError: false,
       lastNameError: false,
       emailError: false,
+      emailTaken: false,
       passError: false,
       isShowed: false,
       textValue:'Show',
@@ -126,10 +127,12 @@ handleLastNameInput(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.setState({isSendData: false});
     this.setState({
-      [name]: value
-    });
+      isSendData: false,
+      [name]: value,
+      emailTaken: false
+   });
+
 
     let emailFilter = /^([a-zA-Z0-9_\.\-]{1,4})+\@(([a-zA-Z0-9\-]{1,4})+\.)+([a-zA-Z0-9]{1,5})+$/;
     let emailInput = this.state.email;
@@ -213,11 +216,17 @@ handleLastNameInput(event) {
       })
     }
     //this.setState({isSendData: true});
-  })
-  .catch(error => {
+  }, error => {
     console.log(error);
-    this.setState({ emailError: true});
-  });
+    console.log('error.response', error.response);
+    console.log('error.response.data.errors.full_messages[0]', error.response.data.errors.full_messages[0])
+
+    if (error.response.status === 422 && error.response.data.errors.full_messages[0] === "Email has already been taken"){
+      this.setState({ emailTaken: true});
+    }
+    else this.setState({ emailError: true});
+  })
+    
 };
 
 // testFunction(e) {
@@ -293,6 +302,14 @@ handleLastNameInput(event) {
                 <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
                 </svg>
                 <span> Please provide a valid email address </span>
+            </div>}
+
+            {(this.state.emailTaken) && <div className="error">
+                <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                </svg>
+                <span> Email has already been taken </span>
             </div>}
             
         

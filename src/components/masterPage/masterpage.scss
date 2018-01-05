@@ -56,6 +56,7 @@
 .backdrop {
 	position: fixed;
 	background-color: rgba(0,0,0,0.2);
+	z-index: 100;
 	top: 0px;
 	bottom: 0;
 	left: 0;
@@ -74,6 +75,7 @@
 	margin-top: 50px;
 }
 [class^="modal"] form{
+	margin-top: 0;
 	text-align: center;
 }
 [class^="modal"] input[type=text] {
@@ -92,9 +94,7 @@
   border: solid 1px #ececec;
 }
 .backdrop .message{
-	border-top: 2px solid #F2F2F2;
-	border-bottom: 2px solid #F2F2F2;
-	padding: 40px 0;
+	padding: 15px 0;
 	font-family: 'DINPro-Regular';
 	font-size: 16px;
 	color: #565656;
@@ -111,6 +111,9 @@
 	display: flex;
 	justify-content: flex-end;
 	padding: 10px;
+	& button:last-of-type{
+		background-color: #C40050;
+	}
 }
 [class^="modal"] .footer button {
 	text-transform: uppercase;
@@ -130,6 +133,7 @@
 }
 [class$="addgroup"] .list {
 	align-self: center;
+	width: 100%;
 }
 [class$="addgroup"] .message {
 	padding: 10px;
@@ -139,18 +143,19 @@
 	font-size: 16px;
 	margin-top: 10px;
 	text-align: center;
-	height: 100px;
+	height: 110px;
 	overflow: scroll;
 }
 [class$="addgroup"] ul::-webkit-scrollbar { 
 	display: none; 
 }
 [class$="addgroup"] ul li{
-	border-radius: 3px;
 	cursor: pointer;
-	width: 200px;
+	padding: 5px 0;
+	border-bottom: 1px solid #EDEDEE;
 	list-style: none;
 	padding-top: 3px;
+	&:first-of-type{border-top: 1px solid #EDEDEE;}
 }
 [class$="addgroup"] ul li:hover{
 	background: #ccc;
