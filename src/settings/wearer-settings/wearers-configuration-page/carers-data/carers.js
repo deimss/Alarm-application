@@ -158,14 +158,18 @@ class Carers extends React.Component{
           editRow = this.state.rowEdited;
        };
 
+       let inputStyle = classNames({
+        'default-input': !editRow,
+        'edit-input':  editRow
+      });
 
        rowKey++;
 
         return <tr key={rowKey}>
-              <td><input type='text' value={dataElement.first_name} disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.first_name, event)}/></td>
-              <td><input type='text' value={dataElement.last_name}  disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.last_name,  event)}/></td>
-              <td><input type='text' value={dataElement.email}      disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.email,      event)}/></td>
-              <td><input type='text' value={dataElement.password}  disabled = {(disableCarer)? "disabled" : ""}  onChange={(event)=>this.handleInputChange(dataElement.password,   event)}/></td>
+              <td><input className={inputStyle} type='text' value={dataElement.first_name} disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.first_name, event)}/></td>
+              <td><input className={inputStyle} type='text' value={dataElement.last_name}  disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.last_name,  event)}/></td>
+              <td><input className={inputStyle} type='text' value={dataElement.email}      disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.email,      event)}/></td>
+              <td><input className={inputStyle} type='text' value={dataElement.password}  disabled = {(disableCarer)? "disabled" : ""}  onChange={(event)=>this.handleInputChange(dataElement.password,   event)}/></td>
               <td>
               {
                 (disableCarer == true && editRow == false) ? 

@@ -149,6 +149,8 @@ class WristoConfiguration extends React.Component{
 
 const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
 
+        
+
         if(this.props.wearerDeviceData.length !== 0 ) {  
           
           let disabledINp = 'disabled';
@@ -159,12 +161,17 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
              toogleButton = false;
 
           }
+          let inputStyle = classNames({
+            'default-input': toogleButton,
+            'edit-input':  !toogleButton
+          });
+
             return <tr key={wearerDeviceObject.id} id={wearerDeviceObject.id}>
-            <td><input  type="text" onChange={(event) => this.handleChangeInput('name',wearerDeviceObject.id,event)}  value={wearerDeviceObject.name} disabled={editRow ? disabledINp : ''}/></td>
-            <td><input  type="text" onChange={(event) => this.handleChangeInput('phone_number',wearerDeviceObject.id,event)}  value={wearerDeviceObject.phone_number} disabled={editRow ? disabledINp :''}/></td>
-            <td><input  type="text" onChange={(event) => this.handleChangeInput('unique_wristo_id',wearerDeviceObject.id,event)}  value={wearerDeviceObject.unique_wristo_id} disabled={editRow ? disabledINp :''} readOnly/></td>
+            <td><input  className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('name',wearerDeviceObject.id,event)}  value={wearerDeviceObject.name} disabled={editRow ? disabledINp : ''}/></td>
+            <td><input  className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('phone_number',wearerDeviceObject.id,event)}  value={wearerDeviceObject.phone_number} disabled={editRow ? disabledINp :''}/></td>
+            <td><input  className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('unique_wristo_id',wearerDeviceObject.id,event)}  value={wearerDeviceObject.unique_wristo_id} disabled={editRow ? disabledINp :''} readOnly/></td>
             <td>
-              <select  type="text" onChange={(event) => this.handleChangeInput('status',wearerDeviceObject.id,event)}  disabled={editRow ? disabledINp :''}><option>
+              <select className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('status',wearerDeviceObject.id,event)}  disabled={editRow ? disabledINp :''}><option>
               <option value='active' selected = {wearerDeviceObject.status === 'active' ? 'selected' :''}/>active</option>
               <option value='inactive' selected={wearerDeviceObject.status === 'inactive' ? 'selected' :''} >inactive</option>
               </select>
@@ -181,7 +188,9 @@ const wristoDataTable = this.state.wearerDevice.map((wearerDeviceObject) => {
                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                     <path d="M0 0h24v24H0z" fill="none"/>
                   </svg>
-        </button></div> :  <div className="wristoDevicesButton"><button className="delete-setting-button" onClick={()=> this.handleDiscardData()}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+        </button></div> 
+        :  
+        <div className="wristoDevicesButton"><button className="delete-setting-button" onClick={()=> this.handleDiscardData()}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
           </svg></button>

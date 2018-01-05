@@ -72,7 +72,7 @@ class AddCarer extends React.Component{
 
     render(){
 
-      return (
+     return (
         <div className="wearerProfileWrap">
           <div className="wearerProfile__header">
             <p>Carers data</p>
@@ -98,11 +98,11 @@ class AddCarer extends React.Component{
               </thead>
               <tbody>
                   <tr key={0}>
-                    <td><input type='text' value={this.state.first_name} onChange={(event)=>this.handleInputChange('first_name', event)}/></td>
-                    <td><input type='text' value={this.state.last_name}  onChange={(event)=>this.handleInputChange('last_name',event)}/></td>
-                    <td><input type='text' value={this.state.email}      onChange={(event)=>this.handleInputChange('email',event)}/></td>
-                    <td><input type='text' value={this.state.age}        onChange={(event)=>this.handleInputChange('age',event)}/></td>
-                    <td><input type='text' value={this.state.password}   onChange={(event)=>this.handleInputChange('password',event)}/></td>
+                    <td><input className='edit-input' type='text' value={this.state.first_name} onChange={(event)=>this.handleInputChange('first_name', event)}/></td>
+                    <td><input className='edit-input' type='text' value={this.state.last_name}  onChange={(event)=>this.handleInputChange('last_name',event)}/></td>
+                    <td><input className='edit-input' type='text' value={this.state.email}      onChange={(event)=>this.handleInputChange('email',event)}/></td>
+                    <td><input className='edit-input' type='text' value={this.state.age}        onChange={(event)=>this.handleInputChange('age',event)}/></td>
+                    <td><input className='edit-input' type='text' value={this.state.password}   onChange={(event)=>this.handleInputChange('password',event)}/></td>
                     <td>
                       <div className='profile-button'>
                           <button className="discard-edit-group" onClick={this.handleDiscardChange}>

@@ -6,7 +6,8 @@ import {
   BrowserRouter as Router,
   Route,
   NavLink,
-  Redirect
+  Redirect,
+  Link
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -54,10 +55,9 @@ class Header extends React.Component{
               console.log(error);
             //  this.setState({error: true})
               })
-        
-      
-
     }   
+
+    
 
     render(){
         return (
@@ -66,10 +66,12 @@ class Header extends React.Component{
             pathname: '/'
           }}/> : 
           <div className="settings_header">
+          <Link to="/masterpage" id="backgroundRedirect" exact>
           <div className="settings_header__logo">
               <img src={logo} alt=""/> 
               <span> wristo </span>
           </div>
+          </Link>
             <input type="checkbox" id="nav" className="hidden"/>
             <label htmlFor="nav" className="nav-open"><i></i><i></i><i></i></label>
           <div className="settings_header__menu">

@@ -56,6 +56,10 @@ class AddNewWristo extends React.Component{
 
   render(){
     let editRow = true;
+    let inputStyle = classNames({
+      'default-input': !editRow,
+      'edit-input':  editRow
+    });
       return (   
         <div className="wearerProfileWrap">
   			  <div className="wearerProfile__header">
@@ -80,11 +84,11 @@ class AddNewWristo extends React.Component{
               </thead>
               <tbody>                    
                   <tr >
-                    <td><input type="text" onChange={(event) => this.handleChangeInput('name',event)}  value={this.state.name} /></td>
-                    <td><input type="text" onChange={(event) => this.handleChangeInput('phone_number',event)}  value={this.state.phone_number} /></td>
-                    <td><input type="text" onChange={(event) => this.handleChangeInput('unique_wristo_id',event)}  value={this.state.unique_wristo_id} disabled /></td>
+                    <td><input className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('name',event)}  value={this.state.name} /></td>
+                    <td><input className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('phone_number',event)}  value={this.state.phone_number} /></td>
+                    <td><input className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('unique_wristo_id',event)}  value={this.state.unique_wristo_id} disabled /></td>
                     <td>
-                      <select  type="text" onChange={(event) => this.handleChangeInput('status',event)} ><option>
+                      <select className={inputStyle} type="text" onChange={(event) => this.handleChangeInput('status',event)} ><option>
                       <option value='active' selected />active</option>
                       <option value='inactive' >inactive</option>
                       </select>

@@ -72,6 +72,25 @@
     margin-right: 10px;*/
 
 }
+.carers-data-table{
+  tr:hover{
+    
+    input{
+      background-color: #F5F5F5;
+      
+    }
+
+  }}
+
+	.carers-data-table{
+		tr:hover{
+			
+			.edit-input{
+				background-color: white;
+				
+			}
+	
+		}}
 
 .carers-data-table{
 	width: 100%;

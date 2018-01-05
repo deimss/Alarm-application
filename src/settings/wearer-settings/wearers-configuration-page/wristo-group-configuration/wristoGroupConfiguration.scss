@@ -15,6 +15,11 @@
 	justify-content: space-between;
 }
 
+.edit-input{
+	border: 1px solid  #ececec;
+	background: white;
+	padding-left: 3px;
+}
 
 .addWristoDetails{
     /*width: 100%;*/
@@ -44,6 +49,13 @@
 	background-color: white;
 }
 
+.default-input{
+ border: none;
+ -webkit-appearance: none;
+ padding-left: 0;
+
+}
+
 .wristo-configuration-table {
 	.wristoDevicesButton{
 		display: flex;
@@ -53,7 +65,6 @@
 		background: white;	
 	}
 	width: 100%;
-	border: none;
 	box-sizing: border-box;
 	border-collapse: collapse;
 	/*margin-left: 3%;*/
@@ -63,8 +74,10 @@
     background-color: none;
 		border-radius: 4px;
 		background-color: white;
-		border:1px solid #EBEBEB;
+	//	border:1px solid #EBEBEB;
 		color: black;
+	//  -webkit-appearance: none;
+	
 	}
 	.settings-wrapper-for-button {
     display: flex;
@@ -239,7 +252,7 @@
 	}
 
 	.wristo-configuration-table input, .wristo-configuration-table select {
-		border: none;
+	
 		font-family: DINPro-Regular;
 		/*height: 30px;*/
 	}
@@ -274,7 +287,7 @@
 	.wristo-configuration-table td { 
 		/* Behave  like a "row" */
 		padding-top: 0;
-    	padding-bottom: 0;
+    padding-bottom: 0;
 		height: 43px;
 		border: none;
 		border-bottom: 1px solid #eee; 

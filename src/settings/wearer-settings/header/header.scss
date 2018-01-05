@@ -226,7 +226,17 @@ html, body{
         justify-content: space-between;
     }
 }
+
+#backgroundRedirect ,.active {
+    background-color: none;
+}
 @media screen and (max-width: 530px) {
+
+    .sign_Page .wrap, .sign_Page .wrapUp{
+        width: 96%;
+        margin-top: 50px;
+    }
+
     .settings_header__menu{
        flex-direction: column;
        background-color: #ccc;

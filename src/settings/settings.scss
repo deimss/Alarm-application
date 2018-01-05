@@ -632,11 +632,24 @@ input {
 }
 
 .wristo-configuration-table{
+  tr:hover{
+    
+    input,select{
+      background-color: #F5F5F5;
+      
+    }
+
+  }
 	width: 100%;
 	border: none;
 	box-sizing: border-box;
   border-collapse: collapse;
 }
+
+.wristo-configuration-table tr:hover .edit-input{
+  background-color: white;
+}
+
 
 .image-before-td {
   width: 20px;
