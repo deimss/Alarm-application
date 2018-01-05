@@ -14,7 +14,8 @@ constructor(props){
 	super(props);
 	this.state = {
 		changecontent: "wearer",
-		axiosData: "none"
+		axiosData: "none",
+		height: "auto"
 };
 }
 
@@ -34,7 +35,7 @@ render(){
 	const data = this.props.usersdata;
 	let button;
 	if(content === "wearer" && data !== "none"){
-		button = <List reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
+		button = <List style={{backgroundColor: "red"}} reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data !== "none" && content === "carer"){
 		button = <List reloadwearers={this.props.reloadwearers} carer="carer" group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.carers} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data == "none" || data == []){

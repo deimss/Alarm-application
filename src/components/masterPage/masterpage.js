@@ -229,10 +229,6 @@ render(){
 				<div className="left-bar">
 					<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
 					<MapContainer />
-					<div className="terms">
-						<p onClick={() => console.log(this.state)}>About Wristo</p>
-						<p>Terms and Conditions</p>
-					</div>
 				</div>
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>

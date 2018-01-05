@@ -8,6 +8,9 @@
 	padding: 12px;
 	text-transform: capitalize;
 	font-family: 'DINPro-Regular';
+	& p {
+		margin-left: 10px;
+	}
 }
 .map > :last-child{
 	height: 600px;

@@ -36,15 +36,8 @@ class List extends React.Component {
   }
 
   createTasks(item) {
-    var icon;
-    if(item.image == undefined) {
-      icon = logo;
-      item.full_name = item.first_name;
-    } else {
-        icon = item.image.url
-      }
     return (
-      <li key={item.id}><div><ImageRound url={icon || logo }/><p>{item.full_name}</p></div> <div> 
+      <li key={item.id}><div><ImageRound url={item.image !== undefined ? item.image.url : logo}/><p>{item.full_name}</p></div> <div> 
     <img alt="" src={email}/><img style={{display: this.props.carer ? "none" : ""}} alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
 
   }
@@ -57,7 +50,7 @@ class List extends React.Component {
     var listItems = todoEntries.map(this.createTasks);
     return (
       <div className="contacts">
-       {this.state.isModalOpen && ReactDOM.createPortal(<Delete reload={this.props.reloadwearers} id={this.props.id} group={this.props.group} onClose={this.tooglemodal.bind(this)} misswearers={this.props.toshow}/>, document.getElementById("portal"))}
+       {this.state.isModalOpen && ReactDOM.createPortal(<AddWearer reload={this.props.reloadwearers} id={this.props.id} group={this.props.group} onClose={this.tooglemodal.bind(this)} misswearers={this.props.toshow}/>, document.getElementById("portal"))}
         <ul className="theList">
           {listItems}
         </ul>
@@ -69,49 +62,67 @@ class List extends React.Component {
  
 export default List;
 
-class Delete extends React.Component {
+class AddWearer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       check: true,
-      filteredwearers: []
+      filteredwearers: [],
+      activeli: [],
+      rerender: false
     }
     this.filterwearers = this.filterwearers.bind(this);
+    this.addclass = this.addclass.bind(this);
   }
   createlist(item){
-    return <li key={item.id} onClick={this.addwearertogroup.bind(this, item.id)}>{item.full_name}</li>
+    return <li style={{backgroundColor: this.state.activeli.includes(item.id) ? "#F5F5F5" : "white"}} key={item.id} 
+      onClick={() => this.addclass(item.id)}><img src={item.image.url || logo} alt=""/><p>{item.full_name}</p></li>
   }
-  addwearertogroup(id){
-    axios({
+  addclass(i){
+    let arr = this.state.activeli;
+    if(!this.state.activeli.includes(i)){
+      arr.push(i);
+      this.setState({activeli: arr, rerender: true});
+    } 
+  }
+  addwearertogroup(){
+    console.log(this.state.activeli)
+    for(let i = 0; i < this.state.activeli.length; i++){
+      console.log(i, this.state.activeli.length)
+      axios({
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${this.props.id}/wearers`,
       headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
       'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
       responseType: 'json',
       data: {
-        "wearer_id": id,
+        "wearer_id": this.state.activeli[i],
         "group_id": this.props.id
       }
-    }).then(response => {
-      this.props.reload(this.props.id)
-      this.props.onClose()
-    }).catch((error) => { 
-      console.log(error);
-    });
+      }).then(response => {
+        if((i + 1) == this.state.activeli.length){
+          this.props.reload(this.props.id);
+          this.props.onClose();
+        }
+      }).catch((error) => { 
+        console.log(error);
+      });
+    }
   }
   filterwearers(data){
     let newarray = []
     let length = this.props.misswearers.length;
     newarray = data.filter(val => {
-      for (let i = 0; i < length; i++){
+      for(let i = 0; i < length; i++){
         if(val.id == this.props.misswearers[i].id) {this.state.check = false;} 
       }
       if(this.state.check == true) return val;
       else{this.state.check = true}
     })
-    this.setState({filteredwearers: newarray.map(this.createlist.bind(this))})
+    this.setState({filteredwearers: newarray.map(this.createlist.bind(this)), rerender: false})
   }
-  componentWillMount(){
+
+  componentDidMount(){
     axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
@@ -119,22 +130,32 @@ class Delete extends React.Component {
       'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
       responseType: 'json'
     }).then(response => {
+      this.setState({wearers: response.data});
       this.filterwearers(response.data);
     }).catch((error) => { 
       console.log(error);
     });
   }
   render() {
+    if(this.state.wearers && this.state.rerender == true){
+      setTimeout(() => {
+        console.log("rerender")
+        this.filterwearers(this.state.wearers)
+      }, 1000)
+    }
     return (
       <div className="backdrop">
         <div className="modal-addgroup">
         <p>Adding wearer to group</p>
           {this.props.children}
-          <div className="message">Please select wearer you want to add to group {this.props.group}.</div>
+          <div className="message">Please select wearer(s) you want to add to group {this.props.group}.</div>
           <div className="list"><ul>{this.state.filteredwearers}</ul></div>
           <div className="footer">
             <button onClick={this.props.onClose}>
               cancel
+            </button>
+            <button onClick={() => this.addwearertogroup()}>
+              accept
             </button>
           </div>
         </div>
