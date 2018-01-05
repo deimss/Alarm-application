@@ -2,6 +2,11 @@
 .switch-wearers .add-group .dropdown{display: none;}
 .switch-wearers > div {padding-left: 10px;}
 
+.reminders .switch-date p, .reminders .user-name p, .reminders .change-week p{
+  font-size: 13px;
+  font-family: 'DINPro-Medium'
+}
+
 .dropbtn {
   position: relative;
   background-color: #fff;
@@ -33,9 +38,14 @@
   list-style: none;
   display: none;
   width: 100%;
+  max-height: 200px;
+  overflow-y: scroll;
   position: absolute;
   background-color: #fff;
   z-index: 1;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 .dropdown-content li {
@@ -55,7 +65,11 @@
   transform: rotate(180deg);
 }
 .switch-wearers {display: flex; justify-content: space-between;}
-.switch-wearers > div:nth-of-type(2) {display: flex; align-items: center; margin-right: 30px;}
+.switch-wearers > div:nth-of-type(2) {
+  display: flex; 
+  align-items: center; 
+  margin-right: 30px;
+}
 
 .search {
   margin-left: 20px;
@@ -163,6 +177,10 @@
   height: 20px;
   border-radius: 50%;
 }
+.calendar .user .user-name > div:first-child img{
+  height: 30px;
+  width: 30px;
+}
 .calendar .user-week > div > div:nth-child(odd){
   background-color: #fff;
 }
@@ -187,6 +205,10 @@
   min-height: 47px;
   width: 12.5%;
   max-height: 130px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar { 
+      display: none; 
+    }
 }
 .calendar .user .dayevents img{margin-top: 4px;}
 .calendar .user .dayevents {
@@ -198,6 +220,9 @@
   padding: 5px 10px;
   border-radius: 3px;
   position: relative;
+  & hr{
+    background-color: #f00;
+  }
 }
 .calendar .user .dayevents p {margin-left: 5px;}
 .calendar .user img.delete-event {
@@ -215,7 +240,7 @@
   padding: 20px;
 }
 .modal-edit :first-child{padding-left: 0; padding-top: 0;}
-
+.modal-edit input{border: solid 1px #ececec;}
 .modal-edit .rdt input {display: none;}
 .calendarnone {
   display: none;
@@ -341,7 +366,7 @@
 
 
 @media screen and (max-width: 970px) {
-  .events > div img:first-of-type{display: none;}
+  .reminders .events > div img:first-of-type{display: none;}
   .calendar .user .user-name{
     flex-direction: column;
     justify-content: flex-start;
@@ -363,6 +388,17 @@
   .switch-wearers {
     flex-direction: column;
     align-items: center;
+    & .user-image{display: none;}
+    & > div:nth-of-type(2){
+      margin-right: 0;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      padding-left: 0;
+      & > div {
+        width: 48%;
+      }
+    }
   }
 }
 @media screen and (max-width: 700px) {
@@ -401,10 +437,27 @@
     & .user-name {
       min-width: 100%;
       height: 60px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0;
     }
   }
 }
 @media screen and (max-width: 512px) {
+  .switch-wearers {
+    & > div:nth-of-type(2){
+      margin-right: 0;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      padding-left: 0;
+      & > div {
+        width: 98%;
+      }
+    }
+  }
   .modal-edit .setdate {
     flex-direction: column;
     & > div {
@@ -424,10 +477,10 @@
       }
     }
   }
+
   .modal-edit :first-child{padding-top: 0;}
   .setdate .rdt{left: 2px;}
   .modal-edit .start p, .modal-edit .end p{width: 90%;}
-  .user-image {display: none;}
   .switch-wearers > div:nth-of-type(2){
     margin-right: 0;
     padding-left: 0;
