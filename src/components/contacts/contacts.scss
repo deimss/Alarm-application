@@ -2,13 +2,16 @@
 	display: flex;
 	justify-content: space-between;
 }
-.contacts .theList::-webkit-scrollbar { 
-	width: 3px;
-	background-color: #C40050;
+.contacts .theList{
+	&::-webkit-scrollbar {
+   		width: 4px;
+	}
+ 	&::-webkit-scrollbar-button {display: none;}
+	&::-webkit-scrollbar-track {}	
+	&::-webkit-scrollbar-thumb {
+    	background-color: rgb(196, 0, 80);
+	}
 }
-.contacts .theList::-webkit-scrollbar-track{
-	width: 10px;
-} 
 .contacts div.button p{padding-top: 2px;}
 .contacts div.button {
 	display: flex;

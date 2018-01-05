@@ -22,10 +22,10 @@ render(){
 			<HeaderTwoBtn header="Notifications"/>
 			<div className="events">
 				<AddEvent event="Emergency button activated." time="2 mins ago" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
-				<AddEvent event="Fall sensor activated." time=" 8:25 AM" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
+				<AddEvent event="Fall sensor activated." time=" 11:42 AM" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
 				<AddEvent event="Emergency button activated." time="9:15 AM" name="kate" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
 				<AddEvent event="Fall sensor activated." time=" 8:25 AM" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
-				<AddEvent event="Fall sensor activated." time=" 8:25 AM" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
+				<AddEvent event="Fall sensor activated." time=" 10:30 PM" name="linda" link="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRW4ytGaB2CQdvs-uQ5wZ3hX2Kjq3ZPRoHO47sFmyk3Qv6j_iDG"/>
 			</div>
 			<div className="showAll">
 					<p>see all</p>

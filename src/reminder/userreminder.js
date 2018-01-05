@@ -11,6 +11,7 @@ import social from '../assets/icons/group.svg';
 import crB from '../assets/icons/crB.svg';
 import crY from '../assets/icons/crY.svg';
 import group from '../assets/icons/grouprem.svg';
+import defaulticon from '../settings/default_avatar.png'
 
 
 var month = new Array();
@@ -49,7 +50,7 @@ class UserName extends React.Component{
   render(){
 	return (
 		<div className="user-name" >
-			<div><img src={this.props.url} alt=""/><p>{this.props.firstname}<br/>{this.props.lastname}</p></div>	
+			<div><img src={this.props.url ? this.props.url : defaulticon} alt=""/><p>{this.props.firstname}<br/>{this.props.lastname}</p></div>	
 			<div><img className="edit" src={edit} alt="" onClick={this.tooglemodal.bind(this)}/></div>
 			{this.state.isModalOpen && ReactDOM.createPortal(<AddReminder wid={this.props.id} gid={this.props.groupid} item={this.props.item} name={this.props.firstname} onClose={this.tooglemodal.bind(this)}/>, document.getElementById("portal"))}
 		</div>

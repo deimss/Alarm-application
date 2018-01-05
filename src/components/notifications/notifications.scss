@@ -15,12 +15,17 @@
 	text-transform: capitalize;
 	font-family: 'DINPro-Regular';
 }
-.events{
+.notifications .events{
 	max-height: 216px;
-	overflow: scroll;
+	overflow-y: scroll;
 }
-.events::-webkit-scrollbar { 
-	display: none; 
+.notifications .events{
+	&::-webkit-scrollbar {
+   		width: 4px;
+	}
+	&::-webkit-scrollbar-thumb {
+    	background-color: rgb(196, 0, 80);
+	}
 }
 .addEvent img{
 	border-radius: 50%;

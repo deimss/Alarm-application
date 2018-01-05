@@ -184,8 +184,8 @@
      	display: flex;
      	justify-content: space-around;
 		& > div {width: 48%; height: 100%}
-		.events {
-			max-height: 237px;
+		& .notifications .events {
+			max-height: 235px;
 			.addEvent {
 				height: 80px;
 			}
