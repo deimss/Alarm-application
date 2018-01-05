@@ -59,7 +59,7 @@ class Calendar extends React.Component{
             if(date < weekday.indexOf(day)){
                 numberofdays = daysInMonth((k),year);
                 --k;
-                if(k < 0){k = 11; n = month[k];}
+                if(k < 0){k = 11; n = month[k]; year--;}
                 n = month[k]
                 firstday = numberofdays - (weekday.indexOf(day) - date) - 1;
                 date = date + numberofdays;
@@ -71,7 +71,7 @@ class Calendar extends React.Component{
                 k++;
                 n = month[k]
                 nextmonth = daysInMonth((k),year);
-                if(k > 11){k=0;n = month[k];}
+                if(k > 11){k=0;n = month[k]; year++;}
                 date = date - numberofdays
             }
         }

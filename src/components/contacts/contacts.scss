@@ -3,8 +3,12 @@
 	justify-content: space-between;
 }
 .contacts .theList::-webkit-scrollbar { 
-	display: none; 
+	width: 3px;
+	background-color: #C40050;
 }
+.contacts .theList::-webkit-scrollbar-track{
+	width: 10px;
+} 
 .contacts div.button p{padding-top: 2px;}
 .contacts div.button {
 	display: flex;
@@ -15,9 +19,9 @@
 	border: none;
 	border-top: 1px solid #EDEDEE;
 	font-size: 16px;
-    color: #b52f54;
-    text-align: left;
-    cursor: pointer;
+	color: #b52f54;
+	text-align: left;
+	cursor: pointer;
 }
 .contacts div.button img{padding-left: 15px;}
 .contacts .theList div:last-child img{
@@ -35,7 +39,8 @@
 .contacts .theList {
 	border-top: 1px solid #EDEDEE;
 	max-height: 195px;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
 	list-style: none;
 	padding-left: 0;
 	width: 100%;
@@ -54,8 +59,8 @@
 	padding: 24px;
 }
 .contacts li div:first-child {
-    align-items: center;
-    display: flex;
+	align-items: center;
+	display: flex;
 }
 .contacts li div:first-child img{
 	height: 30px;
@@ -74,9 +79,9 @@
 
 /*.theList li div:first-child {
 	background-position: center;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url(../../settings/default_avatar.png)
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-image: url(../../settings/default_avatar.png)
 }
 */
 .contacts-container .header{

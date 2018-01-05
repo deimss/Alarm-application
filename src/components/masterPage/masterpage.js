@@ -323,7 +323,7 @@ class RenameGroup extends React.Component {
           {this.props.children}
           <div className="message">Please enter new name of group {this.props.torename}.</div>
           <form onSubmit={this.changename.bind(this)}>
-          	<input type="text"  ref={(input) => { this.textInput = input; }} onChange={this.setName}/>
+          	<input type="text" maxlength="30" ref={(input) => { this.textInput = input; }} onChange={this.setName}/>
           </form>	
           <div className="footer">
             <button onClick={this.renamegroup.bind(this)}>
