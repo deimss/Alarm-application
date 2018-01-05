@@ -71,7 +71,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={this.state.wearersData.image.url} className="avatar-edit" alt='' width="196" height="216"/>
+              <img src={wearer.image.url} className="avatar-edit" alt='' width="196" height="216"/>
             </div>
             
             <div className="wearerProfile__info__table">
