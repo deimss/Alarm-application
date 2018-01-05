@@ -310,6 +310,9 @@ class Createwearer extends React.Component{
 			event: ""
 		}
 	}
+	sortbydate(){
+
+	}
 	createevent(item){
 		var date = new Date(item.start_date);
 		var hours = date.getHours(), minutes = date.getMinutes(),day = date.getDay() , color, icon, cross;
@@ -390,6 +393,12 @@ class Createwearer extends React.Component{
 	      responseType: 'json'
 	   	}).then(response => {
 	   		this.setState({reminders:  response.data});
+	    }).then(response => {
+	   		this.state.reminders.sort(function(a, b) {
+			    a = new Date(a.start_date);
+			    b = new Date(b.start_date);
+			    return a-b;
+			});
 	    }).then(response => {
 	    	this.filterReminders(this.state.reminders);
 	    	this.setState({done: true});

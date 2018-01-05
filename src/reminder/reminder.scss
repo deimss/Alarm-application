@@ -2,6 +2,11 @@
 .switch-wearers .add-group .dropdown{display: none;}
 .switch-wearers > div {padding-left: 10px;}
 
+.reminders .switch-date p, .reminders .user-name p, .reminders .change-week p{
+  font-size: 13px;
+  font-family: 'DINPro-Medium'
+}
+
 .dropbtn {
   position: relative;
   background-color: #fff;
@@ -172,6 +177,10 @@
   height: 20px;
   border-radius: 50%;
 }
+.calendar .user .user-name > div:first-child img{
+  height: 30px;
+  width: 30px;
+}
 .calendar .user-week > div > div:nth-child(odd){
   background-color: #fff;
 }
@@ -196,6 +205,10 @@
   min-height: 47px;
   width: 12.5%;
   max-height: 130px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar { 
+      display: none; 
+    }
 }
 .calendar .user .dayevents img{margin-top: 4px;}
 .calendar .user .dayevents {
@@ -207,6 +220,9 @@
   padding: 5px 10px;
   border-radius: 3px;
   position: relative;
+  & hr{
+    background-color: #f00;
+  }
 }
 .calendar .user .dayevents p {margin-left: 5px;}
 .calendar .user img.delete-event {
