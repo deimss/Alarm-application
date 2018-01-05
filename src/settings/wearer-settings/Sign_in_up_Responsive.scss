@@ -97,7 +97,7 @@ header{
 
 .inputField {
     border: 1px solid #b52f54;
-    color: black;
+    /*color: black;*/
 }
 
 .submit, .showPass {
@@ -145,19 +145,19 @@ p#forgotPass1 a, p#forgotPass2 a{
     color: #b52f54;
 }
 
-.inputField::-moz-placeholder { /* Firefox 19+ */
+/*.inputField::-moz-placeholder { 
   color: black;
 }
-.inputField:-ms-input-placeholder { /* IE 10+ */
+.inputField:-ms-input-placeholder { 
   color: black;
 }
-.inputField:-moz-placeholder { /* Firefox 18- */
+.inputField:-moz-placeholder { 
   color: black;
 }
 
 input::placeholder {
     color: black;
-}
+}*/
 
 
 #forgotPass1{

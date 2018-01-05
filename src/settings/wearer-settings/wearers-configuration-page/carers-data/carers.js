@@ -30,7 +30,7 @@ class Carers extends React.Component{
       currentCarerId: null,
       rowEdited: false,
       addCarerClicked: false,
-      carersData: []
+      carersData: this.props.carers
     };
 
     
@@ -39,7 +39,7 @@ class Carers extends React.Component{
     setData(id){
 
       this.setState({
-        rowEdited: false,
+        // rowEdited: false,
         disabled: true
       });
 
@@ -60,13 +60,36 @@ class Carers extends React.Component{
 
     };
 
-    componentWillMount(){
+   //  componentWillMount(){
       
-      this.setCarersData();
-   };
+   //    // this.setCarersData();
 
-    componentWillReceiveProps(){
-      this.setState({addCarerClicked: false});
+   //     let arr = [];
+
+   //    this.props.carers.forEach(function(element){
+   //      arr.push(Object.assign({}, element));
+   //    })
+   //    this.setState({carersData: arr});
+   // };
+
+    componentWillReceiveProps(nextProps){
+      let arr = [];
+      
+      if(this.props.carers !== nextProps.carers) {
+        nextProps.carers.forEach(function(element){
+        arr.push(Object.assign({}, element));
+      })
+      }
+      else {
+        this.props.carers.forEach(function(element){
+        arr.push(Object.assign({}, element))
+      })
+    }
+      
+      this.setState({
+        addCarerClicked: false,
+        carersData: arr
+      });
     }
 
    
@@ -107,12 +130,13 @@ class Carers extends React.Component{
 
     handleEditCarer(event){
 
-      this.setState({currentCarerId: event});
+      this.setState({
+        currentCarerId: event,
+        disabled: false,
+        rowEdited: true
+      });
 
-      this.setState({disabled: false});
-      this.setState({rowEdited: true});
-
-      this.setCarersData();
+      // this.setCarersData();
     };
 
     
@@ -131,9 +155,6 @@ class Carers extends React.Component{
 
     };
 
-    componentWillReceiveProps(){
-      
-    }
 
 
     render(){
@@ -165,10 +186,9 @@ class Carers extends React.Component{
               <td><input type='text' value={dataElement.first_name} disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.first_name, event)}/></td>
               <td><input type='text' value={dataElement.last_name}  disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.last_name,  event)}/></td>
               <td><input type='text' value={dataElement.email}      disabled = {(disableCarer)? "disabled" : ""} onChange={(event)=>this.handleInputChange(dataElement.email,      event)}/></td>
-              <td><input type='text' value={dataElement.password}  disabled = {(disableCarer)? "disabled" : ""}  onChange={(event)=>this.handleInputChange(dataElement.password,   event)}/></td>
               <td>
               {
-                (disableCarer == true && editRow == false) ? 
+                (disableCarer == true) ? 
                 <div className='profile-button'>
                   <button className="edit-group" onClick={()=>this.handleEditCarer(dataElement.id)}> 
                     <svg fill="#000000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -229,7 +249,6 @@ class Carers extends React.Component{
                   <th>FIRST NAME</th>
                   <th>LAST NUMBER</th>
                   <th>EMAIL</th>
-                  <th>PASSWORD</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
@@ -252,3 +271,5 @@ class Carers extends React.Component{
 
 export default Carers;
 
+                  // <th>PASSWORD</th>
+                  // <td><input type='text' value={dataElement.password}  disabled = {(disableCarer)? "disabled" : ""}  onChange={(event)=>this.handleInputChange(dataElement.password,   event)}/></td>

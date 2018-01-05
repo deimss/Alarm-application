@@ -15,8 +15,10 @@ class EditWearerProfile extends React.Component {
       image: '',
       malechecked:'',
       famelechecked:'',
-      deleteMemberGroup: null,    deleteMemberWearerId: null,
-      wearerGroupData: []
+      deleteMemberGroup: [],    
+      deleteMemberWearerId: null,
+      wearerGroupData: [],
+      changesNotApplied: false
   };
 
   this.handleChangeField = this.handleChangeField.bind(this);
@@ -24,11 +26,16 @@ class EditWearerProfile extends React.Component {
   this.setData = this.setData.bind(this);
   this.handleDeleteMember = this.handleDeleteMember.bind(this);
   this.setWearerGroupData = this.setWearerGroupData.bind(this);
+  this.discardChanges = this.discardChanges.bind(this);
+  this.applyChanges = this.applyChanges.bind(this);
   }
 
   setWearerGroupData(){
+
+    console.log('edit wearer this.props.wearerGroupData', this.props.wearerGroupData);
+
      let groupArray = [];
-     if(this.props.wearerGroupData !== null){
+     if(this.props.wearerGroupData.length !== 0){
       this.props.wearerGroupData.forEach(function(element){
         groupArray.push(Object.assign({}, element));
       })
@@ -37,32 +44,52 @@ class EditWearerProfile extends React.Component {
       this.setState({wearerGroupData: groupArray});
     };
 
+    applyChanges(){
+      this.setState({
+        changesNotApplied: false
+      })
+    }
 
 
-  componentWillReceiveProps(nextProps) {   
-    if(nextProps.data.gender =='male'){
-        this.setState({
-          value: nextProps.data.heart_rate,
-          valueFullName: nextProps.data.full_name,
-          valueGender: nextProps.data.gender,
-          valueWeight: nextProps.data.weight,
-          valueAge: nextProps.data.age,
-          image: nextProps.data.image.url,
-          malechecked:'checked',
-          famelechecked: ''
+    discardChanges(){
+      this.setState({
+        changesNotApplied: true
+      })
+    }
+
+  componentWillReceiveProps(nextProps) {  
+
+    console.log('componentWillReceiveProps nextProps', nextProps);
+
+    if(this.state.changesNotApplied === true){
+
+          if(nextProps.data.gender =='male'){
+            this.setState({
+              value: nextProps.data.heart_rate,
+              valueFullName: nextProps.data.full_name,
+              valueGender: nextProps.data.gender,
+              valueWeight: nextProps.data.weight,
+              valueAge: nextProps.data.age,
+              image: nextProps.data.image.url,
+              malechecked:'checked',
+              famelechecked: ''
        })
     }else {
-        this.setState({
-          value: nextProps.data.heart_rate,
-          valueFullName: nextProps.data.full_name,
-          valueGender: nextProps.data.gender,
-          valueWeight: nextProps.data.weight,
-          valueAge: nextProps.data.age,
-          image: nextProps.data.image.url,
-          famelechecked:'checked',
-          malechecked: ''
+          this.setState({
+            value: nextProps.data.heart_rate,
+            valueFullName: nextProps.data.full_name,
+            valueGender: nextProps.data.gender,
+            valueWeight: nextProps.data.weight,
+            valueAge: nextProps.data.age,
+            image: nextProps.data.image.url,
+            famelechecked:'checked',
+            malechecked: ''
        })
     }
+
+    }
+
+
   }
 
 
@@ -95,7 +122,11 @@ class EditWearerProfile extends React.Component {
 
   setData(){
 
-    if(this.state.deleteMemberGroup != null && this.state.deleteMemberWearerId != null){
+    console.log('setData this.state.deleteMemberGroup', this.state.deleteMemberGroup);
+
+
+
+    if(this.state.deleteMemberGroup.length !== 0 && this.state.deleteMemberWearerId != null){
       this.props.deleteMember(this.state.deleteMemberGroup, this.state.deleteMemberWearerId)
     }
 
@@ -150,11 +181,25 @@ class EditWearerProfile extends React.Component {
 
 
   handleDeleteMember(group, wearerId){
+    console.log('handleDeleteMember(group)', group);
+    console.log('handleDeleteMember(wearerId)', wearerId);
+
     let wearerGroupData = this.state.wearerGroupData;
     let groupIndex = wearerGroupData.indexOf(group);
-    wearerGroupData.splice(groupIndex, 1);
+    let deleteGroup = wearerGroupData.splice(groupIndex, 1);
+
+    let deleteGroupArray = this.state.deleteMemberGroup;
+
+
+    deleteGroupArray.push(deleteGroup[0]);
+
+
+
+    console.log('handleDeleteMember deleteGroup ', deleteGroup);
+    console.log('handleDeleteMember deleteGroupArray ', deleteGroupArray);
+
     this.setState({
-      deleteMemberGroup: group,
+      deleteMemberGroup: deleteGroupArray,
       deleteMemberWearerId: wearerId,
       wearerGroupData: wearerGroupData
     });
@@ -171,6 +216,8 @@ class EditWearerProfile extends React.Component {
 
 
   render() {  
+
+        console.log('changesNotApplied', this.state.changesNotApplied);
   
         let groups = null;
         let groupList = null;
@@ -178,7 +225,7 @@ class EditWearerProfile extends React.Component {
 
         let wearerGroup = this.state.wearerGroupData;
 
-        if (this.props.wearerGroupData !== null){
+        if (this.props.wearerGroupData.length !== 0){
           groups = wearerGroup.map((group) => {
 
           return (
@@ -192,10 +239,13 @@ class EditWearerProfile extends React.Component {
               </button>
             </li>
             )
-
-            
           });
         }
+        else groups =  '-' ;
+
+
+        console.log('this.props.wearerGroupData', this.props.wearerGroupData);
+        console.log('groups', groups);
 
     return (   
       <div className="wearer-profile-wrapper">
@@ -265,17 +315,17 @@ class EditWearerProfile extends React.Component {
                 </div>
                 <div className="edit-wearer-profile-group">
                       <label>Group</label>
-                     <ul> {groups} </ul>          
+                     <ul> {groups === null ? '-' : groups} </ul>          
                 </div>
             </div>
             
         </div>           
         <div className='profile-button'>
-            <button className="delete-setting-button" onClick={()=> this.props.discardWearerChanges()}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+            <button className="delete-setting-button" onClick={()=> {this.props.discardWearerChanges(); this.discardChanges()}}><svg fill="#B2B2B2" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
           </svg></button>
-            <button className="save-setting-button" onClick={()=>{this.setData(); this.props.discardWearerChanges()}}><svg fill="white" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+            <button className="save-setting-button" onClick={()=>{this.setData(); this.applyChanges()}}><svg fill="white" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none"/>
               <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
           </svg></button>

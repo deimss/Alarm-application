@@ -29,12 +29,22 @@
 	background-image: url(./settings/default_avatar.png)
 }
 
-.wearerProfile__image img{
+/*.wearerProfile__image img{
 	border: none;
-	width: 196px;
-	height: 216px;
+	max-height: 100%;
+    max-width: 100%;
 
-	/*margin: 1% 3% 3% 3%;*/
+	
+}
+*/
+
+.avatar-edit{
+
+      object-fit: cover;
+      height: 100%; 
+      width: 100%;
+      display: inline-block;
+      vertical-align: bottom;
 }
 
 .editWearerButton {
