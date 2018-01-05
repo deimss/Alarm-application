@@ -91,14 +91,16 @@ componentWillMount() {
     client: master.client
   })  
   } 
+
 } 
 
 componentDidMount(){
   this.getWearers();
   this.getCarers();
+
+
 }
     
- 
 
 
 
@@ -214,7 +216,7 @@ getWearers(event){
               this.setState({
                 wearerDeviceLoaded: true,
                 wearersLoaded: true,
-
+                wearerData: response.data
                 })
             };
             
