@@ -95,6 +95,9 @@
 	padding: 12px;
 	text-transform: capitalize;
 	font-family: 'DINPro-Regular';
+	& p {
+		margin-left: 10px;
+	}
 }
 .contacts-container .header div{display: flex;}
 .contacts-container .header p{

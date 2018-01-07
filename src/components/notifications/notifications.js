@@ -1,6 +1,6 @@
 import React from 'react';
 import './notifications.scss'
-import {HeaderTwoBtn} from '../otherComponents/header';
+import {HeaderNoBtn} from '../otherComponents/header';
 
 
 
@@ -19,7 +19,7 @@ class Notifications extends React.Component{
 render(){
 	return (
 		<div className="notifications">
-			<HeaderTwoBtn header="Notifications"/>
+			<HeaderNoBtn header="Notifications"/>
 			<div className="events">
 				<AddEvent event="Emergency button activated." time="2 mins ago" name="ostap" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/150/image.png"/>
 				<AddEvent event="Emergency button activated." time="9:15 AM" name="DartvEIDER" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/151/image.png"/>

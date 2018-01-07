@@ -7,6 +7,30 @@
   font-family: 'DINPro-Medium'
 }
 
+.one-wearer{
+  width: 14.2857143%;
+}
+.allwearers{
+  width: 12%;
+}
+
+.reminders .wearericon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  & img {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+  }
+  & p {
+    color: #A1827F;
+    margin-left: 10px;
+    font-size: 17px;
+    font-family: "DINPro-Medium"
+  }
+}
 .dropbtn {
   position: relative;
   background-color: #fff;
@@ -133,9 +157,9 @@
   border-bottom: 1px solid #E6E6E6;
 }
 .switch-date span{ 
-  padding: 10px;
-  margin-top: -3px; 
-  font-size: 20px;  
+  padding: 5px;
+  margin-top: -7px; 
+  font-size: 26px;  
   cursor: pointer; 
 }
 .change-week{
@@ -145,14 +169,19 @@
 
 }
 .change-week > div {
+  display: flex;
+  align-items: center;
   background-color: #F9F9F9;
-  padding: 10px 10px;
+  padding: 15px 10px;
   border: 1px solid #e6e6e6;
   border-top: none;
-  width: 12.5%;
+  //width: 12%;
   font-size: 12px;
   color: #808080;
   font-family: 'DINPro-Medium';
+}
+.change-week > div:first-of-type{
+  width: 16%;
 }
 .calendar .user {
   display: flex;
@@ -166,7 +195,7 @@
 .calendar .user > div {border: .1px solid #e6e6e6;}
 .calendar .user .user-name{
   height: auto;
-  width: 12.5%;
+  width: 16%;
   display: flex;
   align-items: flex-start;
   padding-top: 10px;
@@ -203,7 +232,7 @@
 }
 .calendar .user .events {
   min-height: 47px;
-  width: 12.5%;
+  width: 12%;
   max-height: 130px;
   overflow-y: scroll;
   &::-webkit-scrollbar { 
@@ -211,7 +240,7 @@
     }
 }
 .calendar .user .dayevents img{margin-top: 4px;}
-.calendar .user .dayevents {
+.calendar .user .dayevents, .add-reminder {
   display: flex;
   height: 37px;
   align-items: flex-start;
@@ -220,6 +249,14 @@
   padding: 5px 10px;
   border-radius: 3px;
   position: relative;
+}
+.calendar .user .add-reminder{
+  justify-content: center;
+  align-items: center;
+  background-color: #F5F5F5;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-style: dashed;
 }
 .calendar .user .dayevents p {margin-left: 5px;}
 .calendar .user img.delete-event {
@@ -363,7 +400,7 @@
 
 
 @media screen and (max-width: 970px) {
-  .reminders .events > div img:first-of-type{display: none;}
+  .reminders .events .dayevents img:first-of-type{display: none;}
   .calendar .user .user-name{
     flex-direction: column;
     justify-content: flex-start;

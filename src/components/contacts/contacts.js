@@ -1,7 +1,7 @@
 import React from 'react';
 import './contacts.scss';
 import List from './List';
-import {HeaderTwoBtn} from '../otherComponents/header';
+import {HeaderNoBtn} from '../otherComponents/header';
 import axios from 'axios';
 import actions from './actionsContacts';
 
@@ -43,7 +43,7 @@ render(){
 	}
 	return (
 			<div className="contacts-container">
-	 			<HeaderTwoBtn header="Contacts"/>
+	 			<HeaderNoBtn header="Contacts"/>
 	 			<div className="chooseUser">
 					<div ref="wear" onClick={this.showWearers.bind(this)}><p>wearers</p></div>
 					<div ref="car" onClick={this.showCarers.bind(this)}><p>carers</p></div>

@@ -122,7 +122,7 @@ class AddWearer extends React.Component {
     this.setState({filteredwearers: newarray.map(this.createlist.bind(this)), rerender: false})
   }
 
-  componentDidMount(){
+  componentWillMount(){
     axios({
       method: 'get',
       url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers',
@@ -138,10 +138,7 @@ class AddWearer extends React.Component {
   }
   render() {
     if(this.state.wearers && this.state.rerender == true){
-      setTimeout(() => {
-        console.log("rerender")
         this.filterwearers(this.state.wearers)
-      }, 1000)
     }
     return (
       <div className="backdrop">
