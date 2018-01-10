@@ -23,6 +23,17 @@ import EmptyCarer from './carers-data/emptyCarer.js';
 import EmptyWristo from './wristo-group-configuration/emptyWristo.js';
 import LogIn from '../../../login/login';
 
+const toDataURL = url => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+  }))
+
+
+
 class SettingsPage extends React.Component{ 
 
   constructor(props) {
@@ -186,7 +197,8 @@ addWearer(event){
                     activeWearerId: response.data.id,
                     wearerAdded: true,
                     wearerGroupData: [],
-                    addNewWearerClicked: false
+                    addNewWearerClicked: false,
+                    wearersEditing: false
                   });
                   
                 };
@@ -212,15 +224,25 @@ getWearers(event){
       'uid': this.state.uid, 'client': this.state.client, 'access-token': this.state.accesstoken},
       responseType: 'json'
     }).then(response => {
+  //     let newRespData = response.data.map((item) => {
+  //       return (
+  //       toDataURL(item.image.url)
+  //         .then(dataUrl => {
+  //           item.image.url = dataUrl           
+  // }))
+
+  //     });
+  //     console.log('RESPONSE DATA',newRespData)
             if (response.status === 200){
               this.setState({
                 wearerDeviceLoaded: true,
                 wearersLoaded: true,
-                wearerData: response.data
+                
                 })
             };
             
             if(response.data.length !== 0) {
+              
               this.setState({
                 firstIdWearer: response.data[0].id, 
                 // activeWearerId: toogledWearerId,

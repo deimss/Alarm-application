@@ -16,26 +16,30 @@ import {
 } from 'react-router-dom';
 import WearersLoading from '../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 import Modal from "react-responsive-modal";
-/*commit in other*/
+import defaultavatar from '../settings/default_avatar.png'
+
+
+
+
+
 let reminders = [];
-
-
 class Reminder extends React.Component {
   constructor(props){
   	super(props);
   	this.state = {
-  		cmbbox: "All users",
+  		cmbbox: "All wearers",
   		groups: [],
   		groupid: 0,
-  		wearershow: "All users",
+  		wearershow: "All wearers",
   		search: 0,
   		filteredreminders: [],
   		eventfilter: "",
-			rerender: true,
-			redirectToLogin: null,
-			accesstoken: null,
-      uid: null,
-      client: null
+		rerender: true,
+		redirectToLogin: null,
+		accesstoken: null,
+      	uid: null,
+      	client: null,
+      	wearername: "All wearers"
   	}
   	this.changeWearer = this.changeWearer.bind(this);
   	this.onGroupClick = this.onGroupClick.bind(this);
@@ -72,10 +76,12 @@ addGroup(item){
 }
 switchwearer(item){
 	this.state.wearershow = item.id;
+	this.state.wearername = item.full_name;
+	item.image ? this.state.wearerimg = item.image.url: this.state.wearerimg = defaultavatar;
 	this.changeWearer(item);
 }
 onGroupClick(id){
-	this.setState({groupid: id});
+	this.setState({groupid: id, wearershow: "All wearers", cmbbox: "All wearers"});
 	this.getWearers(id);
 }
 changeWearer(item){
@@ -174,7 +180,7 @@ redirectToLogin() {
 			redirectToLogin: true
 		})
 	}
-	};
+};
 clearsame(){
 	let filter = [], is = false, iterator = 1;
 	for(let i = 0; i < this.state.filteredreminders.length; i++){
@@ -211,6 +217,10 @@ render(){
 			}}/> : this.state.redirectToLogin === false ?
 		<div className="reminders">
 		<Header redirectToLogin = {this.redirectToLogin}/>
+			<div className="wearericon" style={{display: "flex"}}>
+					<img src={this.state.wearerimg} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}/>
+					<p>{this.state.wearername}</p>
+			</div>
 			<div className="switch-wearers">
 				<div className="add-group">
 					{listOfGroups}
@@ -220,7 +230,7 @@ render(){
 					<div className="combobox">
 						<button className="dropbtn">{this.state.cmbbox}</button>
 						<ul className="dropdown-content">
-						<li key="" onClick={(e) => this.switchwearer({full_name: "All users", id: 0}, e)} >
+						<li key="" onClick={(e) => this.switchwearer({full_name: "All wearers", id: 0}, e)} >
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">

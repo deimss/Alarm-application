@@ -155,7 +155,7 @@ class Calendar extends React.Component{
     			<span onClick={this.nextWeek.bind(this)}>&#62;</span>
     		</div>
             <div>
-                <Weeks weekarray={this.state.arrayofweek}/>
+                <Weeks wearershow={this.state.wearershow} weekarray={this.state.arrayofweek}/>
                 <div className="user-week">
                     <UserEvents event={this.state.event} wearershow={this.state.wearershow} weekarray={this.state.arrayofweek} id={this.props.id} wearers={this.state.wearers} changedweek={this.state.week}/>
                 </div>

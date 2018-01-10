@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import './maps.css'
 import image from '../../assets/icons/delete.svg'
-import {HeaderTwoBtnm, HeaderThreeBtn} from '../otherComponents/header';
+import {HeaderTwoBtnm, HeaderThreeBtn, HeaderNoBtn} from '../otherComponents/header';
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, OverlayView} from "react-google-maps"
 
@@ -39,7 +39,7 @@ class MapContainer extends React.Component {
 render() {
 	return (
 	<div className="map">
-		<HeaderThreeBtn header="Map"/>
+		<HeaderNoBtn header="Map"/>
 		<MyMapComponent />
 	</div>
 	);

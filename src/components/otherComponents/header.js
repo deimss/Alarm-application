@@ -23,3 +23,11 @@ export const HeaderThreeBtn = (props) =>{
 		<img style={imgStyle} src={close} alt="" />
 	</div></div>
 }
+export const HeaderNoBtn = (props) =>{
+	return <div className="header">
+			<p>{props.header}</p>
+		<div className="btn">
+			<img alt="" />
+		</div>
+	</div>
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './contacts.scss';
 import List from './List';
-import {HeaderTwoBtn} from '../otherComponents/header';
+import {HeaderNoBtn} from '../otherComponents/header';
 import axios from 'axios';
 import actions from './actionsContacts';
 
@@ -14,7 +14,8 @@ constructor(props){
 	super(props);
 	this.state = {
 		changecontent: "wearer",
-		axiosData: "none"
+		axiosData: "none",
+		height: "auto"
 };
 }
 
@@ -34,7 +35,7 @@ render(){
 	const data = this.props.usersdata;
 	let button;
 	if(content === "wearer" && data !== "none"){
-		button = <List reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
+		button = <List style={{backgroundColor: "red"}} reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data !== "none" && content === "carer"){
 		button = <List reloadwearers={this.props.reloadwearers} carer="carer" group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.carers} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data == "none" || data == []){
@@ -42,7 +43,7 @@ render(){
 	}
 	return (
 			<div className="contacts-container">
-	 			<HeaderTwoBtn header="Contacts"/>
+	 			<HeaderNoBtn header="Contacts"/>
 	 			<div className="chooseUser">
 					<div ref="wear" onClick={this.showWearers.bind(this)}><p>wearers</p></div>
 					<div ref="car" onClick={this.showCarers.bind(this)}><p>carers</p></div>

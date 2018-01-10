@@ -14,9 +14,12 @@
 	padding: 12px;
 	text-transform: capitalize;
 	font-family: 'DINPro-Regular';
+	& p {
+		margin-left: 10px;
+	}
 }
 .notifications .events{
-	max-height: 216px;
+	max-height: 202px;
 	overflow-y: scroll;
 }
 .notifications .events{
@@ -30,13 +33,14 @@
 .addEvent img{
 	border-radius: 50%;
 	height: 31px;
+	width: 31px;
 }
 .addEvent {
 	display: flex;
 	padding: 0 17px;
 	align-items: center;
 	border-bottom: 1px solid #E6E6E6;
-	height: 73px;
+	height: 68px;
 }
 .addEvent span{
 	text-transform: none; 
