@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 // import logoImg from '../../assets/images/logoW.png';
 import logo from '../assets/images/logo.png'
 import LogInForm from './loginForm.js';
-import Email from './email.js';
 //import { Link } from 'react-router';
 // import {
 //   BrowserRouter as Router,
@@ -56,23 +55,13 @@ class Login extends React.Component{
         <img src={logo} alt=""/>
         <span> wristo </span>
         </div>
-    </header>
-    {this.state.forgetPasswordClicked || this.state.resendEmailClicked ? <div className="wrap">
-        <Email toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp} toogleBackToLogin={this.toogleBackToLogin} stateforgetPasswordClicked={this.state.forgetPasswordClicked} stateresendEmailClicked={this.state.resendEmailClicked} /></div> : <div className="wrap">
-        <div>
-        <p id="heading">Log in</p>
-        </div>
-        
+    </header> 
         <LogInForm toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp}/>
 
-        <div className="sign">
-            <p>Don't have an account? 
-                <Link to='/signup'>Create account</Link>
-            </p>
-        </div>
-    </div> }
+    </div>
+
        
-</div>
+
         );
     }
 }

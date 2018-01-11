@@ -21,8 +21,6 @@ class LogInForm extends React.Component {
   constructor(props) {
     super(props);
 
-    
-    this.saveInput = this.saveInput.bind(this);
     this.sendData = this.sendData.bind(this);
 
     
@@ -46,65 +44,46 @@ class LogInForm extends React.Component {
   }
 
   componentWillMount(){
-    if(sessionStorage.getItem("client") !== null && sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null ){
-      this.setState({
-        redirectToMaster: true
-      })
+    axios({
+      method: 'post',
+      url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_in',
+      data: {
+          email: 'boretskairuna23@gmail.com',
+          password: 'somestring',
+      }
+
+    }).then(response => {   
+    if(response.status === 200){
+    sessionStorage.setItem('client', response.headers.client);
+    sessionStorage.setItem('accesstoken', response.headers['access-token']);
+    sessionStorage.setItem('uid', response.headers.uid);
     }
+  }).catch((error) => { 
+    console.log(error)
+    });
+  
   }
 
-  saveInput(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({loginError: false});
-    if(name =='email') {
-      this.setState({email: value});
-    }else if(name =='password') {
-      this.setState({password: value});
-    };
- };
-  
- isAuthenticated(){
-   if(this.state.client !== null && this.state.accesstoken !== null  && this.state.uid !== null ){
-     this.setState({isAuthenticated: true})
-   }else {
-    this.setState({isAuthenticated: false})
-   }
- }
-  
   sendData(event){
     this.setState({
-    isSendData: true
-    
+    isSendData: true  
     });
     var errorStatus = false;
     event.preventDefault();
     axios({
             method: 'post',
-            url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_in',
+            url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/notifications',
+            headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+            'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
             data: {
-                email: this.state.email,
-                password: this.state.password,
+              notification: {
+              "message": "SDAFASFASF",
+              "latitude": 75,
+              "longitude": 75
             }
-
+          }
 }).then(response => {
-    
-  if(response.status === 200){
-    sessionStorage.setItem('client', response.headers.client);
-    sessionStorage.setItem('accesstoken', response.headers['access-token']);
-    sessionStorage.setItem('uid', response.headers.uid);
-    this.setState({
-      isAuthenticated: true,
-      accesstoken: response.headers['access-token'],
-      uid: response.headers.uid,
-      client: response.headers.client
-    })
-  }else {
-    this.setState({
-      isAuthenticated: false
-    })
-  }
+    console.log(response)
   })
   .catch((error) => { 
     this.setState({
@@ -134,28 +113,10 @@ class LogInForm extends React.Component {
 
     return (
       <div>
-        {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{
-        pathname: '/masterpage'
-      }}/> :  <form className="signInForm">
-      <p>Email</p>
-      <input className={emailStyle} classnames="email" name="email" type="text" placeholder="user@mail.com" onChange={this.saveInput} />
-      
-      <p>Password</p>
-          <input className={passwordStyle} classnames="password" name="password" type="password" placeholder="Enter your password" onChange={this.saveInput} />
-          {this.state.loginError && <div className="login-error">
-              <svg fill="#b52f54" height="13" viewBox="0 0 23 23" width="13" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 0h24v24H0V0z" fill="none"/>
-              <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-              </svg>
-              <span> Invalid login or password. Please try again. </span>
-          </div>}
-          <p id="forgotPass1" onClick={() => this.props.toogleEmailInp()}><a href="#"> Forgot password?</a></p>
-          <p id="forgotPass2" onClick={() => this.props.toogleResendEmailInp()}><a href="#"> Recend confirmation email</a></p>
+        
+          <input className="submit" type="submit" value="Alert" onClick={this.sendData}/>
           
-          <input className="submit" type="submit" value="Sign in" onClick={this.sendData}/>
-          
-      </form> 
-      }       
+           
       </div>
     );
   }
